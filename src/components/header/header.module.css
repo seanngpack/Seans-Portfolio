@@ -6,6 +6,17 @@
     align-content: center;
     justify-content: center;
     background: white;
+    z-index: 1;
+}
+
+.link {
+    all:unset;
+}
+
+.link:hover {
+    cursor: pointer;
+    font-weight: 400;
+    color: black;
 }
 
 .item1 {
