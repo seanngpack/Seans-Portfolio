@@ -1,15 +1,47 @@
 import Typography from 'typography'
-import Wordpress2016 from 'typography-theme-wordpress-2016'
+import moragaTheme from 'typography-theme-moraga'
 
-Wordpress2016.overrideThemeStyles = () => ({
-  'a.gatsby-resp-image-link': {
-    boxShadow: 'none',
+const typography = new Typography(
+  {
+    googleFonts: [
+      {
+        name: 'Roboto',
+        styles: ["100",
+        "100italic",
+        "300",
+        "300italic",
+        "regular",
+        "italic",
+        "500",
+        "500italic",
+        "700",
+        "700italic",
+        "900",
+        "900italic"],
+      },
+      {
+        name: 'Roboto Mono',
+        styles: ["regular"],
+      }
+    ],
+    headerFontFamily: ['Roboto', 'sans-serif'],
+    bodyFontFamily: ['Roboto', 'sans-serif'],
+    bodyWeight: 300,
+    boldWeight: 400,
+    headerWeight: '400',
+    overrideThemeStyles: ({ rhythm }, options, styles) => ({
+      a: {
+        fontWeight: 400,
+        color: 'hsla(0,0%,0%,0.7)',
+        textDecoration: 'none'
+      },
+      'a:hover': {
+        textDecoration: 'none'
+      },
+    }),
   },
-})
-
-delete Wordpress2016.googleFonts
-
-const typography = new Typography(Wordpress2016)
+  moragaTheme
+  );
 
 // Hot reload typography in development.
 if (process.env.NODE_ENV !== 'production') {
