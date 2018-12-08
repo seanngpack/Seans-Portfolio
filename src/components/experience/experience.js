@@ -18,7 +18,7 @@ const experience = () => {
         />
         <ExperienceItem
           company={'Northeastern University'}
-          position={'Undergrad Research Assistant'}
+          position={'Research Assistant'}
           startDate={'Sept 2017'}
           endDate={'Jul 2018'}
           description={
