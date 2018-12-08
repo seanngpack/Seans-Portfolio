@@ -19,12 +19,24 @@
     margin: 0rem 1rem 0 1rem;
 }
 
+.FaInstagram:hover {
+    color: grey;
+}
+
 .FaGithub {
     color: black;
     margin: 0rem 1rem 0 1rem;
 }
 
+.FaGithub:hover {
+    color: grey;
+}
+
 .FaLinkedin {
     color: #0077B5;
     margin: 0rem 1rem 0 1rem;
+}
+
+.FaLinkedin:hover {
+    color: #0090dd;
 }
