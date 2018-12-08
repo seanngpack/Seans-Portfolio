@@ -1,0 +1,17 @@
+.container {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    padding: 1rem 0 1rem 0;
+    align-content: center;
+    justify-content: center;
+}
+
+.item1 {
+    margin-right: 1rem;
+}
+
+.item2 {
+    margin-left: 1rem;
+    
+}

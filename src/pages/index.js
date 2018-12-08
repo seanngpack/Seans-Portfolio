@@ -1,46 +1,22 @@
 import React from 'react'
+import styles from './index.module.css'
 import { Link, graphql } from 'gatsby'
-import Helmet from 'react-helmet'
-import Img from 'gatsby-image'
 
-import Bio from '../components/Bio'
 import Layout from '../components/Layout'
-import { rhythm } from '../utils/typography'
-
+import Intro from '../components/intro/intro'
+import Projects from '../container/Projects/Projects'
 class BlogIndex extends React.Component {
   render() {
-    const { data } = this.props;
-    const siteTitle = data.site.siteMetadata.title
-    const siteDescription = data.site.siteMetadata.description
-    const posts = data.allMarkdownRemark.edges
-
     return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <Helmet
-          htmlAttributes={{ lang: 'en' }}
-          meta={[{ name: 'description', content: siteDescription }]}
-          title={siteTitle}
-        />
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <div key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <Img sizes={node.frontmatter.featuredImage.childImageSharp.sizes} />
-              <small>{node.frontmatter.date}</small>
-              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
-          )
-        })}
+      <Layout>
+        <div className={styles.container}>
+          <div className={styles.intro}>
+            <Intro />
+          </div>
+          <div className={styles.projects}>
+            <Projects data={this.props.data.allMarkdownRemark} />
+          </div>
+        </div>
       </Layout>
     )
   }
@@ -67,12 +43,12 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             featuredImage {
-              childImageSharp{
-                  sizes(maxWidth: 630) {
-                      ...GatsbyImageSharpSizes
-                  }
+              childImageSharp {
+                fluid(maxWidth: 1000, maxHeight: 1000) {
+                  ...GatsbyImageSharpFluid
+                }
               }
-          }
+            }
           }
         }
       }

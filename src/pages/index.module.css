@@ -1,0 +1,14 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.intro {
+    
+}
+
+.projects {
+    width: 100%;
+}
