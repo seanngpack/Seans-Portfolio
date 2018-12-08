@@ -14,7 +14,7 @@ class BlogIndex extends React.Component {
             <Intro />
           </div>
           <div className={styles.projects}>
-            <Projects data={this.props.data.allMarkdownRemark} />
+            <Projects data={this.props.data} />
           </div>
         </div>
       </Layout>
@@ -33,6 +33,78 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            tag
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 1000, maxHeight: 1000) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    featured: allMarkdownRemark(
+      filter: {frontmatter: {tag: {eq: "featured"}}}
+      sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            tag
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 1000, maxHeight: 1000) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    robots: allMarkdownRemark(
+      filter: {frontmatter: {tag: {eq: "robots"}}}
+      sort: { fields: [frontmatter___date], order: DESC }) {
+      edges {
+        node {
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            date(formatString: "MMMM DD, YYYY")
+            title
+            tag
+            featuredImage {
+              childImageSharp {
+                fluid(maxWidth: 1000, maxHeight: 1000) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    programming: allMarkdownRemark(
+      filter: {frontmatter: {tag: {eq: "programming"}}}
+      sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {
           excerpt

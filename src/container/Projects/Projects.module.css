@@ -23,3 +23,13 @@
     cursor: pointer;
     color: black;
 }
+
+.categoryActive {
+    margin: 1rem 1rem 1rem 1rem;
+    border-bottom: solid;
+}
+
+.categoryActive:hover {
+    cursor: pointer;
+    color: black;
+}

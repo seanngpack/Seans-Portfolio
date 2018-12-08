@@ -7,38 +7,53 @@ class Projects extends Component {
     div1: true,
     div2: false,
     div3: false,
+    resolver: 'featured',
   }
 
-  handleClick = (divNumber) => {
-    this.setState({ divNumber: !this.state.divNumber })
-    console.log(divNumber + 'is at ' + this.state.divNumber)
+  handleClick = divNumber => {
+    this.setState({ div1: false, div2: false, div3: false }, () => {
+      this.setState({ [divNumber]: true }, () => {
+        if (this.state.div1) {
+          this.setState({resolver: 'featured'})
+        }
+        else if (this.state.div2) {
+          this.setState({resolver: 'robots'})
+        }
+        else if (this.state.div3) {
+          this.setState({resolver: 'programming'})
+        }
+
+        //insert console log (lol) here to check this sick async function
+      })
+    })
   }
 
   render() {
+    // console.log(this.props.data)
     return (
       <div className={styles.container}>
         <h2 className={styles.header}>I really enjoy sharing my projects</h2>
         <div className={styles.categories}>
           <div
-            className={styles.category}
+            className={styles[this.state.div1 ? 'categoryActive' : 'category']}
             onClick={() => this.handleClick('div1')}
           >
             Featured
           </div>
           <div
-            className={styles.category}
+            className={styles[this.state.div2 ? 'categoryActive' : 'category']}
             onClick={() => this.handleClick('div2')}
           >
-            Robotics
+            Robots
           </div>
           <div
-            className={styles.category}
+            className={styles[this.state.div3 ? 'categoryActive' : 'category']}
             onClick={() => this.handleClick('div3')}
           >
             Programming
           </div>
         </div>
-        <ItemGenerator data={this.props.data} />
+        <ItemGenerator data={this.props.data[this.state.resolver]} />
       </div>
     )
   }
