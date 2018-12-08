@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.header {
+    margin-bottom: 4rem;
+}
+
 .iconsContainer {
     display: flex;
 }

@@ -1,0 +1,18 @@
+.container {
+    margin-bottom: 2rem;
+}
+.header {
+    display: flex;
+    font-weight: 400;
+    font-size: 1.25rem;
+}
+
+.company {
+    font-weight: 500;
+}
+
+.date {
+    margin-top: 1rem;
+    display: flex;
+    
+}

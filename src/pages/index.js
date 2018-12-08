@@ -6,6 +6,7 @@ import Layout from '../components/Layout'
 import Intro from '../components/intro/intro'
 import Projects from '../container/Projects/Projects'
 import Contact from '../components/contact/contact'
+import Experience from '../components/experience/experience'
 class BlogIndex extends React.Component {
   render() {
     return (
@@ -13,6 +14,7 @@ class BlogIndex extends React.Component {
         <div className={styles.container}>          
             <div className={styles.into}><Intro /> </div>         
             <div className={styles.projects}><Projects data={this.props.data} /></div>
+            <div className={styles.experience}><Experience /></div>
             <div className={styles.contact}><Contact /></div>
         </div>
       </Layout>
