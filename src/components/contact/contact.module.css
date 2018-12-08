@@ -1,0 +1,26 @@
+.container {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.iconsContainer {
+    display: flex;
+}
+
+.FaInstagram {
+    color: black;
+    margin: 0rem 1rem 0 1rem;
+}
+
+.FaGithub {
+    color: black;
+    margin: 0rem 1rem 0 1rem;
+}
+
+.FaLinkedin {
+    color: #0077B5;
+    margin: 0rem 1rem 0 1rem;
+}

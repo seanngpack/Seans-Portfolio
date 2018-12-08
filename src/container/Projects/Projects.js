@@ -14,13 +14,11 @@ class Projects extends Component {
     this.setState({ div1: false, div2: false, div3: false }, () => {
       this.setState({ [divNumber]: true }, () => {
         if (this.state.div1) {
-          this.setState({resolver: 'featured'})
-        }
-        else if (this.state.div2) {
-          this.setState({resolver: 'robots'})
-        }
-        else if (this.state.div3) {
-          this.setState({resolver: 'programming'})
+          this.setState({ resolver: 'featured' })
+        } else if (this.state.div2) {
+          this.setState({ resolver: 'robots' })
+        } else if (this.state.div3) {
+          this.setState({ resolver: 'programming' })
         }
 
         //insert console log (lol) here to check this sick async function
@@ -32,7 +30,7 @@ class Projects extends Component {
     // console.log(this.props.data)
     return (
       <div className={styles.container}>
-        <h2 className={styles.header}>I really enjoy sharing my projects</h2>
+        <h1 className={styles.header}>I really enjoy sharing my projects</h1>
         <div className={styles.categories}>
           <div
             className={styles[this.state.div1 ? 'categoryActive' : 'category']}
