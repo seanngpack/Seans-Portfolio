@@ -1,5 +1,6 @@
 import React from 'react'
 import Header from '../components/header/header'
+import Footer from '../components/footer/footer'
 class Layout extends React.Component {
   render() {
     const { location, title, children } = this.props
@@ -7,8 +8,9 @@ class Layout extends React.Component {
 
     return (
       <div>       
-        <Header />
+        <Header />        
         {children}
+        <Footer />
       </div>
     )
   }
