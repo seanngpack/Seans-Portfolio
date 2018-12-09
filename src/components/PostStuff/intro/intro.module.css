@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70vh;
+    background-color: #8defd5;
+    
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+    color: #f7f7f7;
+}
+
+.header {
+    width: 60%;
+    font-family: Roboto Mono;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.excerpt {
+    width: 60%;
+    font-size: 2rem;
+    font-weight: 250;
+}
+
+.right {
+    width: 50%;
+}
