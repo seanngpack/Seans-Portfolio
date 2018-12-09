@@ -7,9 +7,7 @@ const background = props => {
       <div className={styles.left}>
         <h2 className={styles.title}>Background</h2>
         <div className={styles.content}>
-          I made this robotic arm during winter break of 2017. I utilized my
-          design skills, part sourcing abilities, and programming to make this
-          project come together.
+          {props.background}
         </div>
       </div>
       <div className={styles.right}>
@@ -17,12 +15,18 @@ const background = props => {
           <div className={styles.dateContainer}>
             DATE <span className={styles.date}>{props.date}</span>
           </div>
-          <div className={styles.skillsContainer}>
-            SKILLS <span className={styles.skills}>{props.skills}</span>
-          </div>
-          <div className={styles.stateContainer}>
-            STATE <span className={styles.state}>{props.state}</span>
-          </div>
+
+          {props.skills ? (
+            <div className={styles.skillsContainer}>
+              SKILLS <span className={styles.skills}>{props.skills}</span>
+            </div>
+          ) : null}
+
+          {props.state ? (
+            <div className={styles.stateContainer}>
+              STATE <span className={styles.state}>{props.state}</span>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

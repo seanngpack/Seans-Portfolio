@@ -2,12 +2,16 @@
 title: 3D Printed Robotic Arm
 date: "2015-05-01T22:12:03.284Z"
 featuredImage: "./featured-image.jpg"
-excerpt: "A 3D printed robotic arm that I built myself. I later formed a group to bring it to the next level."
+excerpt: "A 3D printed robotic arm that I built myself. I later formed a group to bring it to the next level." 
+background: "I made this robotic arm during winter break of 2017. I utilized my
+          design skills, part sourcing abilities, and programming to make this
+          project come together."
 tag: featured
 ---
 
-This is my first post on my new fake blog! How exciting!
+# SolidWorks design
 
+This is my first post on my new fake blog! How exciting!
 I'm sure I'll write a lot more interesting things in the future.
 
 Oh, and here's a great quote from this Wikipedia on

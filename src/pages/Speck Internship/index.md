@@ -4,6 +4,7 @@ date: "2015-05-06T23:46:37.121Z"
 featuredImage: "./featured-image.jpg"
 tag: featured
 excerpt: "My six-month co-op at Speck led to new products released to market, and a patent under my name."
+background: "This is an example background lol"
 ---
 
 Wow! I love blogging so much already.

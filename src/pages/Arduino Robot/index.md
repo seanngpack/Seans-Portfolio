@@ -4,6 +4,7 @@ date: "2015-05-06T23:46:37.121Z"
 featuredImage: "./featured-image.jpg"
 tag: featured
 excerpt: "This was my first ever project using my 3D printer and creating something from scratch"
+background: "This is an example background lol"
 ---
 
 Wow! I love blogging so much already.
