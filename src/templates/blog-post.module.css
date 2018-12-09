@@ -5,8 +5,21 @@
     align-items: center;
 }
 
+.page {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2rem);
+    background: red;
+  }
+
 .content {
     width: 40%;
     align-self: center;
     text-align: center;
+}
+
+@media(min-width: 767px) {
+    .page {
+        width: 100%;
+    }
 }

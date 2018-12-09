@@ -21,16 +21,18 @@ class BlogPostTemplate extends React.Component {
       <Layout location={this.props.location} title={siteTitle}>
         <div className={styles.container}>
           <Intro title={title} excerpt={excerpt} logo={logo} />
-          <Background
-            date={date}
-            skills={skills}
-            state={state}
-            background={background}
-          />
-          <div
-            className={styles.content}
-            dangerouslySetInnerHTML={{ __html: post.html }}
-          />
+          <div className={styles.page}>
+            <Background
+              date={date}
+              skills={skills}
+              state={state}
+              background={background}
+            />
+            <div
+              className={styles.content}
+              dangerouslySetInnerHTML={{ __html: post.html }}
+            />
+          </div>
         </div>
       </Layout>
     )
