@@ -13,6 +13,9 @@ const item = (props) => {
         alt={''}
         className={styles.image}
       />
+      <div className={styles.overlay}>
+    <div className={styles.text}>Hello World</div>
+      </div>
       </Link>
     </div>
   )
