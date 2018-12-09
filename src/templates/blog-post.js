@@ -15,20 +15,22 @@ class BlogPostTemplate extends React.Component {
     const state = post.frontmatter.state
     const excerpt = post.frontmatter.excerpt
     const background = post.frontmatter.background
+    const logo = post.frontmatter.logo.childImageSharp.fluid
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <div className={styles.container}>
-          <Intro 
-          title={title} 
-          excerpt={excerpt}
-          />   
-          <Background 
-          date={date} 
-          skills={skills} 
-          state={state} 
-          background={background}/>       
-          <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.html }} />
+          <Intro title={title} excerpt={excerpt} logo={logo} />
+          <Background
+            date={date}
+            skills={skills}
+            state={state}
+            background={background}
+          />
+          <div
+            className={styles.content}
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
         </div>
       </Layout>
     )
@@ -46,7 +48,7 @@ export const pageQuery = graphql`
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
-      id      
+      id
       html
       frontmatter {
         excerpt
@@ -54,6 +56,13 @@ export const pageQuery = graphql`
         background
         skills
         state
+        logo {
+          childImageSharp {
+            fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
         date(formatString: "MMMM DD, YYYY")
       }
     }

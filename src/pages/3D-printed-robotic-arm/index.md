@@ -4,6 +4,7 @@ date: "2015-05-01T22:12:03.284Z"
 skills: "Design Programming Electronics Sourcing"
 state: "Working on improving inverse kinematics and adding computer vision"
 featuredImage: "./featured-image.jpg"
+logo: "./featured-image.jpg"
 excerpt: "A 3D printed robotic arm that I built myself. I later formed a group to bring it to the next level." 
 background: "I made this robotic arm during winter break of 2017. I utilized my
           design skills, part sourcing abilities, and programming to make this

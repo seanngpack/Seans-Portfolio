@@ -4,6 +4,7 @@ date: "2015-05-06T23:46:37.121Z"
 skills: "SolidWorks Matlab Simulink"
 state: "Co-op ended Dec 2017"
 featuredImage: "./featured-image.jpg"
+logo: "./featured-image.jpg"
 tag: featured
 excerpt: "At NxStage I did a lot of V&V and design work."
 background: "This is an example background lol"

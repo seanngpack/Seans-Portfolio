@@ -4,6 +4,7 @@ date: "2015-05-28T22:40:32.169Z"
 skills: "Web development React Node CSS API calls"
 state: "Continuous improvement"
 featuredImage: "./featured-image.jpg"
+logo: "./featured-image.jpg"
 tag: programming
 excerpt: An Asian-centric fashion/culture website built using react.
 background: "This is an example background lol"
