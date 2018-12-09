@@ -54,6 +54,7 @@
     }
 
     .left, .right {
+        margin-left: 6rem;
         display: flex;
         flex-direction: column;
         width: 50%;
@@ -67,18 +68,5 @@
         width: 30%;
         height: 30%;
         border-radius: 50%;
-    }
-
-    .header {
-        width: 100%;
-        font-family: Roboto Mono;
-        font-weight: 600;
-        font-size: 1rem;
-    }
-    
-    .excerpt {
-        width: 100%;
-        font-size: 2rem;
-        font-weight: 250;
     }
 }
