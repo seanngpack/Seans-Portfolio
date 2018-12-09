@@ -1,6 +1,6 @@
 .container {
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+  margin-top: 6rem;
+  margin-bottom: 6rem;
   padding-right: 2rem;
   padding-left: 2rem;
   width: 100%;
@@ -27,6 +27,7 @@
 }
 
 .rightContainer {
+  margin-left: 6rem;
   display: flex;
   flex-direction: column;
 }

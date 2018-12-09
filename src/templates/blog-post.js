@@ -9,7 +9,10 @@ class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = this.props.data.site.siteMetadata.title
+    const date = post.frontmatter.date
     const title = post.frontmatter.title
+    const skills = post.frontmatter.skills
+    const state = post.frontmatter.state
     const excerpt = post.frontmatter.excerpt
     const background = post.frontmatter.background
 
@@ -20,7 +23,11 @@ class BlogPostTemplate extends React.Component {
           title={title} 
           excerpt={excerpt}
           />   
-          <Background date={post.frontmatter.date} background={background}/>       
+          <Background 
+          date={date} 
+          skills={skills} 
+          state={state} 
+          background={background}/>       
           <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.html }} />
         </div>
       </Layout>
@@ -45,6 +52,8 @@ export const pageQuery = graphql`
         excerpt
         title
         background
+        skills
+        state
         date(formatString: "MMMM DD, YYYY")
       }
     }

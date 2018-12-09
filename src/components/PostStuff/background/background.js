@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './background.module.css'
 
 const background = props => {
+  console.log(props)
   return (
     <div className={styles.container}>
       <div className={styles.left}>

@@ -69,7 +69,7 @@ export const pageQuery = graphql`
             tag
             featuredImage {
               childImageSharp {
-                fluid(maxWidth: 1000, maxHeight: 1000) {
+                fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
                   ...GatsbyImageSharpFluid
                 }
               }
@@ -93,7 +93,7 @@ export const pageQuery = graphql`
             tag
             featuredImage {
               childImageSharp {
-                fluid(maxWidth: 1000, maxHeight: 1000) {
+                fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
                   ...GatsbyImageSharpFluid
                 }
               }
@@ -116,7 +116,7 @@ export const pageQuery = graphql`
             title
             featuredImage {
               childImageSharp {
-                fluid(maxWidth: 1000, maxHeight: 1000) {
+                fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
                   ...GatsbyImageSharpFluid
                 }
               }
