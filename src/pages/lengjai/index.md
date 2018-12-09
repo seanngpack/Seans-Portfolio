@@ -1,8 +1,9 @@
 ---
-title: New Beginnings
+title: Lengjai
 date: "2015-05-28T22:40:32.169Z"
 featuredImage: "./featured-image.jpg"
-tag: robots
+tag: programming
+excerpt: An Asian-centric fashion/culture website built using react.
 ---
 
 Far far away, behind the word mountains, far from the countries Vokalia and

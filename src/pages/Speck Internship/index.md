@@ -1,8 +1,9 @@
 ---
-title: My Second Post!
+title: My time at Speck Products
 date: "2015-05-06T23:46:37.121Z"
 featuredImage: "./featured-image.jpg"
-tag: programming
+tag: featured
+excerpt: "My six-month co-op at Speck led to new products released to market, and a patent under my name."
 ---
 
 Wow! I love blogging so much already.

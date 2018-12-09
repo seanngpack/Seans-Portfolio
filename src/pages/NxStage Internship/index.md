@@ -1,8 +1,9 @@
 ---
-title: My Second Post!
+title: My time at Nxstage
 date: "2015-05-06T23:46:37.121Z"
 featuredImage: "./featured-image.jpg"
 tag: featured
+excerpt: "At NxStage I did a lot of V&V and design work."
 ---
 
 Wow! I love blogging so much already.

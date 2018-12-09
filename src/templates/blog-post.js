@@ -2,18 +2,18 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import styles from './blog-post.module.css'
 import Layout from '../components/Layout'
+import Intro from '../components/PostStuff/intro/intro'
 
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark
     const siteTitle = this.props.data.site.siteMetadata.title
-    const siteDescription = post.excerpt
-    const { previous, next } = this.props.pageContext
+    const excerpt = post.frontmatter.excerpt
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <div className={styles.container}>
-          <h1 className={styles.header}>{post.frontmatter.title}</h1>
+          <Intro title={post.frontmatter.title} excerpt={excerpt}/>          
           <div className={styles.date}>{post.frontmatter.date}</div>
           <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.html }} />
         </div>
@@ -33,10 +33,10 @@ export const pageQuery = graphql`
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt
+      id      
       html
       frontmatter {
+        excerpt
         title
         date(formatString: "MMMM DD, YYYY")
       }

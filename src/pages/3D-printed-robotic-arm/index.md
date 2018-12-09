@@ -1,7 +1,8 @@
 ---
-title: Hello World
+title: 3D Printed Robotic Arm
 date: "2015-05-01T22:12:03.284Z"
 featuredImage: "./featured-image.jpg"
+excerpt: "A 3D printed robotic arm that I built myself. I later formed a group to bring it to the next level."
 tag: featured
 ---
 
