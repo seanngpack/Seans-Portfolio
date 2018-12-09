@@ -1,6 +1,6 @@
 .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -44,29 +44,25 @@
 @media(min-width:767px) {
     .container {
         padding: 0;
-        display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        width: 100%;
-        height: 70vh;
-        background-color: #8defd5;   
     }
 
-    .left, .right {
-        margin-left: 6rem;
-        display: flex;
-        flex-direction: column;
+    .left {
+        padding-left: 6rem;
+    }
+    
+    .left, .right {        
         width: 50%;
         height: 100%;
         align-items: center;
         justify-content: center;
-        color: #f7f7f7;
     }
 
     .image {
-        width: 30%;
-        height: 30%;
+        width: 250px;
+        height: 250px;
         border-radius: 50%;
     }
 }
