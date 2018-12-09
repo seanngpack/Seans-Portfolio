@@ -1,0 +1,41 @@
+.container {
+  margin-top: 4rem;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.content {
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+.left, .right {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.dateContainer, .skillsContainer, .stateContainer {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.date, .skills, .state {
+    font-weight: 300;
+}
+

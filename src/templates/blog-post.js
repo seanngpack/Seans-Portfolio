@@ -3,6 +3,7 @@ import { Link, graphql } from 'gatsby'
 import styles from './blog-post.module.css'
 import Layout from '../components/Layout'
 import Intro from '../components/PostStuff/intro/intro'
+import Background from '../components/PostStuff/background/background'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -13,9 +14,9 @@ class BlogPostTemplate extends React.Component {
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <div className={styles.container}>
-          <Intro title={post.frontmatter.title} excerpt={excerpt}/>          
-          <div className={styles.date}>{post.frontmatter.date}</div>
-          <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.html }} />
+          <Intro title={post.frontmatter.title} excerpt={excerpt}/>   
+          <Background date={post.frontmatter.date}/>       
+          {/* <div className={styles.content} dangerouslySetInnerHTML={{ __html: post.html }} /> */}
         </div>
       </Layout>
     )
