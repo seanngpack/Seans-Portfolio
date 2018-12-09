@@ -4,6 +4,7 @@ date: "2015-05-06T23:46:37.121Z"
 skills: "Product Design, sketching, sourcing, talking to vendors"
 state: "Almost over"
 featuredImage: "./speck-products-logo-large.jpg"
+carousel: ['./featured-image.jpg',]
 logo: "./logo-Speck.png"
 tag: featured
 excerpt: "My six-month co-op at Speck led to new products released to market, and a patent under my name."

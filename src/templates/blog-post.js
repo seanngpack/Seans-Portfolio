@@ -56,6 +56,10 @@ export const pageQuery = graphql`
         excerpt
         title
         background
+        carousel {
+          name
+          }
+        
         skills
         state
         logo {
