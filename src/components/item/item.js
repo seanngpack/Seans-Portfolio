@@ -14,7 +14,7 @@ const item = (props) => {
         className={styles.image}
       />
       <div className={styles.overlay}>
-    <div className={styles.text}>Hello World</div>
+    <div className={styles.text}>{props.data.frontmatter.title}</div>
       </div>
       </Link>
     </div>

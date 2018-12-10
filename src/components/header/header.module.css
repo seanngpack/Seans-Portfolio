@@ -19,11 +19,7 @@
     color: black;
 }
 
-.item1 {
+.item1, .item2, .item3 {
     margin-right: 1rem;
-}
-
-.item2 {
     margin-left: 1rem;
-    
 }

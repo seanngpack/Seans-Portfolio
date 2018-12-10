@@ -8,7 +8,9 @@ const header = () => {
             <Link className={styles.link} to={`/`}>
                 <div className={styles.item1}>work</div>
             </Link>
+            <div className={styles.item3}>photos</div>
             <div className={styles.item2}>about</div>
+            
         </div>
      );
 }

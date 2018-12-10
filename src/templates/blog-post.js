@@ -25,15 +25,18 @@ class BlogPostTemplate extends React.Component {
         <div className={styles.container}>
           <Intro title={title} excerpt={excerpt} logo={logo} />
           <div className={styles.page}>
-            <Background
-              date={date}
-              skills={skills}
-              state={state}
-              background={background}
-            />
+            {background ? (
+              <Background
+                date={date}
+                skills={skills}
+                state={state}
+                background={background}
+              />
+            ) : null}
+
             {/* <Carousel images={images}/> */}
             <div className={styles.carousel}>
-            <CarouselLol images={images}/>
+              <CarouselLol images={images} />
             </div>
             <div
               className={styles.content}
