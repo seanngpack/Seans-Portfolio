@@ -4,7 +4,8 @@ import styles from './blog-post.module.css'
 import Layout from '../components/Layout'
 import Intro from '../components/PostStuff/intro/intro'
 import Background from '../components/PostStuff/background/background'
-import Carousel from '../components/carousel/carousel'
+// import Carousel from '../components/carousel/carousel'
+import CarouselLol from '../container/CarouselPage/index'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -30,7 +31,10 @@ class BlogPostTemplate extends React.Component {
               state={state}
               background={background}
             />
-            <Carousel images={images}/>
+            {/* <Carousel images={images}/> */}
+            <div className={styles.carousel}>
+            <CarouselLol images={images}/>
+            </div>
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{ __html: post.html }}
