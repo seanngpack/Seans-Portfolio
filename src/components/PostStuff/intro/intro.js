@@ -3,7 +3,6 @@ import styles from './intro.module.css'
 import Img from 'gatsby-image'
 
 const intro = props => {
-  console.log(props)
   return (
     <div className={styles.container}>
       <div className={styles.left}>

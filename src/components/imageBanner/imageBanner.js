@@ -12,20 +12,6 @@ class carousel extends Component {
     image4: false,
   }
 
-  handleClick = divNumber => {
-    this.setState({ div1: false, div2: false, div3: false }, () => {
-      this.setState({ [divNumber]: true }, () => {
-        if (this.state.div1) {
-          this.setState({ resolver: 'featured' })
-        } else if (this.state.div2) {
-          this.setState({ resolver: 'robots' })
-        } else if (this.state.div3) {
-          this.setState({ resolver: 'programming' })
-        }
-      })
-    })
-  }
-
   render() {
     let count = 0
     return (

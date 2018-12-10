@@ -4,6 +4,7 @@ import styles from './blog-post.module.css'
 import Layout from '../components/Layout'
 import Intro from '../components/PostStuff/intro/intro'
 import Background from '../components/PostStuff/background/background'
+import Carousel from '../components/carousel/carousel'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class BlogPostTemplate extends React.Component {
     const excerpt = post.frontmatter.excerpt
     const background = post.frontmatter.background
     const logo = post.frontmatter.logo.childImageSharp.fluid
+    const images = post.frontmatter.carousel
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -28,6 +30,7 @@ class BlogPostTemplate extends React.Component {
               state={state}
               background={background}
             />
+            <Carousel images={images}/>
             <div
               className={styles.content}
               dangerouslySetInnerHTML={{ __html: post.html }}
@@ -58,8 +61,13 @@ export const pageQuery = graphql`
         background
         carousel {
           name
+          childImageSharp {
+            fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
+              ...GatsbyImageSharpFluid
+            }
           }
-        
+        }
+
         skills
         state
         logo {
