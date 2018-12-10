@@ -62,7 +62,7 @@ export const pageQuery = graphql`
         carousel {
           name
           childImageSharp {
-            fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
+            fluid(maxWidth: 1600, maxHeight: 1200, cropFocus: CENTER) {
               ...GatsbyImageSharpFluid
             }
           }

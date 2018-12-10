@@ -10,33 +10,55 @@ class carousel extends Component {
     image2: false,
     image3: false,
     image4: false,
+    count: 1,
   }
 
-  handleClick = divNumber => {
-    this.setState({ div1: false, div2: false, div3: false }, () => {
-      this.setState({ [divNumber]: true }, () => {
-        if (this.state.div1) {
-          this.setState({ resolver: 'featured' })
-        } else if (this.state.div2) {
-          this.setState({ resolver: 'robots' })
-        } else if (this.state.div3) {
-          this.setState({ resolver: 'programming' })
-        }
-      })
-    })
+  stateFlip = () => {
+    let name = 'image'
+    this.setState(
+      { image1: false, image2: false, image3: false, image4: false },
+      () => {
+        this.setState({ [name + this.state.count]: true })
+      }
+    )
+  }
+
+  rightClick = () => {
+    const max = this.props.images.length
+    this.state.count < max
+      ? this.setState({ count: this.state.count + 1 }, () => {
+          this.stateFlip()
+        })
+      : null
+  }
+
+  leftClick = () => {
+    this.state.count > 1
+      ? this.setState({ count: this.state.count - 1 }, () => {
+          this.stateFlip()
+        })
+      : null
   }
 
   render() {
     let count = 0
+    const max = this.props.images.length
     return (
       <div className={styles.container}>
-        <FaArrowLeft size={40} className={styles.FaArrowLeft} />
+        {this.state.count === 1 ? (
+          <FaArrowLeft size={40} color={'white'} />
+        ) : (
+          <FaArrowLeft
+            onClick={() => this.leftClick()}
+            size={40}
+            className={styles.FaArrowLeft}
+          />
+        )}
         <div className={styles.imageContainer}>
           {this.props.images.map(
             (image, index) => (
               (count = index + 1),
               (name = 'image' + count),
-              console.log(name),
               (
                 <div
                   className={this.state[name] ? styles[name] : null}
@@ -52,7 +74,15 @@ class carousel extends Component {
             )
           )}
         </div>
-        <FaArrowRight size={40} className={styles.FaArrowRight} />
+        {this.state.count === 4 ? (
+          <FaArrowRight size={40} color={'white'} />
+        ) : (
+          <FaArrowRight
+            onClick={() => this.rightClick()}
+            size={40}
+            className={styles.FaArrowRight}
+          />
+        )}
       </div>
     )
   }
