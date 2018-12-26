@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
 import styles from './blog-post.module.css'
 import Layout from '../components/Layout'
 import Intro from '../components/PostStuff/intro/intro'
