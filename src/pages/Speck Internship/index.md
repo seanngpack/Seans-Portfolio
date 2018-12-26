@@ -5,7 +5,7 @@ skills: "Product Design, sketching, sourcing, talking to vendors"
 state: "Almost over"
 featuredImage: "./speck-products-logo-large.jpg"
 carousel: ['./featured-image.jpg',]
-logo: "./logo-Speck.png"
+logo: "./logo-Speck.jpg"
 tag: featured
 excerpt: "My six-month co-op at Speck led to new products released to market, and a patent under my name."
 background: "This is an example background lol"
