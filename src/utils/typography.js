@@ -28,7 +28,7 @@ const typography = new Typography(
     bodyFontFamily: ['Roboto', 'sans-serif'],
     bodyWeight: 300,
     boldWeight: 400,
-    headerWeight: '400',
+    headerWeight: '300',
     overrideThemeStyles: ({ rhythm }, options, styles) => ({
       a: {
         fontWeight: 400,

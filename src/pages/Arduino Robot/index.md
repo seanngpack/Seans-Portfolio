@@ -1,9 +1,14 @@
 ---
 title: Arduino Robot
 date: "2015-05-06T23:46:37.121Z"
+skills: "SolidWorks Robotics Arduino Programming"
+state: "Finished"
 featuredImage: "./featured-image.jpg"
+carousel: ['./featured-image.jpg',]
+logo: "./featured-image.jpg"
 tag: featured
 excerpt: "This was my first ever project using my 3D printer and creating something from scratch"
+background: "This is an example background lol"
 ---
 
 Wow! I love blogging so much already.

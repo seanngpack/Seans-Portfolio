@@ -1,0 +1,68 @@
+.container {
+  margin-top: 6rem;
+  margin-bottom: 6rem;
+  padding-right: 0rem;
+  padding-left: 0rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 2rem;
+}
+
+.content {
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+}
+
+.left, .right {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.rightContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.dateContainer, .skillsContainer, .stateContainer {
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.date, .skills, .state {
+    font-weight: 300;
+}
+
+@media(min-width: 767px) {
+
+  .container {
+    display: flex;
+    padding-right: 2rem;
+    padding-left: 2rem;
+    flex-direction: row;
+
+  }
+  .left, .right {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+align-items: flex-start;
+  }
+
+  .rightContainer {
+    margin-left: 6rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .content {
+    margin-bottom: 0rem;
+  }
+}

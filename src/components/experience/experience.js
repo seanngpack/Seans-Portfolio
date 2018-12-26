@@ -5,7 +5,7 @@ import ExperienceItem from '../experienceItem/experienceItem'
 const experience = () => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.header}>See what I've been up to</h1>
+      <h1 className={styles.header}>What have I been up to?</h1>
       <div className={styles.experienceContainer}>
         <ExperienceItem
           company={'Speck Products'}

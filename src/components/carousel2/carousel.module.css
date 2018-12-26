@@ -1,0 +1,47 @@
+.container {
+  margin-bottom: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imageContainer {
+  display: flex;
+  width: 140%;
+  margin-right: .5rem;
+  margin-left: .5rem;
+}
+
+.FaArrowLeft,
+.FaArrowRight {
+}
+
+.FaArrowLeft:hover,
+.FaArrowRight:hover {
+  cursor: pointer;
+  color: grey;
+}
+
+.image1 {
+  width: 100%;
+}
+
+.image2 {
+  width: 100%;
+}
+
+.image3 {
+  width: 100%;
+}
+
+.image4 {
+  width: 100%;
+}
+
+@media (min-width: 767px) {
+  .imageContainer {
+    width: 50%;
+    margin-right: 2rem;
+    margin-left: 2rem;
+  }
+}
