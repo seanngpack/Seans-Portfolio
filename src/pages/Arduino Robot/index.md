@@ -6,7 +6,7 @@ state: "Finished"
 featuredImage: "./featured-image.jpg"
 carousel: ['./featured-image.jpg',]
 logo: "./featured-image.jpg"
-tag: featured
+tag: robots
 excerpt: "This was my first ever project using my 3D printer and creating something from scratch"
 background: "This is an example background lol"
 ---

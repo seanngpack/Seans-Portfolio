@@ -19,6 +19,7 @@ class BlogPostTemplate extends React.Component {
     const background = post.frontmatter.background
     const logo = post.frontmatter.logo.childImageSharp.fluid
     const images = post.frontmatter.carousel
+    console.log(logo)
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
