@@ -3,6 +3,7 @@ import Img from 'gatsby-image'
 import React from 'react'
 import styles from './photos.module.css'
 import Layout from '../components/Layout'
+import Photo from '../components/photo/photo'
 
 export default ({ children }) => (
   <StaticQuery
@@ -45,24 +46,7 @@ export default ({ children }) => (
       <Layout>
         <div className={styles.page}>
           {data.photoDescriptions.edges.map((node, index) => {
-            return (
-              <div className={styles.container}>
-                <Img
-                  fluid={
-                    node.node.frontmatter.featuredImage.childImageSharp.fluid
-                  }
-                  alt={node.node.frontmatter.title}
-                  key={index}
-                  className={styles.image}
-                />
-                <div className={styles.overlay}>
-                  <div className={styles.textContainer}>
-                    <div className={styles.title}>Example title</div>
-                    <div className={styles.specs}>example | specs | lol</div>
-                  </div>
-                </div>
-              </div>
-            )
+            return <Photo data={node} key={index} />
           })}
         </div>
       </Layout>
