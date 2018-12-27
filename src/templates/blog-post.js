@@ -6,6 +6,7 @@ import Intro from '../components/PostStuff/intro/intro'
 import Background from '../components/PostStuff/background/background'
 // import Carousel from '../components/carousel/carousel'
 import CarouselLol from '../container/CarouselPage/index'
+import SEO from '../components/SEO/SEO'
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -19,10 +20,17 @@ class BlogPostTemplate extends React.Component {
     const background = post.frontmatter.background
     const logo = post.frontmatter.logo.childImageSharp.fluid
     const images = post.frontmatter.carousel
-    console.log(logo)
+    console.log(this.props.data)
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
+        <SEO
+          title={title}
+          description={excerpt}
+          image={logo.src}
+          pathname={'/'}
+          article
+        />
         <div className={styles.container}>
           <Intro title={title} excerpt={excerpt} logo={logo} />
           <div className={styles.page}>
