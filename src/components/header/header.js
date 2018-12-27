@@ -11,7 +11,9 @@ const header = () => {
       <Link className={styles.link} to={`/photos`}>
         <div className={styles.item3}>photos</div>
       </Link>
-      <div className={styles.item2}>about</div>
+      <Link className={styles.link} to={`/about`}>
+        <div className={styles.item2}>about</div>
+      </Link>
     </div>
   )
 }

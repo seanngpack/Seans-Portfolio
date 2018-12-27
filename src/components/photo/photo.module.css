@@ -13,8 +13,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  /* opacity: 0.8;
-    background-color: grey; */
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .container {
@@ -64,10 +63,9 @@
 }
 
 @media (min-width: 767px) {
-    .Modal {
-        position: absolute;
-            width: 50vw;
-            height: 50vw;
-           
-      }
+  .Modal {
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+  }
 }
