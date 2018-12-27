@@ -2,10 +2,10 @@ module.exports = {
   siteMetadata: {
     title: 'Sean Ng Pack - Unordinary Mechanical Engineering Student',
     author: 'Sean Ng Pack',
-    url: 'https://seanngpack.com',
-    titleTemplate: '%s | SEANNGPACk ',
+    titleTemplate: '%s | SEANNGPACK ',
     description: "Fashion, design, photography, and much much more",
-    image: `src/assets/gatsby-icon.png`,
+    image: `/src/assets/gatsby-icon.png`,
+    siteUrl: 'https://www.seanngpack.com'
   },
   pathPrefix: '/gatsby-starter-blog',
   plugins: [
