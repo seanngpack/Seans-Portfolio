@@ -16,7 +16,7 @@
 }
 
 .category {
-    margin: 2rem 1rem 0 1rem;
+    margin: 2rem 1rem 2rem 1rem;
 }
 
 .category:hover {
@@ -37,7 +37,7 @@
 
 @media(min-width: 767px) {
     .container {
-        height: 75vh;
+        
     }
 
     .categories {
