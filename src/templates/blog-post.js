@@ -43,7 +43,6 @@ class BlogPostTemplate extends React.Component {
               />
             ) : null}
 
-            {/* <Carousel images={images}/> */}
             <div className={styles.carousel}>
               <CarouselLol images={images} />
             </div>
