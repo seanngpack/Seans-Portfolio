@@ -20,7 +20,7 @@ class BlogPostTemplate extends React.Component {
     const background = post.frontmatter.background
     const logo = post.frontmatter.logo.childImageSharp.fluid
     const images = post.frontmatter.carousel
-    console.log(this.props.data)
+    console.log(logo.src)
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
@@ -43,7 +43,6 @@ class BlogPostTemplate extends React.Component {
               />
             ) : null}
 
-            {/* <Carousel images={images}/> */}
             <div className={styles.carousel}>
               <CarouselLol images={images} />
             </div>

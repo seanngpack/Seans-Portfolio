@@ -7,7 +7,7 @@
 
 .header {
     text-align: center;
-    margin: 0 2rem 0 2rem;
+    margin: 0 2rem 4rem 2rem;
 }
 
 .categories {
@@ -16,7 +16,7 @@
 }
 
 .category {
-    margin: 2rem 1rem 2rem 1rem;
+    margin: 2rem 1rem 0 1rem;
 }
 
 .category:hover {
@@ -33,4 +33,14 @@
 .categoryActive:hover {
     cursor: pointer;
     color: black;
+}
+
+@media(min-width: 767px) {
+    .container {
+        height: 75vh;
+    }
+
+    .categories {
+        margin-bottom: 2rem;
+    }
 }
