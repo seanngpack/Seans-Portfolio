@@ -3,6 +3,8 @@ import moragaTheme from 'typography-theme-moraga'
 
 const typography = new Typography(
   {
+    baseFontSize: '18px',
+    scaleRatio: 2.5,
     googleFonts: [
       {
         name: 'Roboto',
