@@ -7,7 +7,7 @@
 
 .header {
     text-align: center;
-    margin: 0 2rem 4rem 2rem;
+    margin: 0 2rem 0 2rem;
 }
 
 .categories {
@@ -38,6 +38,10 @@
 @media(min-width: 767px) {
     .container {
         
+    }
+
+    .header {
+        margin-bottom: 2rem;
     }
 
     .categories {
