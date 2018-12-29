@@ -15,7 +15,7 @@ class BlogPostTemplate extends React.Component {
         <SEO
           title='about me'
           description='Sean Ng Pack Mechanical Engineering and more'
-          image={logo.src}
+          image={this.props.data.profile.childImageSharp.fluid.src}
           pathname={'/about'}
           article
         />
