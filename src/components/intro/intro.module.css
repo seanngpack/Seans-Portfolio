@@ -6,6 +6,7 @@
 
 .text {
     margin-bottom: 0;
+    font-size: 1.75rem;
 }
 
 .lol {
@@ -16,5 +17,9 @@
 @media(min-width: 767px) {
     .container {
         padding: 50vh 10rem 50vh 10rem;
+    }
+
+    .text {
+        font-size: 2rem;
     }
 }

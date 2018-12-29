@@ -1,37 +1,38 @@
 .container {
-    margin-top: 4rem;
-    margin-bottom: 6rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin-top: 4rem;
+  margin-bottom: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
-    margin-bottom: 6rem;
+  font-size: 1.75rem;
+  margin-bottom: 6rem;
 }
 
 .iconsContainer {
-    display: flex;
+  display: flex;
 }
 
 .iconContainer {
-    display: flex;
-    align-items: center;
-    padding: .5rem 1rem .5rem 1rem;
-    border: solid 1px #ccc;
-    margin-right: .5rem;
-    margin-left: .5rem
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: solid 1px #ccc;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
 }
 
 .iconContainer:hover {
-    border: solid 1px #ccc;
-    background-color: #eaeaea;
+  border: solid 1px #ccc;
+  background-color: #eaeaea;
 }
 
-.FaInstagram, .FaGithub, .FaLinkedin {
-    color: black;
-    font-size: 3rem;
-    margin: 0rem 0rem 0 0rem;
-    
+.FaInstagram,
+.FaGithub,
+.FaLinkedin {
+  color: black;
+  font-size: 3rem;
+  margin: 0rem 0rem 0 0rem;
 }
-

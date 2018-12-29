@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import styles from './about.module.css'
 import Layout from '../components/Layout'
 import Intro from '../components/PostStuff/intro/intro'
+import SEO from '../components/SEO/SEO'
 
 import CarouselLol from '../container/CarouselPage/index'
 
@@ -11,6 +12,13 @@ class BlogPostTemplate extends React.Component {
     console.log(this.props.data)
     return (
       <Layout>
+        <SEO
+          title='about me'
+          description='Sean Ng Pack Mechanical Engineering and more'
+          image={logo.src}
+          pathname={'/about'}
+          article
+        />
         <div className={styles.container}>
           <Intro
             title={'Sean Ng Pack'}

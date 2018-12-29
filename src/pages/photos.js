@@ -44,6 +44,15 @@ export default ({ children }) => (
     `}
     render={data => (
       <Layout>
+        <SEO
+          title={"Sean's cool photos"}
+          description={
+            'I love telling stories and visualizing flex through photography and photo editing'
+          }
+          image={''}
+          pathname={'/photos'}
+          
+        />
         <div className={styles.page}>
           {data.photoDescriptions.edges.map((node, index) => {
             return <Photo data={node} key={index} />
