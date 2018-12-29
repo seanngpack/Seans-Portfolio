@@ -14,29 +14,24 @@
     display: flex;
 }
 
-.FaInstagram {
+.iconContainer {
+    display: flex;
+    align-items: center;
+    padding: .5rem 1rem .5rem 1rem;
+    border: solid 1px #ccc;
+    margin-right: .5rem;
+    margin-left: .5rem
+}
+
+.iconContainer:hover {
+    border: solid 1px #ccc;
+    background-color: #eaeaea;
+}
+
+.FaInstagram, .FaGithub, .FaLinkedin {
     color: black;
-    margin: 0rem 1rem 0 1rem;
+    font-size: 3rem;
+    margin: 0rem 0rem 0 0rem;
+    
 }
 
-.FaInstagram:hover {
-    color: grey;
-}
-
-.FaGithub {
-    color: black;
-    margin: 0rem 1rem 0 1rem;
-}
-
-.FaGithub:hover {
-    color: grey;
-}
-
-.FaLinkedin {
-    color: #0077B5;
-    margin: 0rem 1rem 0 1rem;
-}
-
-.FaLinkedin:hover {
-    color: #0090dd;
-}
