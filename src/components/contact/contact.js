@@ -13,22 +13,26 @@ const contact = () => {
           href="https://www.github.com/seanngpack"
           target="_blank"
           rel="noopener norefferer"
+          className={styles.iconContainer}
         >
-          <FaGithub size={60} className={styles.FaGithub} />
+          <FaGithub className={styles.FaGithub} />
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/seanngpack"
+          target="_blank"
+          rel="noopener norefferer"
+          className={styles.iconContainer}
+        >
+          <FaLinkedin className={styles.FaLinkedin} />
         </a>
         <a
           href="https://www.instagram.com/seanngpack"
           target="_blank"
           rel="noopener norefferer"
+          className={styles.iconContainer}
         >
-          <FaInstagram size={60} className={styles.FaInstagram} />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/seanngpack"
-          target="_blank"
-          rel="noopener norefferer"
-        >
-          <FaLinkedin size={60} className={styles.FaLinkedin} />
+          <FaInstagram className={styles.FaInstagram} />
         </a>
       </div>
     </div>
