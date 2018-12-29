@@ -67,6 +67,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             tag
+            backgroundColor
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
@@ -91,6 +92,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             tag
+            backgroundColor
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
@@ -114,6 +116,8 @@ export const pageQuery = graphql`
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
             title
+            tag
+            backgroundColor
             featuredImage {
               childImageSharp {
                 fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {

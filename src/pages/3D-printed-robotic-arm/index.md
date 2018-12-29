@@ -10,6 +10,7 @@ excerpt: "A 3D printed robotic arm that I built myself. I later formed a group t
 background: "I made this robotic arm during winter break of 2017. I utilized my
           design skills, part sourcing abilities, and programming to make this
           project come together."
+backgroundColor: "#75d5ff"          
 tag: featured
 ---
 

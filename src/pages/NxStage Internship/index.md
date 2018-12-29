@@ -9,6 +9,7 @@ logo: "./featured-image.jpg"
 tag: featured
 excerpt: "At NxStage I did a lot of V&V and design work."
 background: "This is an example background lol"
+backgroundColor: "#6073ff"
 ---
 
 Wow! I love blogging so much already.
