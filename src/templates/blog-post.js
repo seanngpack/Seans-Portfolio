@@ -18,6 +18,7 @@ class BlogPostTemplate extends React.Component {
     const state = post.frontmatter.state
     const excerpt = post.frontmatter.excerpt
     const background = post.frontmatter.background
+    const backgroundColor = post.frontmatter.backgroundColor
     const logo = post.frontmatter.logo.childImageSharp.fluid
     const images = post.frontmatter.carousel
     console.log(logo.src)
@@ -32,7 +33,7 @@ class BlogPostTemplate extends React.Component {
           article
         />
         <div className={styles.container}>
-          <Intro title={title} excerpt={excerpt} logo={logo} />
+          <Intro title={title} excerpt={excerpt} logo={logo} color={backgroundColor}/>
           <div className={styles.page}>
             {background ? (
               <Background
@@ -74,6 +75,7 @@ export const pageQuery = graphql`
         excerpt
         title
         background
+        backgroundColor
         carousel {
           name
           childImageSharp {

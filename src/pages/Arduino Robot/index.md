@@ -9,6 +9,7 @@ logo: "./1-1.jpg"
 tag: robots
 excerpt: "This was my first ever project using my 3D printer and creating something from scratch"
 background: "This is an example background lol"
+backgroundColor: "#c9eeff"
 ---
 
 Wow! I love blogging so much already.

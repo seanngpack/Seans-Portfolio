@@ -12,7 +12,10 @@ const item = props => {
           alt={''}
           className={styles.image}
         />
-        <div className={styles.overlay}>
+        <div
+          style={{ backgroundColor: props.data.frontmatter.backgroundColor }}
+          className={styles.overlay}
+        >
           <div className={styles.text}>{props.data.frontmatter.title}</div>
         </div>
       </Link>
