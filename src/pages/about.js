@@ -11,6 +11,13 @@ class BlogPostTemplate extends React.Component {
     console.log(this.props.data)
     return (
       <Layout>
+        <SEO
+          title='about me'
+          description='Sean Ng Pack Mechanical Engineering and more'
+          image={logo.src}
+          pathname={'/about'}
+          article
+        />
         <div className={styles.container}>
           <Intro
             title={'Sean Ng Pack'}
