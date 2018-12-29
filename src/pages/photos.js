@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './photos.module.css'
 import Layout from '../components/Layout'
 import Photo from '../components/photo/photo'
+import SEO from '../components/SEO/SEO'
 
 export default ({ children }) => (
   <StaticQuery
