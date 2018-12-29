@@ -1,3 +1,18 @@
+.textContainer {
+  display: flex;
+  flex-direction: column;
+  
+  color: white;
+  
+  margin-top: 1rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.specs {
+  
+}
+
 .Modal {
   position: absolute;
   top: 50%;
@@ -50,22 +65,24 @@
   opacity: 0.85;
 }
 
-.textContainer {
-  color: white;
-  font-size: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
+
 
 @media (min-width: 767px) {
   .Modal {
     position: absolute;
     width: 50vw;
     height: 50vw;
+  }
+  .textContainer {
+    display: block;
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
   }
 }
