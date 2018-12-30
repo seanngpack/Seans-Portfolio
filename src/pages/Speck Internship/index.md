@@ -7,7 +7,7 @@ featuredImage: "./speck-products-logo-large.jpg"
 carousel: ['./huawei1.png', 'phone1.jpg']
 logo: "./logoSquare.jpg"
 tag: featured
-excerpt: "My six-month co-op at Speck led to new products released to market, and a patent under my name. I worked heavily with industrial designers and I'd like to think their design skills have rubbed off on me."
+excerpt: "My six-month co-op at Speck led to new products released to market, and a patent under my name."
 background: "For my second co-op, I went to the SF/Bay Area to join the Speck team"
 backgroundColor: "#5DBCD2"
 ---
