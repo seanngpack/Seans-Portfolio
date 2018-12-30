@@ -1,116 +1,38 @@
 ---
 title: Lengjai
-date: "2015-05-28T22:40:32.169Z"
-skills: "Web development React Node CSS API calls"
+date: "2018-10-01T22:40:32.169Z"
+skills: "Web development, React, Node, CSS, API calls, databases, graphic design, photography, writing, politics, too many to list"
 state: "Continuous improvement"
 featuredImage: "./about.jpg"
 carousel: ['./featured-image.jpg',]
 logo: "./featured-image.jpg"
 tag: programming
-excerpt: An Asian-centric fashion/culture website built using react.
-background: "This is an example background lol"
+excerpt: An Asian-centric fashion/culture website built using react. Trying to change the world one step at a time.
+background: "I'm pretty socially concious and active in political discussions. I wanted to create my own platform to change the conversation."
 backgroundColor: "#ef1515"
 ---
 
-Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-right at the coast of the Semantics, a large language ocean. A small river named
-Duden flows by their place and supplies it with the necessary regelialia.
+#Stack and features
+The frontend is deployed using Netlify which also provides SSL support. I'm using Wordpress as my content manager and querying posts using GraphQL. I have webhooks trigger a rebuild on Netlify when I upload/update posts on Wordpress. Pushing to my master branch on Github also triggers a rebuild. I'm working with a git flow and work on the dev branch -> staging branch -> master branch. The content is dynamically added to its appropriate place and pushes stuff out of the way. Pages are dynamically generated. I created an emoji system to track votes on each article. I am using Disqus to allow comments. I am using ElasticLunr search for the search bar. In the back I have full-fledged SEO implementation and Google Analytics. I am using several Google APIs to pull data. I am using the analytics-reporting API to display the pageviews of each article.
 
-## On deer horse aboard tritely yikes and much
+#I had to learn web development first
+In between self-learning machine learning and creating small python apps, I started slow with web development. When I realized the great potential I could have with creating my own sites from scratch, I dove straight in and traversed through the horrendously disjointed and convoluted world of starting web development. There's a massive barrier to entry in this field because there are so many different stacks, frameworks, and technologies you can choose from and it takes so much time to learn the advantages and disadvantages of each and every one. Then comparing them to each other is arduous and time-consuming. I eventually landed on using React and Gatsby as my building tools. 
 
-The Big Oxmox advised her not to do so, because there were thousands of bad
-Commas, wild Question Marks and devious Semikoli, but the Little Blind Text
-didn’t listen. She packed her seven versalia, put her initial into the belt and
-made herself on the way.
+I set a learning schedule for myself and started teaching myself React from taking online courses, reading documentation, and practicing. After four weeks of this I was ready to dive into my first and most ambitious project: Lengjai.
 
-* This however showed weasel
-* Well uncritical so misled
-  * this is very interesting
-* Goodness much until that fluid owl
+#Then I had to learn everything else
+Lengjai is not just a website--it's supposed to be the premier source of Asian-centric news, fashion, discussion, and entertainment. This meant I had to learn a super wide-array of skills. To list a few, I learned: marketing, graphic design, photography, internal workings of major news companies, heirachal structure, discussion leadership, and branding. I'll probably go deeper into these topics in another discussion, there is just so much information I internalized I cannot write it all down in a condensed paragraph.
 
-When she reached the first hills of the **Italic Mountains**, she had a last
-view back on the skyline of her hometown _Bookmarksgrove_, the headline of
-[Alphabet Village](http://google.com) and the subline of her own road, the Line
-Lane. Pityful a rethoric question ran over her cheek, then she continued her
-way. On her way she met a copy.
+#Time management & architecture/roadmapping
+The greatest thing I struggled with is time management. I worked very late at my co-op and routinely came home past 8pm. So I had to really learn architecture. I architected my life schedule and created a development and learning plan. Certain days were allocated to learning a new skill and others were spent building a new feature.
 
-### Overlaid the jeepers uselessly much excluding
+I also architected in the sense that I laid a roadmap for future development and created my website in mind for future additions, improvements, and styling. This was extremely difficult for me to grasp in the beginning because I had limited knowledge of what I could do in React/JS, but as I got more advanced I could build more modular features with sneaky tricks to get my layouts to play nice with each other. This also meant I had many featured scaled-back temporarily until the time and place is appropriate to bring them to full-scale implementation. 
 
-But nothing the copy said could convince her and so it didn’t take long until a
-few insidious Copy Writers ambushed her, made her drunk with
-[Longe and Parole](http://google.com) and dragged her into their agency, where
-they abused her for their projects again and again. And if she hasn’t been
-rewritten, then they are still using her.
+#CSS is the devil
+Okay CSS is pretty amazing for what it is, but I feel like I spent way too much time playing around in CSS versus doing hardcore development, feature implementation, and data analysis. It's a big timesink I kind of wish I could export to someone else, but learning CSS gave me the knowledge of how to think strategically and visualize the structure of things before I even create them.
 
-> Far far away, behind the word mountains, far from the countries Vokalia and
-> Consonantia, there live the blind texts. Separated they live in Bookmarksgrove
-> right at the coast of the Semantics, a large language ocean.
+#How I learned so fast
+I did a lot of things to learn as fast as possible. I used only the most recommended resources by authorative figures because learning from the best resources typically yields better results and less time wasted searching for new learning material. I supplemented a lot of gaps in my learning by reading material more narrow in scope. I found out that at the volume I was consuming information, I needed more time in the day so I pushed back my bedtime several hours. I took the time in the train to take naps to compensate for that. On the weekends I would have crazy power sessions working for 16 hours a day. It sounds like a lot of working, but I love learning so I was never really fatigued by this.
 
-It is a paradisematic country, in which roasted parts of sentences fly into your
-mouth. Even the all-powerful Pointing has no control about the blind texts it is
-an almost unorthographic life One day however a small line of blind text by the
-name of Lorem Ipsum decided to leave for the far World of Grammar.
-
-### According a funnily until pre-set or arrogant well cheerful
-
-The Big Oxmox advised her not to do so, because there were thousands of bad
-Commas, wild Question Marks and devious Semikoli, but the Little Blind Text
-didn’t listen. She packed her seven versalia, put her initial into the belt and
-made herself on the way.
-
-1.  So baboon this
-2.  Mounted militant weasel gregariously admonishingly straightly hey
-3.  Dear foresaw hungry and much some overhung
-4.  Rash opossum less because less some amid besides yikes jeepers frenetic
-    impassive fruitlessly shut
-
-When she reached the first hills of the Italic Mountains, she had a last view
-back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet
-Village and the subline of her own road, the Line Lane. Pityful a rethoric
-question ran over her cheek, then she continued her way. On her way she met a
-copy.
-
-> The copy warned the Little Blind Text, that where it came from it would have
-> been rewritten a thousand times and everything that was left from its origin
-> would be the word "and" and the Little Blind Text should turn around and
-> return to its own, safe country.
-
-But nothing the copy said could convince her and so it didn’t take long until a
-few insidious Copy Writers ambushed her, made her drunk with Longe and Parole
-and dragged her into their agency, where they abused her for their projects
-again and again. And if she hasn’t been rewritten, then they are still using
-her. Far far away, behind the word mountains, far from the countries Vokalia and
-Consonantia, there live the blind texts.
-
-#### Silent delightfully including because before one up barring chameleon
-
-Separated they live in Bookmarksgrove right at the coast of the Semantics, a
-large language ocean. A small river named Duden flows by their place and
-supplies it with the necessary regelialia. It is a paradisematic country, in
-which roasted parts of sentences fly into your mouth.
-
-Even the all-powerful Pointing has no control about the blind texts it is an
-almost unorthographic life One day however a small line of blind text by the
-name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox
-advised her not to do so, because there were thousands of bad Commas, wild
-Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.
-
-##### Wherever far wow thus a squirrel raccoon jeez jaguar this from along
-
-She packed her seven versalia, put her initial into the belt and made herself on
-the way. When she reached the first hills of the Italic Mountains, she had a
-last view back on the skyline of her hometown Bookmarksgrove, the headline of
-Alphabet Village and the subline of her own road, the Line Lane. Pityful a
-rethoric question ran over her cheek, then she continued her way. On her way she
-met a copy.
-
-###### Slapped cozy a that lightheartedly and far
-
-The copy warned the Little Blind Text, that where it came from it would have
-been rewritten a thousand times and everything that was left from its origin
-would be the word "and" and the Little Blind Text should turn around and return
-to its own, safe country. But nothing the copy said could convince her and so it
-didn’t take long until a few insidious Copy Writers ambushed her, made her drunk
-with Longe and Parole and dragged her into their agency, where they abused her
-for their projects again and again.
+#Emojis feature
+I created an emojis component as a voting system for each article to gauge peoples' reactions. You just click on an emoji and it sends the vote to Firebase. You can only vote for one emoji but you can switch votes and the selected emoji is highlighted. There are more features in my implemented than Disqus's! I'm working on adding cookies so you can't vote more than once.
