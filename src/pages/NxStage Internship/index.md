@@ -1,22 +1,20 @@
 ---
 title: My time at Nxstage
-date: "2015-05-06T23:46:37.121Z"
-skills: "SolidWorks Matlab Simulink"
-state: "Co-op ended Dec 2017"
+date: "2017-07-07T23:46:37.121Z"
+skills: "Matlab, Simulink, SolidWorks, V&V,"
+state: "Graduated from NxStage"
 featuredImage: "./1.jpg"
 carousel: ['./featured-image.jpg',]
 logo: "./featured-image.jpg"
 tag: featured
-excerpt: "At NxStage I did a lot of V&V and design work."
-background: "This is an example background lol"
+excerpt: "At NxStage I did a lot of Verification and Validation (V&V) and Matlab work"
+background: "For my first co-op I was at NxStage working on their life-changing dialysis machines."
 backgroundColor: "#6073ff"
 ---
 
-Wow! I love blogging so much already.
 
-Did you know that "despite its name, salted duck eggs can also be made from
-chicken eggs, though the taste and texture will be somewhat different, and the
-egg yolk will be less rich."?
-([Wikipedia Link](http://en.wikipedia.org/wiki/Salted_duck_egg))
+I joined NxStage in July 2017 and was immediately acquainted with the team. I was given a lot of guidance and mentorship then dove straight into work. For the first three months I spent a lot of time performing V&V work and testing the machines. I also travelled to the manufacturing facility in Mexico with a small team to perform V&V on the newest machines. This saved the company weeks of time compared to shipping the machines out to be tested in-house. This allowed NxStage to meet the deadline for an annual conference to present the flagship product. 
 
-Yeah, I didn't either.
+In between my main assignements, I designed a new cable assembly. I sourced components for it from Digikey, created the CAD, and sent it off to my supervisor to send off for manufacturing. This new cable allowed for streamlined tested without having to disassemble the entire machine so it saved at least 20 minutes of effort per machine. 
+
+I also modeled a pump in Simulink. I learned the software and self-taught fluid dynamics to perform this project. I compared my simulation numbers to a isolated model I created in real-life. This was my final project and will be used by the R&D team to simulate machine performance and acquire numbers otherwise impossible to experimentally determine.
