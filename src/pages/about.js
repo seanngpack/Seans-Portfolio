@@ -22,7 +22,7 @@ class BlogPostTemplate extends React.Component {
         <div className={styles.container}>
           <Intro
             title={'Sean Ng Pack'}
-            excerpt={'whats up'}
+            excerpt={'This page is dedicated to information about me'}
             logo={this.props.data.profile.childImageSharp.fluid}
           />
           <div className={styles.page}>
