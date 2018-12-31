@@ -4,8 +4,8 @@ date: "2015-05-01T22:12:03.284Z"
 skills: "Design Programming Electronics Sourcing"
 state: "Working on improving inverse kinematics and adding computer vision"
 featuredImage: "./image4.jpg"
-carousel: ["./image1.jpg", "./image2.jpg", "./image3.jpg", "./image4.jpg"]
-logo: "./featured-image.jpg"
+carousel: ["./image4.jpg", "./image1.jpg", "./image2.jpg", "./image3.jpg", ]
+logo: "./image4.jpg"
 excerpt: "A 3D printed robotic arm that I built myself. I later formed a group to bring it to the next level." 
 background: "I made this robotic arm during winter break of 2017. I utilized my
           entire skillset to make this
@@ -14,7 +14,7 @@ backgroundColor: "#75d5ff"
 tag: featured
 ---
 
-#Wow, this was a manumental project
+#Wow, this was a monumental project
 I did all the part sourcing, mechanical design, prototyping, and assembly in only 2 weeks. I spent half a day to plan each of the 14 days I had down to the hour. I came up with three game plans, the first was the most aggresive plan that scheduled me to be done with half the programming at the end of the 14 days. The second plan ended me with starting the programming, and the third wrapped me up with starting the electronics. When I was half a day behind the first plan, I jumped to the second, and finally the third.
 
 # Calculating the kinematics by hand

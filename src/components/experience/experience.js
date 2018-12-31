@@ -9,11 +9,11 @@ const experience = () => {
       <div className={styles.experienceContainer}>
         <ExperienceItem
           company={'Speck Products'}
-          position={'Mechanical Design Engineer'}
+          position={'Mechanical Design Engineer Co-op'}
           startDate={'July 2018'}
           endDate={'Dec 2018'}
           description={
-            'At Speck I honed my sketching skills and I brought several products to market '
+            'At Speck I honed my sketching skills and I helped bring several products to market'
           }
         />
         <ExperienceItem
@@ -27,11 +27,20 @@ const experience = () => {
         />
         <ExperienceItem
           company={'NxStage Medical'}
-          position={'Equipment Engineer'}
+          position={'Equipment Engineer Co-op'}
           startDate={'Jul 2017'}
           endDate={'Dec 2017'}
           description={
             'I flew to Mexico to complete V&V testing and designed a model of a pump using Simulink'
+          }
+        />
+        <ExperienceItem
+          company={'Northeastern University'}
+          position={'Computing Consultant III'}
+          startDate={'Jun 2015'}
+          endDate={'April 2017'}
+          description={
+            'I worked at Northeastern\'s ResNet diagnosing issues with studen-owned computers and fixing them'
           }
         />
       </div>
