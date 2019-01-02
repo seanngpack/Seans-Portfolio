@@ -14,3 +14,9 @@ backgroundColor: "#5DBCD2"
 
 #Features
 This is a fully-featured website with dynamic content. I am deploying the front-end with Netlify which rebuilds whenever I push the master repo. In the back I have Google analytics keeping track of visitor information. There is full SEO support and my site is ranked high on Google. I have a cool photo carousel system that works with touch gestures on every project page. I am also hosting my photos in the photography page.
+
+#Challenges
+I wanted to create a feature-rich portfolio while mainting an extremely easy to read look. This required me to be very concious of what was truly important to display. When I implemented features, I had to test several layouts to determine which ones were best for conveying what I wanted to show and their ability to guide the reader to the next item of importance.
+
+#Future
+There are still features that I'd like to add including cookies support, better user tracking, and a more robust photos page. I will be using the data I collect from Google Analytics to drive my design choices to make the website more engaging and easy to use.
