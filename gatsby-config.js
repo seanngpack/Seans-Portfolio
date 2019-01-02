@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Sean Ng Pack - Unordinary Mechanical Engineering Student',
+    title: 'Sean Ng Pack - Product Design & Programming',
     author: 'Sean Ng Pack',
     titleTemplate: '%s | SEANNGPACK ',
     description: "Fashion, design, photography, and much much more",
@@ -50,7 +50,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: 'UA-101863918-1',
+        trackingId: process.env.TRACKING_ID,
       },
     },
     `gatsby-plugin-feed`,
