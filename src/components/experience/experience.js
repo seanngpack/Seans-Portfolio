@@ -42,7 +42,7 @@ const experience = () => {
           startDate={'Jun 2015'}
           endDate={'April 2017'}
           description={
-            'I worked at Northeastern\'s ResNet diagnosing issues with studen-owned computers and fixing them'
+            'I worked at Northeastern\'s ResNet diagnosing issues with student-owned computers and fixing them'
           }
         />
       </div>
