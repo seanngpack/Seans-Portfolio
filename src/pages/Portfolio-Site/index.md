@@ -17,3 +17,6 @@ This is a fully-featured website with dynamic content. I am deploying the front-
 
 #Challenges
 I wanted to create a feature-rich portfolio while mainting an extremely easy to read look. This required me to be very concious of what was truly important to display. When I implemented features, I had to test several layouts to determine which ones were best for conveying what I wanted to show and their ability to guide the reader to the next item of importance.
+
+#Future
+There are still features that I'd like to add including cookies support, better user tracking, and a more robust photos page. I will be using the data I collect from Google Analytics to drive my design choices to make the website more engaging and easy to use.
