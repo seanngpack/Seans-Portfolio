@@ -8,6 +8,15 @@
     margin-bottom: 0;
 }
 
+.school {
+    all: unset;
+    color: #ef1515;
+}
+
+.school:hover {
+    cursor: pointer;
+}
+
 .productDesign, .programming {
     color: #12c3e8;
 }
