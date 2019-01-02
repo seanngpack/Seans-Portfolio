@@ -14,7 +14,7 @@ class BlogIndex extends React.Component {
       <Layout>
         <SEO
           title={'Sean\'s portfolio site'}
-          description={'Hi, I\'m Sean Ng Pack 👨🏻‍💻. I\'m a mechanical engineering student who also loves to code'}
+          description={'Hi, I\'m Sean Ng Pack 👨🏻‍💻. I\'m a mechanical engineering student who loves product design and programming'}
           image={'/assets/gatsby-icon.png'}
           pathname={'/'}
           article

@@ -3,10 +3,12 @@ import styles from './contact.module.css'
 import { FaGithub, FaLink } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa'
 import { FaLinkedin } from 'react-icons/fa'
+import Indicator from '../indicator/indicator'
 
 const contact = () => {
   return (
     <div className={styles.container}>
+    <Indicator />
       <h1 className={styles.header}>Let's connect!</h1>
       <div className={styles.iconsContainer}>
         <a

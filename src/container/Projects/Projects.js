@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './Projects.module.css'
 import ItemGenerator from '../../components/itemGenerator/itemGenerator'
+import Indicator from '../../components/indicator/indicator'
 
 class Projects extends Component {
   state = {
@@ -30,6 +31,7 @@ class Projects extends Component {
     // console.log(this.props.data)
     return (
       <div className={styles.container}>
+      <Indicator />
         <h1 className={styles.header}>I really enjoy sharing my projects</h1>
         <div className={styles.categories}>
           <div

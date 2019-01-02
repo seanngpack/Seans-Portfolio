@@ -1,10 +1,12 @@
 import React from 'react'
 import styles from './experience.module.css'
 import ExperienceItem from '../experienceItem/experienceItem'
+import Indicator from '../indicator/indicator'
 
 const experience = () => {
   return (
     <div className={styles.container}>
+    <Indicator />
       <h1 className={styles.header}>What have I been up to?</h1>
       <div className={styles.experienceContainer}>
         <ExperienceItem
