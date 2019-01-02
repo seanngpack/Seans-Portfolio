@@ -8,8 +8,8 @@
     margin-bottom: 0;
 }
 
-.school {
-    all: unset;
+.school, .school:link, .school:visited, .school:hover, .school:active {
+    font-weight: 300;
     color: #ef1515;
 }
 
