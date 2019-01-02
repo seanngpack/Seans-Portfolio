@@ -19,7 +19,8 @@ class BlogIndex extends React.Component {
           pathname={'/'}
           article
         />
-        <div className={styles.container}>          
+        <div className={styles.container}>   
+        <div>{process.env.TRACKING_ID}</div>       
             <div className={styles.into}><Intro /> </div>         
             <div className={styles.projects}><Projects data={this.props.data} /></div>
             <div className={styles.experience}><Experience /></div>
