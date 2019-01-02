@@ -12,9 +12,9 @@
 }
 
 .experienceContainer {
-    margin-left: 2rem;
-    margin-right: 2rem;
-  }
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
 
 @media (min-width: 767px) {
   .experienceContainer {
