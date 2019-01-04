@@ -6,6 +6,7 @@ state: "Graduated from NxStage"
 featuredImage: "./1.jpg"
 carousel: ['./1.jpg',]
 logo: "./1.jpg"
+featured: 'no'
 tag: swag
 excerpt: "At NxStage I did a lot of Verification and Validation (V&V) and Matlab work"
 background: "For my first co-op I was at NxStage working on their life-changing dialysis machines."

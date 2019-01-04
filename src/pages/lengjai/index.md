@@ -6,7 +6,8 @@ state: "Continuous improvement"
 featuredImage: "./mockup.jpg"
 carousel: ['./about.jpg',]
 logo: "./about.jpg"
-tag: [featured, programming]
+featured: 'yes'
+tag: programming
 excerpt: An Asian-centric fashion/culture website built using react. Trying to change the world for the better.
 background: "I'm pretty socially concious and active in political discussions. I wanted to create my own platform to change the conversation."
 backgroundColor: "#ef1515"

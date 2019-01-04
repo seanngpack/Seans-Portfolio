@@ -6,6 +6,7 @@ state: "Finished"
 featuredImage: "./1-1.jpg"
 carousel: ['./4-1.jpg', './1-1.jpg', './2-1.jpg', './3-1.jpg', ]
 logo: "./1-1.jpg"
+featured: "no"
 tag: robots
 excerpt: "This was my first ever project using my 3D printer and creating something from scratch"
 background: "Summer break of 2017 I grinded hard to become better at robotics and all the encapsulated disciplines."
