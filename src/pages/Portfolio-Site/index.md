@@ -3,7 +3,7 @@ title: Sean's portfolio site
 date: "2018-07-10T23:46:37.121Z"
 skills: "Web development, React, CSS, API, Design,"
 state: "Release ver. 1.00"
-featuredImage: "./gatsby-icon.png"
+featuredImage: "./mockup.jpg"
 carousel: ['./gatsby-icon.png',]
 logo: "./gatsby-icon.png"
 tag: 'programming'

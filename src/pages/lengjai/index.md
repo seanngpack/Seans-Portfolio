@@ -3,11 +3,11 @@ title: Lengjai
 date: "2018-10-01T22:40:32.169Z"
 skills: "Web development, React, Node, CSS, API calls, databases, graphic design, photography, writing, politics, too many to list"
 state: "Continuous improvement"
-featuredImage: "./about.jpg"
+featuredImage: "./mockup.jpg"
 carousel: ['./about.jpg',]
 logo: "./about.jpg"
-tag: programming
-excerpt: An Asian-centric fashion/culture website built using react. Trying to change the world one step at a time.
+tag: [featured, programming]
+excerpt: An Asian-centric fashion/culture website built using react. Trying to change the world for the better.
 background: "I'm pretty socially concious and active in political discussions. I wanted to create my own platform to change the conversation."
 backgroundColor: "#ef1515"
 ---
