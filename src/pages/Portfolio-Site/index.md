@@ -6,6 +6,7 @@ state: "Release ver. 1.00"
 featuredImage: "./mockup.jpg"
 carousel: ['./gatsby-icon.png',]
 logo: "./gatsby-icon.png"
+featured: 'no'
 tag: 'programming'
 excerpt: "I built this portfolio site to showcase my projects"
 background: "My original portfolio site was on Wordpress and I wanted to get away from that"

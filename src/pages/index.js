@@ -63,7 +63,7 @@ export const pageQuery = graphql`
       }
     }
     featured: allMarkdownRemark(
-      filter: {frontmatter: {tag: {eq: "featured"}}}
+      filter: {frontmatter: {featured: {eq: "yes"}}}
       sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {

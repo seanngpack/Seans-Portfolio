@@ -10,8 +10,9 @@ excerpt: "A 3D printed robotic arm that I built myself. I later formed a group t
 background: "I made this robotic arm during winter break of 2017. I utilized my
           entire skillset to make this
           project come together."
-backgroundColor: "#75d5ff"          
-tag: [featured, robots]
+backgroundColor: "#75d5ff"    
+featured: "yes"
+tag: robots
 ---
 
 #Wow, this was a monumental project
