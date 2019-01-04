@@ -11,7 +11,7 @@ background: "I made this robotic arm during winter break of 2017. I utilized my
           entire skillset to make this
           project come together."
 backgroundColor: "#75d5ff"          
-tag: featured
+tag: [featured, robots]
 ---
 
 #Wow, this was a monumental project
