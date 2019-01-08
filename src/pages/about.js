@@ -29,13 +29,11 @@ class BlogPostTemplate extends React.Component {
             <p>
               I really do it all--fashion, photography, design, engineering,
               computer science, writing, tennis, pool, piano and a vast array of
-              esoteric hobbies. I fail fast and learn fast to climb to the top
-              1% of each one of my pursuits.
+              esoteric hobbies. I work hard and fail fast to become better at my pursuits. 
             </p>
             I like giving back to communities, I'm very active and well-known in
-            several prominent communities for fashion, photography, pool. I lead
-            discussions and provide insight that has never been discussed
-            before.
+            several prominent communities for fashion, photography, and pool. I lead
+            discussions and provide insight that has never been brought up before
             <p />
             <p>
               In addition to participating in communities, I like creating new
@@ -51,8 +49,7 @@ class BlogPostTemplate extends React.Component {
               awesome creations. I think my strong mechanical engineering
               knowledge, computer science skills, and design intuition are a
               deadly combo for developing projects that are unlike any other.
-            </p>
-            <p>TLDR; I wish there were more hours in a day.</p>
+            </p>            
           </div>
         </div>
       </Layout>
