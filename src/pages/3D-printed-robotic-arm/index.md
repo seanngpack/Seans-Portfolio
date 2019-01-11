@@ -1,6 +1,6 @@
 ---
 title: 3D Printed Robotic Arm
-date: "2015-05-01T22:12:03.284Z"
+date: "2017-12-30T22:12:03.284Z"
 skills: "Design Programming Electronics Sourcing"
 state: "Working on improving inverse kinematics and adding computer vision"
 featuredImage: "./image4.jpg"
