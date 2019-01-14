@@ -1,11 +1,12 @@
-# gatsby-starter-blog
-Gatsby starter for creating a blog
+# Sean's portfolio 👨🏻‍💻
+[View the website here!](https://seanngpack.com)
 
-Install this starter (assuming Gatsby is installed) by running from your CLI:
+Here's my portfolio to showcase the work I've done. I built this in React on top of a Gatsby starter.
 
-`gatsby new gatsby-blog https://github.com/gatsbyjs/gatsby-starter-blog`
-
-Or [view the live demo here](https://gatsby-starter-blog-demo.netlify.com/).
-
-## Running in development
-`gatsby develop`
+## Features
+1. Fully responsive design, works perfectly on mobile & desktop
+2. Dynamic content
+3. Google-analytics
+4. Stupid fast load times
+5. Carousel pictures component that works with swipe gestures
+6. Dedicated page to host photos
