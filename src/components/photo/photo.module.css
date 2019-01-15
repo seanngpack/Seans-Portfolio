@@ -9,16 +9,12 @@
   margin-left: 1rem;
 }
 
-.specs {
-  
-}
-
 .Modal {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 40vh;
-  height: 40vh;
+  width: 50vh;
+  height: 50vh;
   transform: translate(-50%, -50%) !important;
   outline: 0;
 }

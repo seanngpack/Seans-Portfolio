@@ -15,7 +15,7 @@ const experience = () => {
           startDate={'July 2018'}
           endDate={'Dec 2018'}
           description={
-            'At Speck I honed my sketching skills and I helped bring several products to market'
+            'At Speck I honed my sketching skills and helped bring several products to market'
           }
         />
         <ExperienceItem

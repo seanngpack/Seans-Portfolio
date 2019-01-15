@@ -25,6 +25,13 @@ export default ({ children }) => (
                 ISO
                 shutter
                 aperture
+                fullImage {
+                  childImageSharp {
+                    fluid(maxWidth: 4000) {
+                      ...GatsbyImageSharpFluid
+                    }
+                  }
+                }
                 featuredImage {
                   childImageSharp {
                     fluid(maxWidth: 1000, maxHeight: 1000, cropFocus: CENTER) {
