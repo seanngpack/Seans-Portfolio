@@ -22,6 +22,8 @@ class Photo extends Component {
   }
 
   render() {
+    let image = this.props.data.node.frontmatter.featuredImage.childImageSharp.fluid
+    let fullImage = this.props.data.node.frontmatter.fullImage.childImageSharp.fluid
     let title = this.props.data.node.frontmatter.title
     let camera = this.props.data.node.frontmatter.camera
     let ISO = this.props.data.node.frontmatter.ISO
@@ -37,20 +39,18 @@ class Photo extends Component {
           className={styles.Modal}
           overlayClassName={styles.Overlay}
         >
-          
             <Img
               fluid={
-                this.props.data.node.frontmatter.featuredImage.childImageSharp
-                  .fluid
+                fullImage
               }
               alt={this.props.data.node.frontmatter.title}
-              className={styles.image}
+              className={styles.fullImage}
             />
           
         </Modal>
         <Img
           fluid={
-            this.props.data.node.frontmatter.featuredImage.childImageSharp.fluid
+            image
           }
           alt={title}
           className={styles.image}

@@ -3,7 +3,7 @@ title: 3D Printed Robotic Arm
 date: "2017-12-30T22:12:03.284Z"
 skills: "Design Programming Electronics Sourcing"
 state: "Working on improving inverse kinematics and adding computer vision"
-featuredImage: "./new1.jpg"
+featuredImage: "./image5.jpg"
 carousel: ["./image4.jpg", "./new2.jpg","./image1.jpg", "./image2.jpg", "./image3.jpg",  ]
 logo: "./image4.jpg"
 excerpt: "A 3D printed robotic arm that I built myself. I later formed a group to bring it to the next level." 
