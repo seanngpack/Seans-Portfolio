@@ -14,7 +14,7 @@ backgroundColor: "#b0ddf2"
 ---
 
 #What is this project
-This robot doesn't do much--and that's what I came in to this project expecting. It was my first ever independant project in college and I wanted to use it as a learning oppurtunity. The robot uses an ultrasonic sensor to detect objects closer than a specified distance and then move away from it. Basically it autonomously navigates around my house.
+This robot doesn't do much--and that's what I came in to this project expecting. It was my first ever independant project in college and I wanted to use it as a learning oppurtunity. The robot uses an ultrasonic sensor to detect objects closer than a specified distance and then moves away from it. Basically it autonomously navigates around my house.
 
 Doing this project taught me many things. I learned a lot about 3D printing, electronics, programming, and part-sourcing. I started by writing down what I wanted the robot to do. Then sketched up what I wanted the robot to look like. I bought 
 all the electronics at the cheapest prices I could find on eBay and locally from MicroCenter. As I waited for the parts to arrive. I hacked away at SolidWorks printing the parts and assembling them together.
