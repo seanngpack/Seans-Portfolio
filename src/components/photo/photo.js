@@ -41,7 +41,7 @@ class Photo extends Component {
         >
             <Img
               fluid={
-                fullImage
+                image
               }
               alt={this.props.data.node.frontmatter.title}
               className={styles.fullImage}
