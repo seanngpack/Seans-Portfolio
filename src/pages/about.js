@@ -27,19 +27,19 @@ class BlogPostTemplate extends React.Component {
           />
           <div className={styles.page}>
             <p>
-              I really do it all--fashion, photography, design, engineering,
-              computer science, writing, tennis, pool, piano and a vast array of
+              I really do it all--engineering,
+              computer science, fashion, photography, design,  writing, tennis, pool, piano and a vast array of
               esoteric hobbies. I work hard and fail fast to become better at my pursuits. 
             </p>
             I like giving back to communities, I'm very active and well-known in
-            several prominent communities for fashion, photography, and pool. I lead
+            several prominent communities for fashion, photography, and software development. I lead
             discussions and provide insight that has never been brought up before
             <p />
             <p>
               In addition to participating in communities, I like creating new
               things. In High school I co-founded the MHS Recycling Club which
               grew to be the school's largest organization. At Northeastern I
-              co-founded the NU Pool Club and now head the school's Pool Team. I
+              co-founded the NU Pool Club and now head the school's pool team. I
               also created Lengjai, an Asian-centric fashion/culture news
               platform to empower Asian-Americans and increase representation in
               the media.

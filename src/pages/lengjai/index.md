@@ -4,7 +4,7 @@ date: "2018-10-01T22:40:32.169Z"
 skills: "Web development, React, Node, CSS, API calls, databases, graphic design, photography, writing, politics, too many to list"
 state: "Continuous improvement"
 featuredImage: "./mockup.jpg"
-carousel: ['./about.jpg',]
+carousel: ['./about.jpg',  'lengjaiDiagonal.png', 'lengjaiMock.jpg']
 logo: "./about.jpg"
 featured: 'yes'
 tag: programming

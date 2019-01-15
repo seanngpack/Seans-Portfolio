@@ -15,7 +15,7 @@ const experience = () => {
           startDate={'July 2018'}
           endDate={'Dec 2018'}
           description={
-            'At Speck I honed my sketching skills and helped bring several products to market'
+            'At Speck I honed my sketching skills and brought several products to market'
           }
         />
         <ExperienceItem
@@ -24,7 +24,7 @@ const experience = () => {
           startDate={'Sept 2017'}
           endDate={'Jul 2018'}
           description={
-            'I worked in Dr. Randall Erbs lab researching magnetically aligned materials for 3D printers'
+            'I worked in Dr. Randall Erbs lab researching 3-D printed magnetically aligned materials'
           }
         />
         <ExperienceItem
@@ -42,7 +42,7 @@ const experience = () => {
           startDate={'Jun 2015'}
           endDate={'April 2017'}
           description={
-            'I worked at Northeastern\'s ResNet diagnosing issues with student-owned computers and fixing them'
+            'I worked at Northeastern\'s ResNet performing high & low-level remediation on student-owned computers'
           }
         />
       </div>
