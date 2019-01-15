@@ -4,7 +4,7 @@ date: "2018-12-28T23:46:37.121Z"
 skills: "Web development, React, CSS, API, Design,"
 state: "Release ver. 1.00"
 featuredImage: "./mockup.jpg"
-carousel: ['./gatsby-icon.png',]
+carousel: ['./gatsby-icon.png', 'mockup.jpg', 'portfolioMock.jpg']
 logo: "./gatsby-icon.png"
 featured: 'no'
 tag: 'programming'
