@@ -13,11 +13,9 @@ background: "For my second co-op, I went to the SF/Bay Area to join the Speck te
 backgroundColor: "#5DBCD2"
 ---
 
-Co-oping at Speck was an amazing experience. The people there were really supportive, smart, driven, and cool. The pace of work at the product development team was very fast so I had to adapt quickly to changing needs and pushing development forward.
-
 #Developing a new product from scratch
 
-I worked directly with an [industrial designer](https://www.instagram.com/sketchypat/) in creating a new product starting from brainstorming until manufacturing. We sketched ideas about what the product should do, what it should look like, how big it should be, and then we began creating prototypes using a 3D printer. I also ordered over a dozen items from our competitors to sacrifice them. We iterated on our designs and as we continued the development process. We gained additional constraints from marketing and feedback from the brainstorms we held. We worked with the legal team to see if our product infringed on any patents. I prepared presentations and documents to send off to the legal team to make their lives easier. I also participated in naming sessions to figure out what the product would be called!
+I worked directly with an [industrial designer](https://www.instagram.com/sketchypat/) creating a new product starting from brainstorming until manufacturing. We sketched ideas about what the product should do, what it should look like, how big it should be, and then we began creating prototypes using a 3D printer. I also ordered over a dozen items from our competitors to sacrifice them. We iterated on our designs and as we continued the development process. We gained additional constraints from marketing and feedback from the brainstorms we held. We worked with the legal team to see if our product infringed on any patents. I prepared presentations and documents to send off to the legal team to make their lives easier. I also participated in naming sessions to figure out what the product would be called!
 
 ##Another project
 
