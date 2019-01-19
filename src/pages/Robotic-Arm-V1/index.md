@@ -1,16 +1,16 @@
 ---
 title: 3D Printed Robotic Arm V1
 date: "2017-07-30T22:12:03.284Z"
-skills: "Design Programming Electronics Sourcing"
-state: "Working on improving inverse kinematics and adding computer vision"
+skills: "Design, Programming, Electronics, Sourcing"
+state: "Continued in V3"
 featuredImage: "./yeet.jpg"
 carousel: ["./yeet.jpg", "./yeet-back.jpg", "./claw.jpg","./claw-open.jpg", "./claw-under.jpg", ]
 logo: "./yeet.jpg"
-excerpt: "A 3D printed robotic arm that I built myself. I later formed a group to bring it to the next level." 
+excerpt: "My second foray into robotics. After my first Arduino project I wanted to test the limits of my skills" 
 background: "I made this robotic arm during winter break of 2017. I utilized my
           entire skillset to make this
           project come together."
-backgroundColor: "#e5e124"    
+backgroundColor: "#75d5ff"    
 featured: "no"
 tag: robots
 ---
