@@ -23,12 +23,14 @@
 }
 
 @media(min-width:767px) {
-    .dot {
-        display: inline;
-    }
-
     .header {
         flex-direction: row;
         font-size: 1.25rem;
+    }
+}
+
+@media(min-width:1060px) {
+    .dot {
+        display: inline;
     }
 }
