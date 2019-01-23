@@ -13,6 +13,8 @@ background: "Summer break of 2017 I grinded hard to become better at robotics an
 backgroundColor: "#b0ddf2"
 ---
 
+`video: https://youtu.be/n9kBc-P7yNI`
+
 #What is this project
 This robot doesn't do much--and that's what I came in to this project expecting. It was my first ever independant project in college and I wanted to use it as a learning oppurtunity. The robot uses an ultrasonic sensor to detect objects closer than a specified distance and then moves away from it. Basically it autonomously navigates around my house.
 
