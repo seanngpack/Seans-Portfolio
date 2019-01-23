@@ -25,3 +25,5 @@ Here's a simple walkthrough of how I made this arm
 9. Designed electronics schematics
 10. Assemble electronics and wired them to arm
 11. Result: Watch the video below!
+
+`video: https://youtu.be/CW1ur1_IGP8`

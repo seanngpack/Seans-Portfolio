@@ -15,9 +15,12 @@ featured: "yes"
 tag: robots
 ---
 
-[Check out the first arm, I have more math in there]()
+[Click here to see V1](https://www.seanngpack.com/Robotic-Arm-V1/)
 
-#Wow, this was a monumental project
+###The video below captures moments after we finally got the arm working. I think it was one of the happiest moments of my life.
+`video: https://youtu.be/8EcQYNPEbdQ`
+
+#Let's talk about my project
 I did all the part sourcing, mechanical design, prototyping, and assembly in only 2 weeks. I spent half a day to plan each of the 14 days I had down to the hour. I came up with three game plans, the first was the most aggresive plan that scheduled me to be done with half the programming at the end of the 14 days. The second plan ended me with starting the programming, and the third wrapped me up with starting the electronics. When I was half a day behind the first plan, I jumped to the second, and finally the third.
 
 # Calculating the kinematics by hand
