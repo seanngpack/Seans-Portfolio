@@ -13,6 +13,8 @@ background: "This was my first project in React and I wanted it to be a big one"
 backgroundColor: "#ef1515"
 ---
 
+###[Repo](https://github.com/seanngpack/lengjai)
+
 #Stack and features
 I'm deploying the frontend using Netlify which also provides SSL support. For my backend I'm using a headless Wordpress and querying content using GraphQL. I have webhooks on Wordpress to trigger a rebuild on Netlify when I upload/update posts. Pushing to my master branch on Github also triggers a rebuild. I'm working with a git flow and develop on the dev branch -> staging branch -> master branch. I have my site configured to dynamically create nodes for new content and new pages. I also built an emoji system to track votes on each article. The votes are stored offshore in my Firebase DB. I have also implemented a commenting system using Disqud. I am using ElasticLunr search for the search bar. I have full-fledged SEO implementation and Google Analytics. I implemented a views count system by pulling data from my Google APIs.
 

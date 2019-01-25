@@ -29,17 +29,17 @@ class BlogPostTemplate extends React.Component {
             <p>
               I really do it all--engineering,
               computer science, fashion, photography, design,  writing, tennis, pool, piano and a vast array of
-              esoteric hobbies. I work hard and fail fast to become better at my pursuits. 
+              esoteric hobbies. I work hard, fail fast, and learn fast to become better at my pursuits. 
             </p>
             I like giving back to communities, I'm very active and well-known in
             several prominent communities for fashion, photography, and software development. I lead
-            discussions and provide insight that has never been brought up before
+            discussions and provide novel insight.
             <p />
             <p>
               In addition to participating in communities, I like creating new
-              things. In High school I co-founded the MHS Recycling Club which
+              things. In high school I co-founded the MHS Recycling Club which
               grew to be the school's largest organization. At Northeastern I
-              co-founded the NU Pool Club and now head the school's pool team. I
+              co-founded the NU Pool Club and also head the school's pool team. I
               also created Lengjai, an Asian-centric fashion/culture news
               platform to empower Asian-Americans and increase representation in
               the media.
