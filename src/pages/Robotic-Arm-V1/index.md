@@ -14,20 +14,20 @@ tag: robots
 ---
 
 #Features
-The arm is operated by rotating potentiometers to control the motors. To open and clos the claw you press a button next to the potentiometers. An Arduino handles the input from the potentiometers and the button and feeds it to the servo motors. 
+The arm is operated by rotating potentiometers to control the motors. To open and close the claw you press a button next to the potentiometers. An Arduino handles the input from the potentiometers and button and drives the servo motors. 
 
 # Design process
 Here's a simple walkthrough of how I made this arm
-1. Sketch design concepts
+1. Sketched design concepts
 2. Wrote some geometric proofs and kinematic equations to dimension the arm; plotted kinematics on Matlab to drive dimensions
-4. Decide that I'm ready to tackle this project
+4. Decided that I'm was ready to tackle this project
 5. Ordered metal hardware from eBay and Aliexpress
 6. Used the calculated dimensions and started making parts in Solidworks
 7. 3D printed the parts and began assembling them with the metal hardware
 8. Iterated the design several times until I was somewhat happy
 9. Designed electronics schematics
-10. Assemble electronics and wired them to arm
-11. Result: Watch the video below!
+10. Assembled electronics and wired them to arm
+11. The arm was ready to play with!
 
 `video: https://youtu.be/CW1ur1_IGP8`
 
