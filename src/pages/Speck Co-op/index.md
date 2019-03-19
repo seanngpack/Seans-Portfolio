@@ -4,7 +4,7 @@ date: "2018-07-10T23:46:37.121Z"
 skills: "Product Design, CAD (Creo Parametric), Surface Modeling, sketching, sourcing, talking to vendors, testing"
 state: "Graduated from Speck"
 featuredImage: "./speck-products-logo-large.jpg"
-carousel: ['./huawei1.png', './case.jpg', 'phone1.jpg']
+carousel: ['./huawei1.png', './case-e.jpg', 'speck-grabtab.jpg']
 logo: "./logoSquare.jpg"
 featured: 'yes'
 tag: featured
@@ -23,7 +23,7 @@ I breathed engineering into the [Case-E design](https://www.speckproducts.com/ca
 
 ##Adhesives project
 
-Another major project I held was figuring out the best adhesive to use for the [GrabTab](https://www.speckproducts.com/accessories/grabtab/SPK-GTAB.html?ranMID=40350&ranEAID=a1LgFw09t88&ranSiteID=a1LgFw09t88-H235_oQ__a_QrXcD3mWy9g&utm_source=2126220&utm_medium=Linkshare&siteID=a1LgFw09t88-H235_oQ__a_QrXcD3mWy9g). I came into the project with very few constraints and desired criteria which meant I had to create and quantify them. I pulled in a lot of information I gained from my final project in my ME4505 class. I worked with a senior engineer and we came up with desired qualities: strength, resuability, and minimal-residue. Then we talked to many vendors to source a large array of adhesives. We created test fixtures to consistently benchmark each adhesive in a controlled manner and narrowed down the list. Then I talked to many more vendors, and even some of them face-to-face in the office. I looked through dozens of spec-sheets, ran through rounds of environment testing, and we found our grail adhesive. This adhesive had the specs that we wanted, plus more. It is currently being used for the GrabTab and it will be used for future projects.
+Another major project I held was figuring out the best adhesive to use for the [GrabTab](https://www.speckproducts.com/accessories/grabtab/SPK-GTAB.html?ranMID=40350&ranEAID=a1LgFw09t88&ranSiteID=a1LgFw09t88-H235_oQ__a_QrXcD3mWy9g&utm_source=2126220&utm_medium=Linkshare&siteID=a1LgFw09t88-H235_oQ__a_QrXcD3mWy9g). I came into the project with very few constraints and desired criteria which meant I had to create and quantify them. I pulled in a lot of information I gained from my final project in my ME4505 class (Mechanical Design). I worked with a senior engineer and we came up with desired qualities: strength, resuability, and minimal-residue. Then we talked to many vendors to source a large array of adhesives. We created test fixtures to consistently benchmark each adhesive in a controlled manner and narrowed down the list. Then I talked to many more vendors, and even some of them face-to-face in the office. I looked through dozens of spec-sheets, ran through rounds of environment testing, and we found our grail adhesive. This adhesive had the specs that we wanted, plus more. It is currently being used for the GrabTab and it will be used for future projects.
 
 ##There was lots of CAD
 
