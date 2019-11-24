@@ -1,6 +1,6 @@
 import React, { Component, Children, cloneElement } from 'react'
 import styled from 'styled-components'
-import Swipeable from 'react-swipeable'
+import {Swipeable} from 'react-swipeable'
 import { throttle } from 'lodash'
 import PropTypes from 'prop-types'
 

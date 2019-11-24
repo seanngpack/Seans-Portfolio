@@ -11,7 +11,7 @@ export default ({ children }) => (
     query={graphql`
       query {
         photoDescriptions: allMarkdownRemark(
-          filter: { collection: { eq: "photos" } }
+          filter: {fileAbsolutePath: {regex: "/(photos)/"  }}
           sort: { fields: [frontmatter___date], order: DESC }
         ) {
           edges {

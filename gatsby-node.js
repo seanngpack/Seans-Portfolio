@@ -11,7 +11,7 @@ exports.createPages = ({ graphql, actions }) => {
         `
           {
             allMarkdownRemark(
-              filter: { collection: { ne: "photos" } }
+              filter: {fileAbsolutePath: {regex: "/(pages)/"  }}
               sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
               edges {
                 node {
