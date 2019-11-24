@@ -1,7 +1,7 @@
 ---
 title: Arduino Robot
-date: "2017-06-14T23:46:37.121Z"
-skills: "SolidWorks Robotics Arduino Programming"
+date: "2017-06-14"
+skills: "SolidWorks, Robotics, Arduino, Programming"
 state: "Finished"
 featuredImage: "./1-1.jpg"
 carousel: ['./4-1.jpg', './1-1.jpg', './2-1.jpg', './3-1.jpg', ]

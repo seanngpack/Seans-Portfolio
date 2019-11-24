@@ -1,12 +1,12 @@
 ---
 title: My time at Speck Products
-date: "2018-07-10T23:46:37.121Z"
+date: "2018-07-10"
 skills: "Product Design, CAD (Creo Parametric), Surface Modeling, sketching, sourcing, talking to vendors, testing"
 state: "Graduated from Speck"
 featuredImage: "./speck-products-logo-large.jpg"
 carousel: ['./huawei1.png', './case-e.jpg', 'speck-grabtab.jpg']
 logo: "./logoSquare.jpg"
-featured: 'yes'
+featured: 'no'
 tag: featured
 excerpt: "My six-month Co-op at Speck led to new products released to market, and a patent under my name."
 background: "For my second Co-op, I went to the SF/Bay Area to join the Speck team"

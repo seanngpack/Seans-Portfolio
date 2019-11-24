@@ -1,6 +1,6 @@
 ---
 title: Lengjai
-date: "2018-10-01T22:40:32.169Z"
+date: "2018-10-01"
 skills: "Web development, React, Node, CSS, API calls, databases, graphic design, photography, writing, politics, too many to list"
 state: "Continuous improvement"
 featuredImage: "./mockup.jpg"

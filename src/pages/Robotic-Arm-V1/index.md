@@ -1,6 +1,6 @@
 ---
 title: 3D Printed Robotic Arm V1
-date: "2017-07-30T22:12:03.284Z"
+date: "2017-07-30"
 skills: "Design, Programming, Electronics, Sourcing"
 state: "Continued in V3"
 featuredImage: "./yeet.jpg"
