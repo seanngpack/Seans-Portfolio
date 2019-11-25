@@ -1,6 +1,6 @@
 ---
 title: 3D Printed Robotic Arm V3
-date: "2017-12-30T22:12:03.284Z"
+date: "2017-12-30"
 skills: "Design, Programming, Electronics, Sourcing"
 state: "Redesigning robot claw and adding computer vision"
 featuredImage: "./image5.jpg"

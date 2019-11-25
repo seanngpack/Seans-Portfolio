@@ -10,6 +10,15 @@ const experience = () => {
       <h1 className={styles.header}>What have I been up to?</h1>
       <div className={styles.experienceContainer}>
         <ExperienceItem
+          company={'NASA Jet Propulsion Laboratory'}
+          position={'Mechanical Engineer Co-op'}
+          startDate={'July 2019'}
+          endDate={'Dec 2019'}
+          description={
+            'At JPL I got to work on cool technologies and develop software for Mars 2020 teams'
+          }
+        />
+        <ExperienceItem
           company={'Speck Products'}
           position={'Mechanical Design Engineer Co-op'}
           startDate={'July 2018'}
@@ -33,7 +42,7 @@ const experience = () => {
           startDate={'Jul 2017'}
           endDate={'Dec 2017'}
           description={
-            'I flew to Mexico to complete V&V testing and designed a model of a pump using Simulink'
+            'I flew to Mexico to complete V&V testing and I also built a model of a pump using Simulink'
           }
         />
         <ExperienceItem

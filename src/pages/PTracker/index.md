@@ -1,6 +1,6 @@
 ---
 title: PTracker
-date: "2018-07-10T23:46:37.121Z"
+date: "2018-07-10"
 skills: "Full-stack, Flask, Postgres, SQLAlchemy, React/Redux/TS"
 state: "Working on price charts"
 featuredImage: "./PTracker.jpg"

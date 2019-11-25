@@ -32,7 +32,7 @@ class Projects extends Component {
     return (
       <div className={styles.container}>
       <Indicator />
-        <h1 className={styles.header}>I really enjoy sharing my projects</h1>
+        <h1 className={styles.header}>Check out my projects!</h1>
         <div className={styles.categories}>
           <div
             className={styles[this.state.div1 ? 'categoryActive' : 'category']}

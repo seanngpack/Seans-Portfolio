@@ -1,6 +1,6 @@
 ---
 title: My time at Nxstage
-date: "2017-07-07T23:46:37.121Z"
+date: "2017-07-07"
 skills: "Matlab, Simulink, SolidWorks, V&V,"
 state: "Graduated from NxStage"
 featuredImage: "./1.jpg"

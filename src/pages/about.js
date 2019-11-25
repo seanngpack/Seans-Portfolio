@@ -5,7 +5,6 @@ import Layout from '../components/Layout'
 import Intro from '../components/PostStuff/intro/intro'
 import SEO from '../components/SEO/SEO'
 
-import CarouselLol from '../container/CarouselPage/index'
 
 class BlogPostTemplate extends React.Component {
   render() {
