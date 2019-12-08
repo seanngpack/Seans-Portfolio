@@ -9,7 +9,7 @@ const contact = () => {
   return (
     <div className={styles.container}>
     <Indicator />
-      <h1 className={styles.header}>If you want to talk tech, photography, or life in general just hit me up!</h1>
+      <h1 className={styles.header}>Let's get in contact</h1>
       <div className={styles.iconsContainer}>
         <a
           href="https://www.github.com/seanngpack"
