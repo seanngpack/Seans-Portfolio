@@ -98,7 +98,7 @@ class Carousel extends Component {
     )
 
     return (
-      <div>
+      <div onClick= {this.nextSlide}>
         <Swipeable
           onSwipingLeft={() => this.handleSwipe(true)}
           onSwipingRight={() => this.handleSwipe()}
