@@ -27,7 +27,7 @@ class BlogPostTemplate extends React.Component {
           <div className={styles.page}>
             <p>
               I really do it all--engineering,
-              computer science, fashion, photography, design,  writing, tennis, pool, piano and a vast array of
+              computer science, fashion, photography, design, writing, tennis, pool, piano and a vast array of
               esoteric hobbies. I work hard, fail fast, and learn fast to become better at my pursuits. 
             </p>
             I like giving back to communities, I'm very active and well-known in
