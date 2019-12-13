@@ -98,7 +98,7 @@ class Carousel extends Component {
     )
 
     return (
-      <div onClick= {this.nextSlide}>
+      <div>
         <Swipeable
           onSwipingLeft={() => this.handleSwipe(true)}
           onSwipingRight={() => this.handleSwipe()}
@@ -109,7 +109,7 @@ class Carousel extends Component {
             size={40}
             className={styles.FaArrowLeft}
           />
-          <Wrapper>
+          <Wrapper onClick= {this.nextSlide}>
             <CarouselContainer
               sliding={sliding}
               direction={direction}
