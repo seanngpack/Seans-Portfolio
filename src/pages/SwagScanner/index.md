@@ -1,15 +1,15 @@
 ---
 title: SwagScanner
 date: "2019-11-23"
-skills: "Python, Big Data, Numpy, BluetoothLE, Mechanical Design, Fusion360, electronics"
-state: "Currently working on writing iterative closest point algorithm by hand"
+skills: "Python, Big Data, Numpy, BluetoothLE, Mechanical Design, Fusion360, electronics, soldering"
+state: "Working on writing iterative closest point algorithm and debugging"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
 logo: "./1.jpg"
 featured: "yes"
 tag: robots
 excerpt: "My most ambitious project to date"
-background: "A 3D scanner system created from the ground up using 3D printing, Arduino, Python and C++. Utilizes depth images to create virtual models of scanned objects."
+background: "A 3D scanner system created from the ground up using 3D printing, Python and C++. Utilizes depth images to create virtual models of scanned objects."
 backgroundColor: "#f274db"
 ---
 
@@ -18,7 +18,7 @@ https://github.com/seanngpack/swag-scanner
 
 ## About
 
-SwagScanner is a 3D scanning system that grabs depth images of an object places on the rotating bed at different orientations and processes the data into a refined pointcloud. I ran my own design sprint to build a very robust system in only 1.5 months in my free time. The software is currently being developed.
+SwagScanner is a 3D scanning system that grabs depth images of an object placed on the rotating bed, processes the data, and creates a refined pointcloud. I ran my own design sprint to build a robust system in only 1.5 months with my free time. Why did I tackle a project like this? I thought it would be fun to challenge myself with a project that has not been done (or atleast documented) before.
 
 ## Features
 
@@ -26,18 +26,18 @@ SwagScanner is a 3D scanning system that grabs depth images of an object places 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Highly modular system design \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Extensible camera superclass allows use of any depth camera \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Super fast depth deprojection \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Saves pointclouds to files to reduce memory usage \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Saves pointclouds to files \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iterative closest point algorithm for registration 
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Hardware** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Elegant, integrated design \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Easy bottom-up assembly \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Simple bottom-up assembly \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Self-locking gearbox \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Rotating bed can withstand high axial & radial loads 
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Electronics** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Custom vertical board design \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Easy hotswapping of motordriver and arduino \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Easy hotswapping of motor driver and arduino boards \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Minimized number of cables and cable lengths
 
 ## Technical
@@ -54,13 +54,21 @@ SwagScanner is a 3D scanning system that grabs depth images of an object places 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.2 N-m torque @ 80% efficiency \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Slew bearing for bed rotation \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~300g PLA filament \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Intel d435 realsense 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Intel SR305 realsense sensor
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Electronics** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRV8825 driver \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arduino 33 iot ble 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arduino 33 iot ble \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dupont connectors
 
 ## Design process
+<details>
+  <summary>Click to expand</summary>
+</br> 
+Here is a breakdown of the design sprint I ran and some of my design decisions that I made during the process
+</br>
+</br>
+
 * weeks 1-2 
 
   I spent the first couple weeks researching what I was getting myself into. I took a deep dive into how 3D imaging systems worked and the different paths I could take. I also looked into different mechanisms I could use to achieve this. There were so many different paths and I had to narrow down my choices based on some criteria: robustness, quality, implementation feasibility, and size.
@@ -77,7 +85,18 @@ SwagScanner is a 3D scanning system that grabs depth images of an object places 
 
   As I was wrapping up hardware design I started learning pointcloud theory and began working on software design. I drew out an extensible and robust system architecture for my project. In this time I learned BluetoothLE design and created my own services and characteristics for bluetooth functionality. I also learned asynchronous design so my system could create threaded workers to listen for notifications from the Arduino. I also learned about depth imaging, pointclouds, and processing algorithms.
 
+* weeks 6-
+
+   Well, I'm in school now so I don't have much time to work on SwagScanner. I plan on furthering development after I graduate and find a job.
+
+
+</details> 
+</br>
+
+
 ## Software design
+<details>
+  <summary>Click to expand</summary>
 
 ### Entry Point
 First, we define the entry point of the application `scan.py` and create a `Scan()` object to handle abstracting each major steps in the scanning pipeline to be run sequentially (note: not all actions are synchronous in SwagScanner!)
@@ -96,6 +115,62 @@ This provides the tools to perform voxel grid filtering which downsamples our po
 
 ### Registration()
 The `Registration()` class provides the tools to iteratively register pairs of clouds. Using global iterative registration, we define a `global_transform` variable as the identity matrix of size 4x4. Then we apply the iterative closest point algorithm to a a source, target cloud pair and get the source -> target cloud transformation as a 4x4 transformation matrix. Then we take the inverse of that matrix `transf_inv` to get the transformation from target->source. We multiply the target by the global transform (remember: this is the first iteration, the `global_transform` is still the identity matrix) to get the target cloud in the same reference frame as the source and save the cloud. Then we dot product `global_transform` and `transf_inv` to update the global transformation. Move on to the next pair of clouds and repeat. 
+
+</details>
+</br>
+
+## Hardware Design
+<details>
+  <summary>Click to expand</summary>
+
+Again with the theme of modularity, I designed the hardware to be easy to disassemble, reassemble, and be upgradeable. I went with worm drive gearbox design for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by desgining the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, atleast the weight of the set screw components won't act on the set screws. 
+Because of 3D printing tolerances, there may be shaft misalignment in addition to misalignment between the gears due to the stepper motor mount. I mitigated this issue by designing the floating brace to be slightly compliant.
+
+![compliant](./compliant.jpg)
+
+
+Designing the turntable assembly to be assembled from the bottom-up in an intuitive way proved to be extremely challenging. I had many factors to considering including 3D printability, wall thicknesses to mask screw heads, structural integrity, and overall component-to-component interaction. I also optimized the design of each component to standardize fastener sizes. 
+
+When I designed the electronics housing, I wanted the make the sides removable for easy access to the electronics for debugging. I designed a self-aligning sliding profile to resist motion in all axii except the Z (up and down).
+
+![profile](./profile.jpg)
+
+The aluminum pipe bridging the electronics housing and turntable is secured through friction on both ends.
+
+![friction](./friction.jpg)
+
+Overall, I think the assembly process is pretty easy--check out some photos of the build process.
+
+![1](./IMG_2133.jpg)
+![5](./IMG_2142.jpg)
+![6](./IMG_2211.jpg)
+![7](./IMG_2227.jpg)
+![8](./IMG_2147.jpg)
+![3](./IMG_2135.jpg)
+![10](./IMG_2214.jpg)
+![2](./IMG_2134.jpg)
+
+
+
+</details> 
+</br>
+
+## Electronics Design
+<details>
+  <summary>Click to expand</summary>
+
+For the electronics, I went with a stacked board design to save horizontal space for additional components I may add in the future. I designed the board to be very easy to hotswap components in the case that anything fails. I am powering the Arduino and stepper driver using a 12V 2a wall adapter. I did not add a voltage regulator such as a LM317 (cheap linear regulator) or a switching regulator to my Arduino because my Arduino iot33 comes with a MPM3610 which its [spec sheets](https://www.monolithicpower.com/en/mpm3610.html) indicate to be a large upgrade compared to the voltage regulator supplied in normal Arduinos. I also opted to use Dupont connectors instead of more secure JST connectors because I like the ease of cable removal with the Dupont connectors whereas I find JST connector to get stuck often.
+
+![open](./circuitry1.jpg)
+![Circuitr2](./circuitry2.jpg)
+![Circuitry3](./circuitry3.jpg)
+
+In the back you can see my TS80 soldering iron. It is worth the hype!
+
+![Circuitry4](./circuitry4.jpg)
+
+</details> 
+</br>
 
 ## Challenges
 There were a lot. Namely, time was a massive constraint and I had to make smart decisions at every turn to avoid wasting time and proceeding with development.
