@@ -9,7 +9,7 @@ logo: "./1.jpg"
 featured: "yes"
 tag: robots
 excerpt: "My most ambitious project to date"
-background: "A 3D scanner system created from the ground up using 3D printing, Python and C++. Utilizes depth images to create virtual models of scanned objects."
+background: "A 3D scanner system created from the ground up using 3D printing, Python, and C++. Utilizes depth images to create virtual models of scanned objects."
 backgroundColor: "#f274db"
 ---
 
@@ -43,7 +43,7 @@ SwagScanner is a 3D scanning system that grabs depth images of an object placed 
 ## Technical
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Software** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python, C++, PCL,  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python, C++, PCL  \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ICP registration \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Voxel grid filtering \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vectorized deprojection using intrinsics \
@@ -123,7 +123,7 @@ The `Registration()` class provides the tools to iteratively register pairs of c
 <details>
   <summary>Click to expand</summary>
 
-Again with the theme of modularity, I designed the hardware to be easy to disassemble, reassemble, and be upgradeable. I went with worm drive gearbox design for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by desgining the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, atleast the weight of the set screw components won't act on the set screws. 
+Again with the theme of modularity, I designed the hardware to be easy to disassemble, reassemble, and be upgradeable. I went with a worm drive gearbox design for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by desgining the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, atleast the weight of the set screw components won't act on the set screws. 
 Because of 3D printing tolerances, there may be shaft misalignment in addition to misalignment between the gears due to the stepper motor mount. I mitigated this issue by designing the floating brace to be slightly compliant.
 
 ![compliant](./compliant.jpg)
@@ -141,14 +141,13 @@ The aluminum pipe bridging the electronics housing and turntable is secured thro
 
 Overall, I think the assembly process is pretty easy--check out some photos of the build process.
 
-![1](./IMG_2133.jpg)
-![5](./IMG_2142.jpg)
-![6](./IMG_2211.jpg)
-![7](./IMG_2227.jpg)
-![8](./IMG_2147.jpg)
-![3](./IMG_2135.jpg)
-![10](./IMG_2214.jpg)
-![2](./IMG_2134.jpg)
+![assembling1](./IMG_2133.jpg)
+![assembling2](./IMG_2227.jpg)
+![assembling3](./IMG_2211.jpg)
+![assembling4](./IMG_2147.jpg)
+![assembling5](./IMG_2135.jpg)
+![assembling6](./IMG_2214.jpg)
+![assembling7](./IMG_2134.jpg)
 
 
 
@@ -172,6 +171,7 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 </details> 
 </br>
 
-## Challenges
-There were a lot. Namely, time was a massive constraint and I had to make smart decisions at every turn to avoid wasting time and proceeding with development.
+## What I've learned so far
+One of my biggest takeaways thus far is understanding interaction between components at every level. In each subsystem there's a tricky balance of performance, aesthetics, size, and a multitude of other characteristics that are intertwined with each other. For example, when designing the circuit board, I initially wanted the absolute smallest form factor possible. The benefit of a super small form factor would save space in the housing for other components at the cost of hotter components on the board, less modularity, and more difficulty in repairs. I converged to a circuit board design that balanced the tradeoffs while maintaining a small profile. Understanding how to design for each component to interact with each other was crucial in bringing together this project.
+
 
