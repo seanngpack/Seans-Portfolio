@@ -21,16 +21,17 @@ https://github.com/seanngpack/swag-scanner
 
 ## About
 
-SwagScanner is a 3D scanning system that grabs depth images of an object placed on the rotating bed, processes the data, and creates a refined pointcloud. I ran my own design sprint to build a robust system in only 1.5 months with my free time. Why did I tackle a project like this? I thought it would be fun to challenge myself with a project that has not been done (or atleast documented) before.
+SwagScanner is a 3D scanning system that scans an object into cyberspace. The user places an object on the rotating bed which scanned at a constant interval for a full rotation. The data goes through a processing pipeline and the output is a refined pointcloud of the scanned object. I ran my own design sprint to build a robust system in only 1.5 months with my free time. Why did I tackle a project like this? I thought it would be fun to challenge myself with a project that has not been done (or atleast documented) before.
 
 ## Features
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Software** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Highly modular system design \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Extensible camera superclass allows use of any depth camera \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Extensible camera interface allows use of any depth camera \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Super fast depth deprojection \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Saves pointclouds to files \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iterative closest point algorithm for registration 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RANSAC plane segmentation
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Hardware** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Elegant, integrated design \
@@ -68,27 +69,31 @@ SwagScanner is a 3D scanning system that grabs depth images of an object placed 
 <details>
   <summary>Click to expand</summary>
 </br> 
+
 Here is a breakdown of the design sprint I ran and some of my design decisions that I made during the process
-</br>
 </br>
 
 * weeks 1-2 
 
-  I spent the first couple weeks researching what I was getting myself into. I took a deep dive into how 3D imaging systems worked and the different paths I could take. I also looked into different mechanisms I could use to achieve this. There were so many different paths and I had to narrow down my choices based on some criteria: robustness, quality, implementation feasibility, and size.
+  I spent the first couple weeks researching what I was getting myself into. I took a deep dive into how 3D imaging systems worked and the different paths I could take. I also looked into different mechanisms I could use to achieve this. There were so many paths so I had to narrow down my choices based on some criteria: robustness, quality, implementation feasibility, and size.
 
 * weeks 2-3
 
-  I created a stacked board design during this timeframe. I made the design very compact and modular with the ability to hotswap components solder-free. I choice the DRV8825 to drive my stepper, a small 24 oz-in NEMA 17 motor. I also wanted the wiring to be very compact and simple so I wired the stepper and arduino on the same powerline. Normally this would require a voltage step-down component such as a linear regulator or switching regulator to step the voltage down from 12V -> 7V for the arduino but I ordered the Arduino 33 iot ble which had a high quality stepping regulator built-in already. It was like solving a puzzle with every step I took because I designed for hot swapping ability, easy disassembly, and simplified cable design and I ended up with a simple and elegant solution to my criteria.
+  I created a stacked board design during this timeframe. I sketched an initial design and ordered the parts as soon as possible. I made the design very compact and modular with the ability to hotswap components solder-free. I chose the DRV8825 to drive my stepper, a small 24 oz-in NEMA 17 motor. I also wanted as few cables coming out the system as possible so I wired the stepper and arduino on the same powerline. Once the electronics were constructed, I tested them on stepper motors to verify everything worked according to my schematics. 
 
 * weeks 3-5
 
-  I designed the entirety of the system housing during these few weeks. There were an endless list of different hardware designs I had drawn up so I decided to pursue my top 3 in parallel and develop them. I ran a design sprint that I call an Darwinian Design Sprint where I pursued viable ideas, developed them, and as they became more grown I weeded out the weaker ones. This design sprint worked well for me because all my initial designs seemed to accomplish my hardware criteria, but my unknown variable was how well I could implement each design so this sprint allowed me to to solve for that unknown. In parallel with creating the designs on Fusion360, I ordered parts to prototype them as they were being worked out. My timeline was concisely laid out, allocating time for design, prototyping, and assembling. I wasted no time waiting for parts to arrive.
+  I designed the entirety of the system housing during these few weeks. There were an endless list of different hardware designs I had drawn up so I decided to develop my top 3 choices in parallel. I ran a Darwinian design sprint where I pursued viable ideas, developed them, and as they became more grown I weeded out the weaker ones. This design sprint worked well for me because all my initial designs seemed to accomplish my hardware criteria, but my unknown variable was how well I could implement each design so this sprint allowed me to to solve for that unknown. As I was designing the parts in Fusion360, I ordered hardware to prototype them. My 3D printer basically ran 24/7 during this timeframe.
 
 * weeks 4-6
 
-  As I was wrapping up hardware design I started learning pointcloud theory and began working on software design. I drew out an extensible and robust system architecture for my project. In this time I learned BluetoothLE design and created my own services and characteristics for bluetooth functionality. I also learned asynchronous design so my system could create threaded workers to listen for notifications from the Arduino. I also learned about depth imaging, pointclouds, and processing algorithms.
+  As I was wrapping up hardware design I started learning pointcloud theory and began working on software design. I drew out a system architecture for my project. In this time I learned BluetoothLE design and created my own services and characteristics for bluetooth functionality. I also learned asynchronous actions so my system could create threaded workers to listen for notifications from the Arduino. I also learned about depth imaging, pointclouds, and processing algorithms. As I became more familiar with the subjects, I wrote out pseudocode and math so programming them would be accelerated.
 
-* weeks 6-
+  * weeks 7-8
+
+  During this time I developed the application to run the scanner in addition to a performing lot of testing, debugging, and iterative hardware improvements. I got a basic demo working and presented SwagScanner at JPL for my final internship presentation.
+
+* weeks 8-
 
    Well, I'm in school now so I don't have much time to work on SwagScanner. I plan on furthering development after I graduate and find a job.
 
@@ -106,7 +111,7 @@ Here is a breakdown of the design sprint I ran and some of my design decisions t
 First, we define the entry point of the application `scan.py` and create a `Scan()` object to handle abstracting each major steps in the scanning pipeline to be run sequentially (note: not all actions are synchronous in SwagScanner!)
 
 ### Camera()
-The `Camera()` class is a superclass that can be extended to provide ability to use any depth camera. Looking at the `D435` object, we override the `get_intrinsics()` method with RealSense API calls to get the intrinsics of the camera.
+The `Camera()` class is an interface that can be extended to provide ability to use any depth camera. Looking at the `D435` object, we override the `get_intrinsics()` method with RealSense API calls to get the intrinsics of the camera.
 
 ### Arduino()
 The `Arduino()` class provides methods to initialize the Arduino and send bluetooth commands to it. We subscribe to asynchronous notifications from a custom bluetooth service which provides table state information.
@@ -128,14 +133,14 @@ The `Registration()` class provides the tools to iteratively register pairs of c
   <summary>Click to expand</summary>
   </br>
 
-Again with the theme of modularity, I designed the hardware to be easy to disassemble, reassemble, and be upgradeable. I went with a worm drive gearbox design for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by desgining the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, atleast the weight of the set screw components won't act on the set screws. 
+Again with the theme of modularity, I focused the hardware design on easy disassembly, reassembly, and upgradeability. I went with a worm drive gearbox for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by designing the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, atleast the weight of the set screw components won't act on the set screws. 
 Because of 3D printing tolerances, there may be shaft misalignment in addition to misalignment between the gears due to the stepper motor mount. I mitigated this issue by designing the floating brace to be slightly compliant.
 
 ![compliant](./compliant.jpg)
 
 Designing the turntable assembly to be assembled from the bottom-up in an intuitive way proved to be extremely challenging. I had many factors to considering including 3D printability, wall thicknesses to mask screw heads, structural integrity, and overall component-to-component interaction. I also optimized the design of each component to standardize fastener sizes. 
 
-When I designed the electronics housing, I wanted the make the sides removable for easy access to the electronics for debugging. I designed a self-aligning sliding profile to resist motion in all axii except the Z (up and down).
+I envisioned the electronics housing to have removable sides for easy access to the electronics for debugging. I designed a self-aligning sliding profile to resist motion in all axii except the Z (up and down).
 
 ![profile](./profile.jpg)
 
@@ -161,7 +166,7 @@ Overall, I think assembly is pretty easy--check out some photos of the build pro
   <summary>Click to expand</summary>
   </br>
 
-For the electronics, I went with a stacked board design to save horizontal space for additional components I may add in the future. I designed the board to be very easy to hotswap components in the case that anything fails. I am powering the Arduino and stepper driver using a 12V 2a wall adapter. I did not add a voltage regulator such as a LM317 (cheap linear regulator) or a switching regulator to my Arduino because my Arduino iot33 comes with a MPM3610 which its [spec sheets](https://www.monolithicpower.com/en/mpm3610.html) indicate to be a large upgrade compared to the voltage regulator supplied in normal Arduinos. I also opted to use Dupont connectors instead of more secure JST connectors because I like the ease of cable removal with the Dupont connectors whereas I find JST connector to get stuck often.
+For the electronics, I went with a stacked board design to save horizontal space for additional components I may add in the future. Hotswaping components is also very straightforward in the case that anything blows up. I am powering the Arduino and stepper driver using a 12V 2a wall adapter. I did not add a voltage regulator such as a LM317 (cheap linear regulator) or a switching regulator to my Arduino. This is because my Arduino iot33 comes with a MPM3610 which its [spec sheets](https://www.monolithicpower.com/en/mpm3610.html) indicates to be a large upgrade compared to the voltage regulator supplied in normal Arduinos. I also opted to use Dupont connectors instead of more secure JST connectors because I like the ease of cable removal with the Dupont connectors whereas I find JST connector to get stuck often.
 
 ![open](./circuitry1.jpg)
 ![Circuitr2](./circuitry2.jpg)
@@ -182,6 +187,7 @@ Here is a scan of a mug using 9 degree rotation intervals. The result is a point
 
 
 ## What I've learned so far
-One of my biggest takeaways thus far is understanding interaction between components at every level. In each subsystem there's a tricky balance of performance, aesthetics, size, and a multitude of other characteristics that are intertwined with each other. For example, when designing the circuit board, I initially wanted the absolute smallest form factor possible. The benefit of a super small form factor would save space in the housing for other components at the cost of hotter components on the board, less modularity, and more difficulty in repairs. I converged to a circuit board design that balanced the tradeoffs while maintaining a small profile. Another instance of component-to-component interaction that was crucial was in material selection. I used a variety of materials in the system (PLA, aluminum, steel, brass) so I had to understand how these materials affect each other, whether one corrodes, scratches, or wears another downn. Understanding how to design for each component to interact with each other was crucial in bringing together this project.
+Working on this project really reinforced my ability to understand and bounce between levels of interaction and scope both on the hardware and software side. At the highest level, I had to define system characteristics that I then implemented. Working out how the hardware and software systems interacted with each other was kind of a mind-bend at first, but it quickly became more natural for me to grasp.
 
+I feel like I gained a great understanding of interaction between components at every level. In each subsystem there's a tricky balance of performance, aesthetics, size, and a multitude of other characteristics that are intertwined with each other. For example, when designing the circuit board, I initially wanted the absolute smallest form factor possible. The benefit of a super small form factor would save space in the housing for other components at the cost of hotter components on the board, less modularity, and more difficulty in repairs. I converged to a circuit board design that balanced the tradeoffs while maintaining a small profile. Another instance of component-to-component interaction that was crucial was in material selection. I used a variety of materials in the system (PLA, aluminum, steel, brass) so I had to understand how these materials affect each other, whether one corrodes, scratches, or wears another downn. Understanding how to design for each component to interact with each other was crucial in bringing together this project.
 
