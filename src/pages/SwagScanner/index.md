@@ -16,6 +16,9 @@ backgroundColor: "#f274db"
 ## Find out more here: 
 https://github.com/seanngpack/swag-scanner
 
+`video: https://youtu.be/pr8KoeEaKFc`
+
+
 ## About
 
 SwagScanner is a 3D scanning system that grabs depth images of an object placed on the rotating bed, processes the data, and creates a refined pointcloud. I ran my own design sprint to build a robust system in only 1.5 months with my free time. Why did I tackle a project like this? I thought it would be fun to challenge myself with a project that has not been done (or atleast documented) before.
@@ -97,6 +100,7 @@ Here is a breakdown of the design sprint I ran and some of my design decisions t
 ## Software design
 <details>
   <summary>Click to expand</summary>
+</br>
 
 ### Entry Point
 First, we define the entry point of the application `scan.py` and create a `Scan()` object to handle abstracting each major steps in the scanning pipeline to be run sequentially (note: not all actions are synchronous in SwagScanner!)
@@ -122,12 +126,12 @@ The `Registration()` class provides the tools to iteratively register pairs of c
 ## Hardware Design
 <details>
   <summary>Click to expand</summary>
+  </br>
 
 Again with the theme of modularity, I designed the hardware to be easy to disassemble, reassemble, and be upgradeable. I went with a worm drive gearbox design for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by desgining the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, atleast the weight of the set screw components won't act on the set screws. 
 Because of 3D printing tolerances, there may be shaft misalignment in addition to misalignment between the gears due to the stepper motor mount. I mitigated this issue by designing the floating brace to be slightly compliant.
 
 ![compliant](./compliant.jpg)
-
 
 Designing the turntable assembly to be assembled from the bottom-up in an intuitive way proved to be extremely challenging. I had many factors to considering including 3D printability, wall thicknesses to mask screw heads, structural integrity, and overall component-to-component interaction. I also optimized the design of each component to standardize fastener sizes. 
 
@@ -139,17 +143,15 @@ The aluminum pipe bridging the electronics housing and turntable is secured thro
 
 ![friction](./friction.jpg)
 
-Overall, I think the assembly process is pretty easy--check out some photos of the build process.
+Overall, I think assembly is pretty easy--check out some photos of the build process.
 
 ![assembling1](./IMG_2133.jpg)
 ![assembling2](./IMG_2227.jpg)
 ![assembling3](./IMG_2211.jpg)
 ![assembling4](./IMG_2147.jpg)
 ![assembling5](./IMG_2135.jpg)
-![assembling6](./IMG_2214.jpg)
-![assembling7](./IMG_2134.jpg)
-
-
+![assembling6](./IMG_2134.jpg)
+![assembling7](./IMG_2214.jpg)
 
 </details> 
 </br>
@@ -157,6 +159,7 @@ Overall, I think the assembly process is pretty easy--check out some photos of t
 ## Electronics Design
 <details>
   <summary>Click to expand</summary>
+  </br>
 
 For the electronics, I went with a stacked board design to save horizontal space for additional components I may add in the future. I designed the board to be very easy to hotswap components in the case that anything fails. I am powering the Arduino and stepper driver using a 12V 2a wall adapter. I did not add a voltage regulator such as a LM317 (cheap linear regulator) or a switching regulator to my Arduino because my Arduino iot33 comes with a MPM3610 which its [spec sheets](https://www.monolithicpower.com/en/mpm3610.html) indicate to be a large upgrade compared to the voltage regulator supplied in normal Arduinos. I also opted to use Dupont connectors instead of more secure JST connectors because I like the ease of cable removal with the Dupont connectors whereas I find JST connector to get stuck often.
 
@@ -171,7 +174,14 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 </details> 
 </br>
 
+## Results
+![cup_pointcloud](./cup0.jpg)
+![cup_pointcloud](./cup.jpg)
+
+Here is a scan of a mug using 9 degree rotation intervals. The result is a pointcloud of ~800,000 points. You can see there is a bit of scatter because I have not created a filter to remove them yet. You can also somewhat make out the edges of the bed and those are points not captured by RANSAC plane segmentation. There's still a lot of work I need to do to generate better pointclouds.
+
+
 ## What I've learned so far
-One of my biggest takeaways thus far is understanding interaction between components at every level. In each subsystem there's a tricky balance of performance, aesthetics, size, and a multitude of other characteristics that are intertwined with each other. For example, when designing the circuit board, I initially wanted the absolute smallest form factor possible. The benefit of a super small form factor would save space in the housing for other components at the cost of hotter components on the board, less modularity, and more difficulty in repairs. I converged to a circuit board design that balanced the tradeoffs while maintaining a small profile. Understanding how to design for each component to interact with each other was crucial in bringing together this project.
+One of my biggest takeaways thus far is understanding interaction between components at every level. In each subsystem there's a tricky balance of performance, aesthetics, size, and a multitude of other characteristics that are intertwined with each other. For example, when designing the circuit board, I initially wanted the absolute smallest form factor possible. The benefit of a super small form factor would save space in the housing for other components at the cost of hotter components on the board, less modularity, and more difficulty in repairs. I converged to a circuit board design that balanced the tradeoffs while maintaining a small profile. Another instance of component-to-component interaction that was crucial was in material selection. I used a variety of materials in the system (PLA, aluminum, steel, brass) so I had to understand how these materials affect each other, whether one corrodes, scratches, or wears another downn. Understanding how to design for each component to interact with each other was crucial in bringing together this project.
 
 
