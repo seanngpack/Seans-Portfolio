@@ -8,8 +8,8 @@ carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', '.
 logo: "./1.jpg"
 featured: "yes"
 tag: robots
-excerpt: "My most ambitious project to date"
-background: "One of the only homegrown 3D scanners you will find on the internet."
+excerpt: "One of the only homegrown 3D scanners you will find on the internet."
+background: "For a while now I've wanted to create a 3D scanner. Are you as excited to see it as I am to show it to you??"
 backgroundColor: "#f274db"
 ---
 
