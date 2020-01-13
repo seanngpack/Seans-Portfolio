@@ -1,7 +1,7 @@
 ---
 title: SwagScanner
 date: "2019-11-23"
-skills: "Python, Big Data, Numpy, BluetoothLE, Mechanical Design, Fusion360, electronics, soldering"
+skills: "Python, Algorithms, Big Data, Numpy, BluetoothLE, Mechanical Design, Fusion360, Electronics, Soldering"
 state: "Working on writing iterative closest point algorithm and debugging"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
@@ -9,7 +9,7 @@ logo: "./1.jpg"
 featured: "yes"
 tag: robots
 excerpt: "My most ambitious project to date"
-background: "A 3D scanner system created from the ground up using 3D printing, Python, and C++. Utilizes depth images to create virtual models of scanned objects."
+background: "One of the only homegrown 3D scanners you will find on the internet."
 backgroundColor: "#f274db"
 ---
 
@@ -30,7 +30,7 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Extensible camera interface allows use of any depth camera \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Super fast depth deprojection \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Saves pointclouds to files \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iterative closest point algorithm for registration 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iterative closest point algorithm for registration \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RANSAC plane segmentation
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Hardware** \
@@ -70,28 +70,31 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
   <summary>Click to expand</summary>
 </br> 
 
-Here is a breakdown of the design sprint I ran and some of my design decisions that I made during the process
+Here is a breakdown of the design sprint I ran and some design decisions that I made during the process.
+
 </br>
 
 * weeks 1-2 
 
-  I spent the first couple weeks researching what I was getting myself into. I took a deep dive into how 3D imaging systems worked and the different paths I could take. I also looked into different mechanisms I could use to achieve this. There were so many paths so I had to narrow down my choices based on some criteria: robustness, quality, implementation feasibility, and size.
+  I spent the first couple weeks researching what I was getting myself into. I took a deep dive into how 3D imaging systems worked and the different paths I could take. Having a background in mechanical engineering was really helpful in reading research papers and understanding the mathematics (linear algebra, calculus, differential equations) behind theories. Dissecting proofs is one of my weaknesses I need to get better doing. I also looked into a multitude of mechanical designs I could utilize. I had to narrow down software & hardware choices based on some criteria: robustness, quality, implementation feasibility, and size. I outlined some high-level objectives of my project and sketched some preliminary designs.
 
 * weeks 2-3
 
-  I created a stacked board design during this timeframe. I sketched an initial design and ordered the parts as soon as possible. I made the design very compact and modular with the ability to hotswap components solder-free. I chose the DRV8825 to drive my stepper, a small 24 oz-in NEMA 17 motor. I also wanted as few cables coming out the system as possible so I wired the stepper and arduino on the same powerline. Once the electronics were constructed, I tested them on stepper motors to verify everything worked according to my schematics. 
+  I created a stacked board design during this timeframe. I sketched an initial design and ordered the parts as soon as possible. I made the design very compact and modular with the ability to hotswap components solder-free. I chose the DRV8825 to drive my stepper, a small 24 oz-in NEMA 17 motor. I also wanted as few cables coming out the system as possible so I wired the stepper and arduino on the same powerline. Once the electronics were constructed, I tested them on stepper motors to verify everything worked according to my schematics. I had enough time to iterate on my board design once and further simplified the wiring.
 
 * weeks 3-5
 
-  I designed the entirety of the system housing during these few weeks. There were an endless list of different hardware designs I had drawn up so I decided to develop my top 3 choices in parallel. I ran a Darwinian design sprint where I pursued viable ideas, developed them, and as they became more grown I weeded out the weaker ones. This design sprint worked well for me because all my initial designs seemed to accomplish my hardware criteria, but my unknown variable was how well I could implement each design so this sprint allowed me to to solve for that unknown. As I was designing the parts in Fusion360, I ordered hardware to prototype them. My 3D printer basically ran 24/7 during this timeframe.
+  I designed & assembled SwagScanner's physical hardware during these few weeks. I had many different designs I brainstormed so to narrow them down, I decided to develop my top 3 choices in parallel. I ran a Darwinian design sprint where I pursued viable ideas, developed them, and as they became more grown I weeded out the weaker ones. This design sprint worked well for me because all my initial designs seemed to accomplish my hardware criteria, but my unknown variable was how well I could implement each design so this sprint allowed me to to solve for that unknown. I spent my time designing on Fusion 360, ordering parts, writing statics equations, and assembling everything. My 3D printer basically ran 24/7 during this timeframe.
 
 * weeks 4-6
 
-  As I was wrapping up hardware design I started learning pointcloud theory and began working on software design. I drew out a system architecture for my project. In this time I learned BluetoothLE design and created my own services and characteristics for bluetooth functionality. I also learned asynchronous actions so my system could create threaded workers to listen for notifications from the Arduino. I also learned about depth imaging, pointclouds, and processing algorithms. As I became more familiar with the subjects, I wrote out pseudocode and math so programming them would be accelerated.
+  As I was wrapping up hardware design I started learning pointcloud theory and began working on software design.  In this time I learned BluetoothLE and created my own services and characteristics for bluetooth functionality. I also learned asynchronous actions so my system could create threaded workers to listen for notifications from the Arduino. I also learned more about depth imaging, pointclouds, and processing algorithms. 
+
+  I sketched a system architecture for my project which outlined the interaction between my interfaces and classes. I began writing out various of the software and did math to verify & implement different algorithms.
 
   * weeks 7-8
 
-  During this time I developed the application to run the scanner in addition to a performing lot of testing, debugging, and iterative hardware improvements. I got a basic demo working and presented SwagScanner at JPL for my final internship presentation.
+  During this time I went ham and built enough of the scanner software for it to actually funcion. After I got preliminary results from the system, I did lot of testing, debugging, and also iterative hardware improvements to refine the system. I got a basic demo working and presented SwagScanner at JPL for my final internship presentation. People really liked the scanner and I felt super happy to share my work.
 
 * weeks 8-
 
@@ -106,6 +109,8 @@ Here is a breakdown of the design sprint I ran and some of my design decisions t
 <details>
   <summary>Click to expand</summary>
 </br>
+
+![pipeline](./pipeline.jpg)
 
 ### Entry Point
 First, we define the entry point of the application `scan.py` and create a `Scan()` object to handle abstracting each major steps in the scanning pipeline to be run sequentially (note: not all actions are synchronous in SwagScanner!)
