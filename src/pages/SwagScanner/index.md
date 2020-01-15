@@ -9,7 +9,7 @@ logo: "./1.jpg"
 featured: "yes"
 tag: robots
 excerpt: "One of the only homegrown 3D scanners you will find on the internet."
-background: "For a while now I've wanted to create a 3D scanner. Are you as excited to see it as I am to show it to you??"
+background: "I've wanted to create a 3D scanner for a long time...and I finally made one."
 backgroundColor: "#f274db"
 ---
 
