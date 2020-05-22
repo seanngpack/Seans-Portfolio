@@ -1,8 +1,8 @@
 ---
 title: SwagScanner
 date: "2019-11-23"
-skills: "Python, Algorithms, Big Data, Numpy, BluetoothLE, Mechanical Design, Fusion360, Electronics, Soldering"
-state: "Working on writing iterative closest point algorithm and debugging"
+skills: "C++, Python, Algorithms, Numpy, BluetoothLE, Mechanical Design, Fusion360, Electronics, Soldering"
+state: "Python on hold, currently building C++ codebase"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
 logo: "./1.jpg"
@@ -15,6 +15,7 @@ backgroundColor: "#f274db"
 
 ## Find out more here: 
 https://github.com/seanngpack/swag-scanner
+https://github.com/seanngpack/swag-scanner-cpp
 
 `video: https://youtu.be/pr8KoeEaKFc`
 
@@ -26,12 +27,10 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
 ## Features
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Software** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Highly modular system design \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; High performance codebases in C++ and Python \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Extensible camera interface allows use of any depth camera \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Super fast depth deprojection \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Saves pointclouds to files \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Iterative closest point algorithm for registration \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; RANSAC plane segmentation
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Hardware** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Elegant, integrated design \
@@ -47,12 +46,8 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
 ## Technical
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Software** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python, C++, PCL  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ICP registration \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Voxel grid filtering \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Vectorized deprojection using intrinsics \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BluetoothLE Services \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; C++ Arduino implementation 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python, C++, PCL, NumPy  \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BluetoothLE 
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Hardware** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.2 N-m torque @ 80% efficiency \
@@ -65,12 +60,12 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arduino 33 iot ble \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dupont connectors
 
-## Design process
+## Initial Design process
 <details>
   <summary>Click to expand</summary>
 </br> 
 
-Here is a breakdown of the design sprint I ran and some design decisions that I made during the process.
+In the early stages Swag Scanner I made the hardware and Python codebase. Here is a breakdown of the design sprint I ran and some design decisions that I made during the process.
 
 </br>
 
@@ -104,8 +99,18 @@ Here is a breakdown of the design sprint I ran and some design decisions that I 
 </details> 
 </br>
 
+## C++ Codebase Design
+<details>
+  <summary>Click to expand</summary>
+</br>
 
-## Software design
+### Fill this in later.
+
+</details>
+</br>
+
+
+## Python Codebase Design
 <details>
   <summary>Click to expand</summary>
 </br>
@@ -188,7 +193,7 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 ![cup_pointcloud](./cup0.jpg)
 ![cup_pointcloud](./cup.jpg)
 
-Here is a scan of a mug using 9 degree rotation intervals. The result is a pointcloud of ~800,000 points. You can see there is a bit of scatter because I have not created a filter to remove them yet. You can also somewhat make out the edges of the bed and those are points not captured by RANSAC plane segmentation. There's still a lot of work I need to do to generate better pointclouds.
+Here is a scan of a mug using 9 degree rotation intervals. The scan was obtained using the Python codebase. The result is a pointcloud of ~800,000 points. You can see there is a bit of scatter because I have not created a filter to remove them yet. You can also somewhat make out the edges of the bed and those are points not captured by RANSAC plane segmentation. There's still a lot of work I need to do to generate better pointclouds.
 
 
 ## What I've learned so far
