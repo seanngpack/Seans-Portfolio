@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "acorn": "^7.2.0",
-    "gatsby": "^2.20.28",
+    "gatsby": "^2.22.9",
     "gatsby-image": "^2.2.33",
     "gatsby-plugin-feed": "^2.3.21",
     "gatsby-plugin-google-analytics": "^2.1.28",
