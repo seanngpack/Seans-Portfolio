@@ -1,7 +1,7 @@
 ---
 title: SwagScanner
 date: "2019-11-23"
-skills: "C++, Python, Algorithms, Numpy, BluetoothLE, Mechanical Design, Fusion360, Electronics, Soldering"
+skills: "C++, Python, Algorithms, Threading, Mechanical Design, Fusion360, Electronics, Soldering"
 state: "Python on hold, currently building C++ codebase"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
@@ -14,15 +14,16 @@ backgroundColor: "#f274db"
 ---
 
 ## Find out more here: 
-https://github.com/seanngpack/swag-scanner
-https://github.com/seanngpack/swag-scanner-cpp
+Python: https://github.com/seanngpack/swag-scanner
+
+C++: https://github.com/seanngpack/swag-scanner-cpp
 
 `video: https://youtu.be/pr8KoeEaKFc`
 
 
 ## About
 
-SwagScanner is a 3D scanning system that scans an object into cyberspace. The user places an object on the rotating bed which scanned at a constant interval for a full rotation. The data goes through a processing pipeline and the output is a refined pointcloud of the scanned object. I ran my own design sprint to build a robust system in only 1.5 months with my free time. Why did I tackle a project like this? I thought it would be fun to challenge myself with a project that has not been done (or atleast documented) before.
+SwagScanner is a 3D scanning system that scans an object into cyberspace. The user places an object on the rotating bed which scanned at a constant interval for a full rotation. The data goes through a processing pipeline and the output is a refined pointcloud of the scanned object. Swag Scanner has two codebases: one in Python and one in C++. I am currently dropping development of the Python codebase in favor of C++.
 
 ## Features
 
@@ -65,36 +66,9 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
   <summary>Click to expand</summary>
 </br> 
 
-In the early stages Swag Scanner I made the hardware and Python codebase. Here is a breakdown of the design sprint I ran and some design decisions that I made during the process.
+I made a working prototype in only 1.5 months after work while I was a co-op at NASA JPL. I spent the first first doing hardcore research about 3d scanners available on the market and to my surpise, there were very few commericially available options and even fewer hobby projects. Those that were for sale were priced way too high for an average consumer to to purcahse so that further motivated me to pursue this project. I took inspiration from existing devices and sketched several different designs of the hardware architecture of the scanner. One of the main hardware decisions is whether I wanted the scanner have a camera revolve around an object, or have the object rotate. I chose the latter because that approach seemed to result in high accuracy scans in addition to being much more feasible to create. Then I narrowed in to more of the specifics of the scanner, I wanted it to look aesthetic, have minimal cables, and support small-medium sized objects. I achieved these design objectives by creating a modular scanner design where the distance between the scanning bed and camera can be adjusted both in height and length and the cables are hidden in this mechanism. I created some basic dimensions for my sketch and begun ordering metal hardware. Then I sketched and planned the electronics layout to fit inside my mechanical housing and ordered those parts soonafter. I wanted the electronics to be robust and repairable so I created my own stacked board design where the Arduino and motor driver can be hotswapped without soldering. As those parts were arriving, I hopped onto Fusion360 and CADed up my design to be 3D printed. As an additional challenge, I only used my trackpad to do the CAD. I took care in designing keep-out regions where the electronics were to be housed so heat buildup and other part interference would be mitigated. I also went through many iterations to make the assembly of the parts extremely easy, which was one of the hardest parts of the build because I had to work through building and designing the hardware backwards and forwards, anticipating pain points. Getting tolerances for fitting 3D printed parts was pretty easy as I have a lot of experience in 3D printed designs for my past personal projects and during my co-op at Speck. As I was wrapping up CAD design, I 3D printed the parts and started coding the brains of the project. I chose Python as the language because of its ease of use. I sketched up the architecture of my program and implemented it quickly before I had to leave California to go back to Boston. I managed to come up with a working prototype and even got to show it off at JPL for my final presentation!
 
 </br>
-
-* weeks 1-2 
-
-  I spent the first couple weeks researching what I was getting myself into. I took a deep dive into how 3D imaging systems worked and the different paths I could take. Having a background in mechanical engineering was really helpful in reading research papers and understanding the mathematics (linear algebra, calculus, differential equations) behind theories. Dissecting proofs is one of my weaknesses I need to get better doing. I also looked into a multitude of mechanical designs I could utilize. I had to narrow down software & hardware choices based on some criteria: robustness, quality, implementation feasibility, and size. I outlined some high-level objectives of my project and sketched some preliminary designs.
-
-* weeks 2-3
-
-  I created a stacked board design during this timeframe. I sketched an initial design and ordered the parts as soon as possible. I made the design very compact and modular with the ability to hotswap components solder-free. I chose the DRV8825 to drive my stepper, a small 24 oz-in NEMA 17 motor. I also wanted as few cables coming out the system as possible so I wired the stepper and arduino on the same powerline. Once the electronics were constructed, I tested them on stepper motors to verify everything worked according to my schematics. I had enough time to iterate on my board design once and further simplified the wiring.
-
-* weeks 3-5
-
-  I designed & assembled SwagScanner's physical hardware during these few weeks. I had many different designs I brainstormed so to narrow them down, I decided to develop my top 3 choices in parallel. I ran a Darwinian design sprint where I pursued viable ideas, developed them, and as they became more grown I weeded out the weaker ones. This design sprint worked well for me because all my initial designs seemed to accomplish my hardware criteria, but my unknown variable was how well I could implement each design so this sprint allowed me to to solve for that unknown. I spent my time designing on Fusion 360, ordering parts, writing statics equations, and assembling everything. My 3D printer basically ran 24/7 during this timeframe.
-
-* weeks 4-6
-
-  As I was wrapping up hardware design I started learning pointcloud theory and began working on software design.  In this time I learned BluetoothLE and created my own services and characteristics for bluetooth functionality. I also learned asynchronous actions so my system could create threaded workers to listen for notifications from the Arduino. I also learned more about depth imaging, pointclouds, and processing algorithms. 
-
-  I sketched a system architecture for my project which outlined the interaction between my interfaces and classes. I began writing out various of the software and did math to verify & implement different algorithms.
-
-  * weeks 7-8
-
-  During this time I went ham and built enough of the scanner software for it to actually funcion. After I got preliminary results from the system, I did lot of testing, debugging, and also iterative hardware improvements to refine the system. I got a basic demo working and presented SwagScanner at JPL for my final internship presentation. People really liked the scanner and I felt super happy to share my work.
-
-* weeks 8-
-
-   Well, I'm in school now so I don't have much time to work on SwagScanner. I plan on furthering development after I graduate and find a job.
-
 
 </details> 
 </br>
@@ -143,7 +117,7 @@ The `Registration()` class provides the tools to iteratively register pairs of c
   <summary>Click to expand</summary>
   </br>
 
-Again with the theme of modularity, I focused the hardware design on easy disassembly, reassembly, and upgradeability. I went with a worm drive gearbox for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by designing the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, atleast the weight of the set screw components won't act on the set screws. 
+One of the main focuses of the hardware design was the ease of assembly, repairability, and upgradeability. I went with a worm drive gearbox for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by designing the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, at least the weight of the set screw components won't act on the set screws. 
 Because of 3D printing tolerances, there may be shaft misalignment in addition to misalignment between the gears due to the stepper motor mount. I mitigated this issue by designing the floating brace to be slightly compliant.
 
 ![compliant](./compliant.jpg)
@@ -189,11 +163,11 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 </details> 
 </br>
 
-## Results
+## Results (outdated)
 ![cup_pointcloud](./cup0.jpg)
 ![cup_pointcloud](./cup.jpg)
 
-Here is a scan of a mug using 9 degree rotation intervals. The scan was obtained using the Python codebase. The result is a pointcloud of ~800,000 points. You can see there is a bit of scatter because I have not created a filter to remove them yet. You can also somewhat make out the edges of the bed and those are points not captured by RANSAC plane segmentation. There's still a lot of work I need to do to generate better pointclouds.
+The scan was obtained using my Python codebase, these results are outdated and will be updated soon. Here is a scan of a mug using 9 degree rotation intervals. The result is a pointcloud of ~800,000 points. You can see there is a bit of scatter because I have not created a filter to remove them yet. You can also somewhat make out the edges of the bed and those are points not captured by RANSAC plane segmentation. There's still a lot of work I need to do to generate better pointclouds.
 
 
 ## What I've learned so far

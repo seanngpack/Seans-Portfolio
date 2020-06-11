@@ -5,7 +5,7 @@ const intro = props => {
   return (
     <div className={styles.container}>
       <h1 className={styles.text}>
-        Hi, I'm Sean Ng Pack 👨🏻‍💻. I'm a mechanical engineering student{' '}
+        Hi, I'm Sean Ng Pack 👨🏻‍💻. I'm a mechanical engineer {' '}
         <a
           className={styles.school}
           target='_blank'
@@ -16,8 +16,6 @@ const intro = props => {
         who loves <span className={styles.productDesign}>product design</span>{' '}
         and <span className={styles.programming}>programming</span>
       </h1>
-
-      <span className={styles.lol}>( I built this website myself! )</span>
     </div>
   )
 }
