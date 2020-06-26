@@ -77,7 +77,7 @@ SwagScanner, although still in its early stages, contains a wide array of featur
 I made a working prototype in only 1.5 months during my free time after work while I was a co-op at NASA JPL. I spent the first week of the project doing hardcore research about 3d scanners available on the market and to my surpise, there were very few commericially available options and even fewer hobby projects. Those that were for sale were priced way too high for an average consumer to to purchase so that further motivated me to pursue this project. Click below to read more about how I started this project.
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>More details</summary>
 </br> 
 
  I took inspiration from existing devices and sketched several different designs of the hardware architecture of the scanner. One of the main hardware decisions is whether I wanted the scanner have a camera revolve around an object, or have the object rotate. I chose the latter because that approach seemed to result in high accuracy scans in addition to being much more feasible to create. Then I narrowed in to more of the specifics of the scanner, I wanted it to look aesthetic, have minimal cables, and support small-medium sized objects. I achieved these design objectives by creating a modular scanner design where the distance between the scanning bed and camera can be adjusted both in height and length and the cables are hidden in this mechanism. I created some basic dimensions for my sketch and begun ordering metal hardware. Then I sketched and planned the electronics layout to fit inside my mechanical housing and ordered those parts soonafter. I wanted the electronics to be robust and repairable so I created my own stacked board design where the Arduino and motor driver can be hotswapped without soldering. As those parts were arriving, I hopped onto Fusion360 and CADed up my design to be 3D printed. As an additional challenge, I only used my trackpad to do the CAD. I took care in designing keep-out regions where the electronics were to be housed so heat buildup and other part interference would be mitigated. I also went through many iterations to make the assembly of the parts extremely easy, which was one of the hardest parts of the build because I had to work through building and designing the hardware backwards and forwards, anticipating pain points. Getting tolerances for fitting 3D printed parts was pretty easy as I have a lot of experience in 3D printed designs for my past personal projects and during my co-op at Speck. As I was wrapping up CAD design, I 3D printed the parts and started coding the brains of the project. I had to bust out my linear algrebra textbooks again to understand better how to program the scanner. I chose Python as the language because of its ease of use. I sketched up the architecture of my program and implemented it quickly before I had to leave California to go back to Boston. I managed to come up with a working prototype and even got to show it off at JPL for my final presentation!
@@ -92,10 +92,31 @@ I made a working prototype in only 1.5 months during my free time after work whi
 I wrote SwagScanner in C++ for speed and control over every aspect of the program.
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>More details</summary>
 </br>
 
 ### Under construction rn.
+
+### Program design
+I utilized MVC (model-view-controller) design for this project. The models are represented by the data handling objects, views are the commandline interface and GUI interfaces, and controllers manages the scanning and processing pipelines. I focused on clean design and scalability from the get-go which quickly netted substantial benefits. Adding new features and extending existing code is pretty painless. For example, when adding a new camera system, I can just implement the ICamera interface and override the default virtual methods. Utilizing the new camera is as simple as passing it as a parameter to the ScanController object.
+
+I separated utility functions into their own headers. These functions are dumb and do not need access to class states, similar to static methods from Java. For example, registration methods are implemented inline the Registration.h file in the registration namespace. Then they are utilized in the ProcessingModel object. 
+
+Currently, there are a lot of raw pointers in the program. I am slowly making the transition over to smart pointers as the needs arise, however I am confident in managing ownership and memory allocation so they are fine for now. One example of where I needed a smart pointer is with my FileHandler class. I needed an instance of this class to be passed to multiple objects and that brings up the ownership problem. Which object is responsible for deleting FileHandler and when? Using a shared_ptr solved this issue with reference counting, and file_handler will be deleted when the number of references to it reaches 0.
+
+
+### File handling
+I wrote a custom file handling system to manage SwagScanner's settings save and load scans. When creating an instance of FileHandler, it checks to see if there is a SwagScanner folder in your ```Library/Application Support``` folder. If it doesn't exist, then create one. I chose this to be the default path because Mac applications store their data to this folder by default. Inside the SwagScanner folder you will find ```scans```, ```settings```, and ```calibration``` folders. 
+
+
+#### /scans
+This is where scans are located. Inside the scans folder there are ```filtered```, ```info```, ```normals```, ```raw```, and ```segmented``` folders.
+
+The file handler is really smart. You can tell it to create a new scan folder and populate it with default information in place until a scan is run. It will also use the latest calibration stored in the /calibration folder. The new scan folder is named numerically, so if there are names "0", "1", in the /scans folder, a "2" folder will be created. If you don't want to run a new scan, then you can pass the name of the old scan and the file handler set that scan as the current scan. And if you want to use the last run scan, then don't pass anything to the file handler and it will find that information via /info folder.
+
+
+### Testing
+I utilized Google Tests and unit tested most methods. Soon I will add mocks to the test suite.
 
 </details>
 </br>
@@ -140,9 +161,9 @@ For an extra layer of complexity I decided to add bluetoothLE capability to Swag
 
 I used an object delegation pattern to achieve Objective-C++ compatibility. I will include a diagram soon, it is kind of complicated. I wrote the wrapper to run CoreBluetooth in a background thread so it didn't block the main thread. Getting CoreBluetooth to run on a different thread was huge challenge because there were absolutely no resources or attempts I could find about people trying to do this. After I delved deeper into Objective C [run loops](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html) and [dispatch queues](https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html), I had a better idea to tackle the problem. I ended up executing CoreBluetooth in a separate thread, attaching a runloop to that thread, and running its callbacks on a serial dispatch queue. This worked perfectly and I was able to run Corebluetooth asynchronously to my main program. Then came the problem of race conditions. In my program, connecting to bluetooth occured after initizing my Arduino object which lead to my program exploding. Another race condition occured during the scanning process where the camera would take an image because the table stopped rotating.
 
- My first solution was in the Arduino object, to create a ```is_rotating``` variable and setter method allowing outside customers to modify it. When the rotate() command was called, I did a while loop to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the objective c code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. Plus it was a little dirty having to write public methods that would only be executed by objective c and nobody else. In addition, polling every **X** seconds was a performance hog and waste of resources. Increasing the time interval was not great either because sometimes it would execute quickly towards the lower bound of the interval, and sometimes it would execute towards the upper bound. 
+ My first solution was in the Arduino object, to create a ```is_rotating``` variable and setter method allowing outside customers to modify it. When the rotate() command was called, I did a while loop to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the Objective-C code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. Plus it was a little dirty having to write public methods that would only be executed by Objective-C and nobody else. In addition, polling every **X** seconds was a performance hog and waste of resources. Increasing the time interval was not great either because sometimes it would execute quickly towards the lower bound of the interval, and sometimes it would execute towards the upper bound. 
  
- There was a much better solution with mutexes. I created an ArduinoEventHandler object that held references to conditional & control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the control flow of rotating the table. In the near future I will release my C++ objective-c wrapper as its own standalone library because I think people could benefit from my struggles.
+ There was a much better solution with mutexes. I created an ArduinoEventHandler object that held references to conditional & control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the control flow of rotating the table. In the near future I will release my C++ wrapper as its own standalone library because I think people could benefit from my struggles.
 
 ![mutex](./rotate.jpg)
 
@@ -150,8 +171,11 @@ I used an object delegation pattern to achieve Objective-C++ compatibility. I wi
 </br>
 
 ## **Calibration**
+
+I developed a calibration fixture and method to find the axis of rotation of the scanning table. This allows me to align each scanned pointcloud to the first scan and construct a full image.
+
 <details>
-    <summary>Click to expand</summary>
+    <summary>warning: lots of math</summary>
 </br>
 
 ### Under construction rn.
@@ -163,7 +187,7 @@ I used an object delegation pattern to achieve Objective-C++ compatibility. I wi
 Leveraging my experience in product design and functional prototyping, I created SwagScanner to be a manifestation of my knowledge and experiences.
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>More details</summary>
   </br>
 
 One of the main focuses of the hardware design was the ease of assembly, repairability, and upgradeability. I went with a worm drive gearbox for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by designing the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, at least the weight of the set screw components won't act on the set screws. 
@@ -198,7 +222,7 @@ Overall, I think assembly is pretty easy--check out some photos of the build pro
 I selected the electronics to integrate seamlessly into the hardware. I did a lot of part picking research, soldering, and crimping to get the electronics neatly assembled.
 
 <details>
-  <summary>Click to expand</summary>
+  <summary>More details</summary>
   </br>
 
 For the electronics, I went with a stacked board design to save horizontal space for additional components I may add in the future. Hotswaping components is also very straightforward in the case that anything blows up. I am powering the Arduino and stepper driver using a 12V 2a wall adapter. I did not add a voltage regulator such as a LM317 (cheap linear regulator) or a switching regulator to my Arduino. This is because my Arduino iot33 comes with a MPM3610 which its [spec sheets](https://www.monolithicpower.com/en/mpm3610.html) indicates to be a large upgrade compared to the voltage regulator supplied in normal Arduinos. I also opted to use Dupont connectors instead of more secure JST connectors because I like the ease of cable removal with the Dupont connectors whereas I find JST connector to get stuck often.
@@ -216,7 +240,7 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 
 ## **Results (outdated)**
 <details>
-  <summary>Click to expand</summary>
+  <summary>More details</summary>
 </br>
 
 ![cup_pointcloud](./cup0.jpg)
