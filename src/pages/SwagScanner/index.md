@@ -2,7 +2,7 @@
 title: SwagScanner
 date: "2019-11-23"
 skills: "C++, Python, Algorithms, Threading, Mechanical Design, Fusion360, Electronics, Soldering"
-state: "Working on C++ codebase"
+state: "Refining registration algorithms"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
 logo: "./1.jpg"
@@ -13,21 +13,24 @@ background: "I've wanted to create a 3D scanner for a long time...and I finally 
 backgroundColor: "#f274db"
 ---
 
-## Find out more here: 
-Python: https://github.com/seanngpack/swag-scanner
+## **Github**
+- Python: https://github.com/seanngpack/swag-scanner
 
-C++: https://github.com/seanngpack/swag-scanner-cpp
+- C++: https://github.com/seanngpack/swag-scanner-cpp
 
 `video: https://youtu.be/pr8KoeEaKFc`
 
 
-## About
+## **About**
 
 SwagScanner is a 3D scanning system that scans an object into cyberspace. The user places an object on the rotating bed which scanned at a constant interval for a full rotation. The data goes through a processing pipeline and the output is a refined pointcloud of the scanned object. Swag Scanner has two codebases: one in Python and one in C++. I am currently dropping development of the Python codebase in favor of C++.
 
-## Features
+## **Features**
+
+SwagScanner, although still in its early stages, contains a wide array of features.
+
 <details>
-  <summary>Click to expand</summary>
+  <summary>Click to see features</summary>
 </br> 
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Software** \
@@ -69,19 +72,25 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
 </details> 
 </br>
 
-## Initial Design process
+## **Initial Design process**
+
+I made a working prototype in only 1.5 months during my free time after work while I was a co-op at NASA JPL. I spent the first week of the project doing hardcore research about 3d scanners available on the market and to my surpise, there were very few commericially available options and even fewer hobby projects. Those that were for sale were priced way too high for an average consumer to to purchase so that further motivated me to pursue this project. Click below to read more about how I started this project.
+
 <details>
   <summary>Click to expand</summary>
 </br> 
 
-I made a working prototype in only 1.5 months after work while I was a co-op at NASA JPL. I spent the first first doing hardcore research about 3d scanners available on the market and to my surpise, there were very few commericially available options and even fewer hobby projects. Those that were for sale were priced way too high for an average consumer to to purchase so that further motivated me to pursue this project. I took inspiration from existing devices and sketched several different designs of the hardware architecture of the scanner. One of the main hardware decisions is whether I wanted the scanner have a camera revolve around an object, or have the object rotate. I chose the latter because that approach seemed to result in high accuracy scans in addition to being much more feasible to create. Then I narrowed in to more of the specifics of the scanner, I wanted it to look aesthetic, have minimal cables, and support small-medium sized objects. I achieved these design objectives by creating a modular scanner design where the distance between the scanning bed and camera can be adjusted both in height and length and the cables are hidden in this mechanism. I created some basic dimensions for my sketch and begun ordering metal hardware. Then I sketched and planned the electronics layout to fit inside my mechanical housing and ordered those parts soonafter. I wanted the electronics to be robust and repairable so I created my own stacked board design where the Arduino and motor driver can be hotswapped without soldering. As those parts were arriving, I hopped onto Fusion360 and CADed up my design to be 3D printed. As an additional challenge, I only used my trackpad to do the CAD. I took care in designing keep-out regions where the electronics were to be housed so heat buildup and other part interference would be mitigated. I also went through many iterations to make the assembly of the parts extremely easy, which was one of the hardest parts of the build because I had to work through building and designing the hardware backwards and forwards, anticipating pain points. Getting tolerances for fitting 3D printed parts was pretty easy as I have a lot of experience in 3D printed designs for my past personal projects and during my co-op at Speck. As I was wrapping up CAD design, I 3D printed the parts and started coding the brains of the project. I had to bust out my linear algrebra textbooks again to understand better how to program the scanner. I chose Python as the language because of its ease of use. I sketched up the architecture of my program and implemented it quickly before I had to leave California to go back to Boston. I managed to come up with a working prototype and even got to show it off at JPL for my final presentation!
+ I took inspiration from existing devices and sketched several different designs of the hardware architecture of the scanner. One of the main hardware decisions is whether I wanted the scanner have a camera revolve around an object, or have the object rotate. I chose the latter because that approach seemed to result in high accuracy scans in addition to being much more feasible to create. Then I narrowed in to more of the specifics of the scanner, I wanted it to look aesthetic, have minimal cables, and support small-medium sized objects. I achieved these design objectives by creating a modular scanner design where the distance between the scanning bed and camera can be adjusted both in height and length and the cables are hidden in this mechanism. I created some basic dimensions for my sketch and begun ordering metal hardware. Then I sketched and planned the electronics layout to fit inside my mechanical housing and ordered those parts soonafter. I wanted the electronics to be robust and repairable so I created my own stacked board design where the Arduino and motor driver can be hotswapped without soldering. As those parts were arriving, I hopped onto Fusion360 and CADed up my design to be 3D printed. As an additional challenge, I only used my trackpad to do the CAD. I took care in designing keep-out regions where the electronics were to be housed so heat buildup and other part interference would be mitigated. I also went through many iterations to make the assembly of the parts extremely easy, which was one of the hardest parts of the build because I had to work through building and designing the hardware backwards and forwards, anticipating pain points. Getting tolerances for fitting 3D printed parts was pretty easy as I have a lot of experience in 3D printed designs for my past personal projects and during my co-op at Speck. As I was wrapping up CAD design, I 3D printed the parts and started coding the brains of the project. I had to bust out my linear algrebra textbooks again to understand better how to program the scanner. I chose Python as the language because of its ease of use. I sketched up the architecture of my program and implemented it quickly before I had to leave California to go back to Boston. I managed to come up with a working prototype and even got to show it off at JPL for my final presentation!
 
 </br>
 
 </details> 
 </br>
 
-## C++ Codebase Design
+## **C++ Codebase Design**
+
+I wrote SwagScanner in C++ for speed and control over every aspect of the program.
+
 <details>
   <summary>Click to expand</summary>
 </br>
@@ -92,9 +101,12 @@ I made a working prototype in only 1.5 months after work while I was a co-op at 
 </br>
 
 
-## Python Codebase Design
+## **Python Codebase Design**
+
+This was SwagScanner's original codebase. I wrote it in Python to build a working prototype fast. The Python codebase is currently not being supported.
+
 <details>
-  <summary>Click to expand</summary>
+  <summary>More details</summary>
 </br>
 
 ![pipeline](./pipeline.jpg)
@@ -120,7 +132,36 @@ The `Registration()` class provides the tools to iteratively register pairs of c
 </details>
 </br>
 
-## Hardware Design
+## **Bluetooth & Concurrency**
+For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. The purpose of bluetooth in this project is to send commands to the arduino wirelessly in addition to receiving updates from the arduino to the computer such as table position. Wireless connectivity allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote my own C++ wrapper for it.
+<details>
+    <summary>Read more about how I did bluetooth</summary>
+    </br>
+
+I used an object delegation pattern to achieve Objective-C++ compatibility. I will include a diagram soon, it is kind of complicated. I wrote the wrapper to run CoreBluetooth in a background thread so it didn't block the main thread. Getting CoreBluetooth to run on a different thread was huge challenge because there were absolutely no resources or attempts I could find about people trying to do this. After I delved deeper into Objective C [run loops](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html) and [dispatch queues](https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html), I had a better idea to tackle the problem. I ended up executing CoreBluetooth in a separate thread, attaching a runloop to that thread, and running its callbacks on a serial dispatch queue. This worked perfectly and I was able to run Corebluetooth asynchronously to my main program. Then came the problem of race conditions. In my program, connecting to bluetooth occured after initizing my Arduino object which lead to my program exploding. Another race condition occured during the scanning process where the camera would take an image because the table stopped rotating.
+
+ My first solution was in the Arduino object, to create a ```is_rotating``` variable and setter method allowing outside customers to modify it. When the rotate() command was called, I did a while loop to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the objective c code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. Plus it was a little dirty having to write public methods that would only be executed by objective c and nobody else. In addition, polling every **X** seconds was a performance hog and waste of resources. Increasing the time interval was not great either because sometimes it would execute quickly towards the lower bound of the interval, and sometimes it would execute towards the upper bound. 
+ 
+ There was a much better solution with mutexes. I created an ArduinoEventHandler object that held references to conditional & control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the control flow of rotating the table. In the near future I will release my C++ objective-c wrapper as its own standalone library because I think people could benefit from my struggles.
+
+![mutex](./rotate.jpg)
+
+</details>
+</br>
+
+## **Calibration**
+<details>
+    <summary>Click to expand</summary>
+</br>
+
+### Under construction rn.
+
+</details>
+</br>
+
+## **Hardware Design**
+Leveraging my experience in product design and functional prototyping, I created SwagScanner to be a manifestation of my knowledge and experiences.
+
 <details>
   <summary>Click to expand</summary>
   </br>
@@ -153,7 +194,9 @@ Overall, I think assembly is pretty easy--check out some photos of the build pro
 </details> 
 </br>
 
-## Electronics Design
+## **Electronics Design**
+I selected the electronics to integrate seamlessly into the hardware. I did a lot of part picking research, soldering, and crimping to get the electronics neatly assembled.
+
 <details>
   <summary>Click to expand</summary>
   </br>
@@ -171,7 +214,7 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 </details> 
 </br>
 
-## Results (outdated)
+## **Results (outdated)**
 <details>
   <summary>Click to expand</summary>
 </br>
@@ -185,7 +228,7 @@ The scan was obtained using my Python codebase, these results are outdated and w
 </br>
 
 
-## What I've learned so far
+## **What I've learned so far**
 Working on this project really reinforced my ability to understand and bounce between levels of interaction and scope both on the hardware and software side. At the highest level, I had to define system characteristics that I then implemented. Working out how the hardware and software systems interacted with each other was kind of a mind-bend at first, but it quickly became more natural for me to grasp.
 
 I feel like I gained a great understanding of interaction between components at every level. In each subsystem there's a tricky balance of performance, aesthetics, size, and a multitude of other characteristics that are intertwined with each other. For example, when designing the circuit board, I initially wanted the absolute smallest form factor possible. The benefit of a super small form factor would save space in the housing for other components at the cost of hotter components on the board, less modularity, and more difficulty in repairs. I converged to a circuit board design that balanced the tradeoffs while maintaining a small profile. Another instance of component-to-component interaction that was crucial was in material selection. I used a variety of materials in the system (PLA, aluminum, steel, brass) so I had to understand how these materials affect each other, whether one corrodes, scratches, or wears another downn. Understanding how to design for each component to interact with each other was crucial in bringing together this project.
