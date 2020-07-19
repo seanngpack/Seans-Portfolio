@@ -1,7 +1,7 @@
 ---
 title: SwagScanner
 date: "2019-11-23"
-skills: "C++, Python, Algorithms, Threading, Mechanical Design, Fusion360, Electronics, Soldering"
+skills: "C++, Python, Algorithms, Multi-Threading, Mechanical Design, Fusion360, Electronics, Soldering"
 state: "Refining registration algorithms"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
@@ -24,10 +24,6 @@ backgroundColor: "#f274db"
 ## **About**
 
 SwagScanner is a 3D scanning system that scans an object into cyberspace. The user places an object on the rotating bed which scanned at a constant interval for a full rotation. The data goes through a processing pipeline and the output is a refined pointcloud of the scanned object. Swag Scanner has two codebases: one in Python and one in C++. I am currently dropping development of the Python codebase in favor of C++.
-
-## **Features**
-
-SwagScanner, although still in its early stages, contains a wide array of features.
 
 <details>
   <summary>Click to see features</summary>
@@ -72,12 +68,8 @@ SwagScanner, although still in its early stages, contains a wide array of featur
 </details> 
 </br>
 
-## **Initial Design process**
-
-I made a working prototype in only 1.5 months during my free time after work while I was a co-op at NASA JPL. I spent the first week of the project doing hardcore research about 3d scanners available on the market and to my surpise, there were very few commericially available options and even fewer hobby projects. Those that were for sale were priced way too high for an average consumer to to purchase so that further motivated me to pursue this project. Click below to read more about how I started this project.
-
 <details>
-  <summary>More details</summary>
+  <summary>Click to see initial design process</summary>
 </br> 
 
  I took inspiration from existing devices and sketched several different designs of the hardware architecture of the scanner. One of the main hardware decisions is whether I wanted the scanner have a camera revolve around an object, or have the object rotate. I chose the latter because that approach seemed to result in high accuracy scans in addition to being much more feasible to create. Then I narrowed in to more of the specifics of the scanner, I wanted it to look aesthetic, have minimal cables, and support small-medium sized objects. I achieved these design objectives by creating a modular scanner design where the distance between the scanning bed and camera can be adjusted both in height and length and the cables are hidden in this mechanism. I created some basic dimensions for my sketch and begun ordering metal hardware. Then I sketched and planned the electronics layout to fit inside my mechanical housing and ordered those parts soonafter. I wanted the electronics to be robust and repairable so I created my own stacked board design where the Arduino and motor driver can be hotswapped without soldering. As those parts were arriving, I hopped onto Fusion360 and CADed up my design to be 3D printed. As an additional challenge, I only used my trackpad to do the CAD. I took care in designing keep-out regions where the electronics were to be housed so heat buildup and other part interference would be mitigated. I also went through many iterations to make the assembly of the parts extremely easy, which was one of the hardest parts of the build because I had to work through building and designing the hardware backwards and forwards, anticipating pain points. Getting tolerances for fitting 3D printed parts was pretty easy as I have a lot of experience in 3D printed designs for my past personal projects and during my co-op at Speck. As I was wrapping up CAD design, I 3D printed the parts and started coding the brains of the project. I had to bust out my linear algrebra textbooks again to understand better how to program the scanner. I chose Python as the language because of its ease of use. I sketched up the architecture of my program and implemented it quickly before I had to leave California to go back to Boston. I managed to come up with a working prototype and even got to show it off at JPL for my final presentation!
@@ -86,6 +78,22 @@ I made a working prototype in only 1.5 months during my free time after work whi
 
 </details> 
 </br>
+
+## **Scanning Pipeline**
+
+In this section I include visuals and brief explanations on how the calibration, scanning, and processing pipelines work. This section is continuously updated as the pipeline changes.
+
+<details>
+  <summary>More details</summary>
+</br> 
+
+ WORK IN PROGRESS!
+
+</br>
+
+</details> 
+</br>
+
 
 ## **C++ Codebase Design**
 
@@ -98,11 +106,9 @@ I wrote SwagScanner in C++ for speed and control over every aspect of the progra
 *** This section is still WIP ***
 
 ### Program design
-I utilized MVC (model-view-controller) design for this project. The models are represented by the data handling objects, views are the commandline interface and GUI interfaces, and controllers manages the scanning and processing pipelines. I focused on clean design and scalability from the get-go which quickly netted substantial benefits. Adding new features and extending existing code is pretty painless. For example, when adding a new camera system, I can just implement the ICamera interface and override the default virtual methods. Utilizing the new camera is as simple as passing it as a parameter to the ScanController object.
+I utilized MVC (model-view-controller) pattern to organize the project structure. The models are represented by the data handling objects, views are the commandline interface and GUI interfaces, and controllers manages the scanning and processing pipelines. I focused on clean design and scalability from the beginning which quickly netted substantial benefits. Adding new features and extending existing code is pretty painless. For example, when adding a new camera system, I can just implement the ICamera interface and override the default virtual methods. Utilizing the new camera is as simple as passing it as a parameter to the ScanController object.
 
-I separated utility functions into their own headers. These functions are dumb and do not need access to class states, similar to static methods from Java. For example, registration methods are implemented inline the Registration.h file in the registration namespace. Then they are utilized in the ProcessingModel object. 
-
-Currently, there are a lot of raw pointers in the program. I am slowly making the transition over to smart pointers as the needs arise, however I am confident in managing ownership and memory allocation so they are fine for now. One example of where I needed a smart pointer is with my FileHandler class. I needed an instance of this class to be passed to multiple objects and that brings up the ownership problem. Which object is responsible for deleting FileHandler and when? Using a shared_ptr solved this issue with reference counting, and file_handler will be deleted when the number of references to it reaches 0.
+The entry point to the application is currently through a commandline interface which provides commands to the scanner. A CLIClient takes in the commandline arguments and passes them to a factory. The factory creates a controller for scanning, processing, or calibration given the arguments, and returns it. Then the controller's run() method is executed.
 
 
 ### File handling
@@ -185,7 +191,7 @@ I developed a calibration fixture and method to find the center point and axis o
 Leveraging my experience in product design and functional prototyping, I created SwagScanner to be a manifestation of my knowledge and experiences.
 
 <details>
-  <summary>More details</summary>
+  <summary>Hardware design</summary>
   </br>
 
 One of the main focuses of the hardware design was the ease of assembly, repairability, and upgradeability. I went with a worm drive gearbox for the rotating bed because of its inherit ability to resist backdriving. The driven gear is connected to a stainless steel shaft. The gear and mounting hub are secured to the shaft via set screws. I hate set screws with a passion--they always come undone and end up scoring your shaft. To alleviate the woes of set screws, I reduced the vertical forces acting on them by designing the hardware stackup along the shaft so that the set screw components rest on axial thrust bearings. That way, at least the weight of the set screw components won't act on the set screws. 
@@ -216,11 +222,9 @@ Overall, I think assembly is pretty easy--check out some photos of the build pro
 </details> 
 </br>
 
-## **Electronics Design**
-I selected the electronics to integrate seamlessly into the hardware. I did a lot of part picking research, soldering, and crimping to get the electronics neatly assembled.
 
 <details>
-  <summary>More details</summary>
+  <summary>Electronics Design</summary>
   </br>
 
 For the electronics, I went with a stacked board design to save horizontal space for additional components I may add in the future. Hotswaping components is also very straightforward in the case that anything blows up. I am powering the Arduino and stepper driver using a 12V 2a wall adapter. I did not add a voltage regulator such as a LM317 (cheap linear regulator) or a switching regulator to my Arduino. This is because my Arduino iot33 comes with a MPM3610 which its [spec sheets](https://www.monolithicpower.com/en/mpm3610.html) indicates to be a large upgrade compared to the voltage regulator supplied in normal Arduinos. I also opted to use Dupont connectors instead of more secure JST connectors because I like the ease of cable removal with the Dupont connectors whereas I find JST connector to get stuck often.
@@ -249,7 +253,6 @@ The scan was obtained using my Python codebase, these results are outdated and w
 </details> 
 </br>
 
-## **Improving results**
 <details>
   <summary>More details</summary>
 </br>
