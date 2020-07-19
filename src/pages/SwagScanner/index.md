@@ -95,7 +95,7 @@ I wrote SwagScanner in C++ for speed and control over every aspect of the progra
   <summary>More details</summary>
 </br>
 
-### Under construction rn.
+*** This section is still WIP ***
 
 ### Program design
 I utilized MVC (model-view-controller) design for this project. The models are represented by the data handling objects, views are the commandline interface and GUI interfaces, and controllers manages the scanning and processing pipelines. I focused on clean design and scalability from the get-go which quickly netted substantial benefits. Adding new features and extending existing code is pretty painless. For example, when adding a new camera system, I can just implement the ICamera interface and override the default virtual methods. Utilizing the new camera is as simple as passing it as a parameter to the ScanController object.
@@ -106,13 +106,11 @@ Currently, there are a lot of raw pointers in the program. I am slowly making th
 
 
 ### File handling
-I wrote a custom file handling system to manage SwagScanner's settings save and load scans. When creating an instance of FileHandler, it checks to see if there is a SwagScanner folder in your ```Library/Application Support``` folder. If it doesn't exist, then create one. I chose this to be the default path because Mac applications store their data to this folder by default. Inside the SwagScanner folder you will find ```scans```, ```settings```, and ```calibration``` folders. 
+I wrote a custom file handling system to manage SwagScanner's settings and manage scanning data.
 
+The IFileHandler interface outlines functionality of the file handling system such as saving and loading data. Concrete classes that represent scanning, calibration, and processing file handling implement those features. This keeps the codebase more organized maintainable. Because of the directory architecture I set up for SwagScanner, my methods can be very dumb and accept simple arguments. That way, if I make big refactors to the directory design, the methods do not have to be changed--only the value of the parameter has to be modified making refactoring super easy. 
 
-#### /scans
-This is where scans are located. Inside the scans folder there are ```filtered```, ```info```, ```normals```, ```raw```, and ```segmented``` folders.
-
-The file handler is really smart. You can tell it to create a new scan folder and populate it with default information in place until a scan is run. It will also use the latest calibration stored in the /calibration folder. The new scan folder is named numerically, so if there are names "0", "1", in the /scans folder, a "2" folder will be created. If you don't want to run a new scan, then you can pass the name of the old scan and the file handler set that scan as the current scan. And if you want to use the last run scan, then don't pass anything to the file handler and it will find that information via /info folder.
+The file handler system supports many features. It can automatically create new folders with populated subdirectories by using the default constructor. It also updates several files in its directories during scanning with current scan data.
 
 
 ### Testing
@@ -172,7 +170,7 @@ I used an object delegation pattern to achieve Objective-C++ compatibility. I wi
 
 ## **Calibration**
 
-I developed a calibration fixture and method to find the axis of rotation of the scanning table. This allows me to align each scanned pointcloud to the first scan and construct a full image.
+I developed a calibration fixture and method to find the center point and axis of rotation of the scanning table. This allows me to align each scanned pointcloud to the first scan and construct a full image.
 
 <details>
     <summary>warning: lots of math</summary>
@@ -250,6 +248,33 @@ The scan was obtained using my Python codebase, these results are outdated and w
 
 </details> 
 </br>
+
+## **Improving results**
+<details>
+  <summary>More details</summary>
+</br>
+
+**Work in progress!**
+
+###Physical noise reduction
+
+Depth data collected by the intel Realsense cameras are very noisy compared to data from the Kinect. In the pointcloud below taken by the SR305, you can see the noise represented by the wavy pattern. I can mitigate noise in two days, first using physical means, and second with post-processing. Because SwagScanner can support multiple cameras, it would be easier to generalize noise-reduction. All depth cameras generate more noise as the distance increases (the ratio between noise to distance varies camera to camera though), so I designed the distance between the camera and scanning object to be at the minimum scanning distance for the set of sensors. I also outline constraints for the user such as using the scanner indoors with minimal reflective surfaces in the room. 
+
+###Post-processing noise reduction
+I have found very good results applying a spatial-edge preserving filter to smooth noise from the Realsense cameras. This filter runs very fast and smoothens the data while maintaining edges. I used the filter provided by librealsense SDK. One parameter it takes is the smooth alpha which affects how aggressive the filter is. The lower the value, the more aggressive the filter and more rounded the edges become.
+
+###Other methods of noies reduction
+Other methods of noise reduction would add more complexity to the system than needed. Outlined in [intel's paper for tuning Realsense cameras](https://www.intel.com/content/dam/support/us/en/documents/emerging-technologies/intel-realsense-technology/BKMs_Tuning_RealSense_D4xx_Cam.pdf), it is possible to use an external project to increase depth quality, among several other methods.
+
+###Noise from scanning bed
+
+Originally I was using a white scanning surface. It was very easy to detect its plane and remove it from the cloud at the end. However, it seems like a combination of it reflectiveness and slightly glossy surface was introducing noise to the bottom of the scans. In the photo below you can see a rounded corner between the bed and the object. 
+
+
+</details> 
+</br>
+
+
 
 
 ## **What I've learned so far**
