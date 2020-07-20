@@ -26,7 +26,7 @@ backgroundColor: "#f274db"
 SwagScanner is a 3D scanning system that scans an object into cyberspace. The user places an object on the rotating bed which scanned at a constant interval for a full rotation. The data goes through a processing pipeline and the output is a refined pointcloud of the scanned object. Swag Scanner has two codebases: one in Python and one in C++. I am currently dropping development of the Python codebase in favor of C++.
 
 <details>
-  <summary>Click to see features</summary>
+  <summary>Features</summary>
 </br> 
 
 &nbsp;&nbsp;&nbsp;&nbsp; **Software** \
@@ -69,7 +69,7 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
 </br>
 
 <details>
-  <summary>Click to see initial design process</summary>
+  <summary>Initial design process</summary>
 </br> 
 
  I took inspiration from existing devices and sketched several different designs of the hardware architecture of the scanner. One of the main hardware decisions is whether I wanted the scanner have a camera revolve around an object, or have the object rotate. I chose the latter because that approach seemed to result in high accuracy scans in addition to being much more feasible to create. Then I narrowed in to more of the specifics of the scanner, I wanted it to look aesthetic, have minimal cables, and support small-medium sized objects. I achieved these design objectives by creating a modular scanner design where the distance between the scanning bed and camera can be adjusted both in height and length and the cables are hidden in this mechanism. I created some basic dimensions for my sketch and begun ordering metal hardware. Then I sketched and planned the electronics layout to fit inside my mechanical housing and ordered those parts soonafter. I wanted the electronics to be robust and repairable so I created my own stacked board design where the Arduino and motor driver can be hotswapped without soldering. As those parts were arriving, I hopped onto Fusion360 and CADed up my design to be 3D printed. As an additional challenge, I only used my trackpad to do the CAD. I took care in designing keep-out regions where the electronics were to be housed so heat buildup and other part interference would be mitigated. I also went through many iterations to make the assembly of the parts extremely easy, which was one of the hardest parts of the build because I had to work through building and designing the hardware backwards and forwards, anticipating pain points. Getting tolerances for fitting 3D printed parts was pretty easy as I have a lot of experience in 3D printed designs for my past personal projects and during my co-op at Speck. As I was wrapping up CAD design, I 3D printed the parts and started coding the brains of the project. I had to bust out my linear algrebra textbooks again to understand better how to program the scanner. I chose Python as the language because of its ease of use. I sketched up the architecture of my program and implemented it quickly before I had to leave California to go back to Boston. I managed to come up with a working prototype and even got to show it off at JPL for my final presentation!
@@ -87,7 +87,13 @@ In this section I include visuals and brief explanations on how the calibration,
   <summary>More details</summary>
 </br> 
 
- WORK IN PROGRESS!
+The diagrams shown in this section are very high-level overviews of the flow of the program. The diagrams show sequential actions, cuncurrency processing is detailed in other sections. The image below shows how user input is used to select the appropriate pipeline to use.
+
+![pipeline overview1](./pipelineOverview.png)
+
+The image below shows how scanning, processing, and calibration work.
+
+![pipelineCompare1](./pipelineCompare.png)
 
 </br>
 
@@ -241,8 +247,11 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 </br>
 
 ## **Results (outdated)**
+
+This section outlines results from the current scanning pipeline. The first subsection gives images and descriptions of what is currently achieved. The second section details methods that are used to improve the results in addition to methods I will use in the future.
+
 <details>
-  <summary>More details</summary>
+  <summary>Results</summary>
 </br>
 
 ![cup_pointcloud](./cup0.jpg)
@@ -254,7 +263,7 @@ The scan was obtained using my Python codebase, these results are outdated and w
 </br>
 
 <details>
-  <summary>More details</summary>
+  <summary>Improving results</summary>
 </br>
 
 **Work in progress!**
@@ -280,8 +289,14 @@ Originally I was using a white scanning surface. It was very easy to detect its 
 
 
 
-## **What I've learned so far**
-Working on this project really reinforced my ability to understand and bounce between levels of interaction and scope both on the hardware and software side. At the highest level, I had to define system characteristics that I then implemented. Working out how the hardware and software systems interacted with each other was kind of a mind-bend at first, but it quickly became more natural for me to grasp.
+## **Lessons Learned So Far**
+On a high level, working on this project reinforced my ability to understand and bounce between high-level and low-level subsystems both on the hardware and software side. In this section, I will outline lessons learned in bullet format hoping that people can learn from my mistakes at a glance instead of reading a wall of text.
+<details>
+  <summary>Lessons learned</summary>
+</br>
 
-I feel like I gained a great understanding of interaction between components at every level. In each subsystem there's a tricky balance of performance, aesthetics, size, and a multitude of other characteristics that are intertwined with each other. For example, when designing the circuit board, I initially wanted the absolute smallest form factor possible. The benefit of a super small form factor would save space in the housing for other components at the cost of hotter components on the board, less modularity, and more difficulty in repairs. I converged to a circuit board design that balanced the tradeoffs while maintaining a small profile. Another instance of component-to-component interaction that was crucial was in material selection. I used a variety of materials in the system (PLA, aluminum, steel, brass) so I had to understand how these materials affect each other, whether one corrodes, scratches, or wears another downn. Understanding how to design for each component to interact with each other was crucial in bringing together this project.
+WORK IN PROGRESS
 
+
+</details> 
+</br>
