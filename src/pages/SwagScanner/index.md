@@ -23,7 +23,7 @@ backgroundColor: "#f274db"
 
 ## **About**
 
-SwagScanner is a 3D scanning system that scans an object into cyberspace. The user places an object on the rotating bed which scanned at a constant interval for a full rotation. The data goes through a processing pipeline and the output is a refined pointcloud of the scanned object. Swag Scanner has two codebases: one in Python and one in C++. I am currently dropping development of the Python codebase in favor of C++.
+SwagScanner is a 3D scanning system in active development that scans an object into cyberspace. The user places an object on the rotating bed and is sacnned at a constant interval for a full rotation. The data goes through a processing pipeline and outputs a refined pointcloud. Swag Scanner has two codebases: one in Python(inactive) and one in C++. This page serves as documentation of current development and information about how the scanner works.
 
 <details>
   <summary>Features</summary>
@@ -45,23 +45,6 @@ SwagScanner is a 3D scanning system that scans an object into cyberspace. The us
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Custom vertical board design \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Easy hotswapping of motor driver and arduino boards \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Minimized number of cables and cable lengths
-
-## Technical
-
-&nbsp;&nbsp;&nbsp;&nbsp; **Software** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Python, C++, PCL, NumPy  \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; BluetoothLE 
-
-&nbsp;&nbsp;&nbsp;&nbsp; **Hardware** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 6.2 N-m torque @ 80% efficiency \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Slew bearing for bed rotation \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ~300g PLA filament \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Intel SR305 realsense sensor
-
-&nbsp;&nbsp;&nbsp;&nbsp; **Electronics** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DRV8825 driver \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Arduino 33 iot ble \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Dupont connectors
 
 </br>
 
@@ -103,7 +86,7 @@ The image below shows how scanning, processing, and calibration work.
 
 ## **C++ Codebase Design**
 
-I wrote SwagScanner in C++ for speed and control over every aspect of the program.
+I wrote SwagScanner in C++ for control over every aspect of the program.
 
 <details>
   <summary>More details</summary>
@@ -134,7 +117,7 @@ I utilized Google Tests and unit tested most methods. Soon I will add mocks to t
 
 ## **Python Codebase Design**
 
-This was SwagScanner's original codebase. I wrote it in Python to build a working prototype fast. The Python codebase is currently not being supported.
+This was SwagScanner's original codebase. I wrote it in Python to quickly build a working prototype. The Python codebase is currently not being supported.
 
 <details>
   <summary>More details</summary>
@@ -164,24 +147,24 @@ The `Registration()` class provides the tools to iteratively register pairs of c
 </br>
 
 ## **Bluetooth & Concurrency**
-For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. The purpose of bluetooth in this project is to send commands to the arduino wirelessly in addition to receiving updates from the arduino to the computer such as table position. Wireless connectivity allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote my own C++ wrapper for it.
+For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. Bluetooth allows commands to be sent wirelessly from the computer to the arduino and vice-versa. Wireless connectivity also allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote a C++ wrapper for it.
 <details>
     <summary>Read more about how I did bluetooth</summary>
     </br>
 
-I created my own pattern which draws inspiration from a general object delegation pattern to achieve Objective-C++ compatibility with callback functionality. The Client and CoreBluetoothObjC objects both extend the CorebluetoothWrapper header. Client is composed of a CoreBluetoothObjC object and dispatches calls to using the header methods. The Client manages memory and the lifecycle for CoreBluetoothObjC. Client also passes a reference to itself to CoreBluetoothObjC for callback functionality. CoreBluetoothObjC overrides the header methods to call code in Objective-C. So when you call C++ code from the Client, it is calling a method in CoreBluetoothObjC which calls Objective-C code. 
+I created my own pattern which draws inspiration from a general object delegation pattern to achieve Objective-C++ compatibility with callback functionality. The CoreBluetoothObjC implements the CorebluetoothWrapper header. The Client also includes the header, but does not implement it--rather calls the header methods because they are implemented by CoreBluetoothObjC. I represented this relationship with a dotted line in the UML diagram below. Client is composed of a CoreBluetoothObjC object and dispatches calls to using the header methods. The Client manages memory and the lifecycle for CoreBluetoothObjC. Client also passes a reference to itself to CoreBluetoothObjC for callback functionality. CoreBluetoothObjC overrides the header methods to call code in Objective-C. So when you call C++ code from the Client, it is calling a method in CoreBluetoothObjC which calls Objective-C code.
 
 ![objective c++ pattern](./objCPattern.png)
 
- I wrote the wrapper to run CoreBluetooth in a background thread so it does not block the main thread. Getting CoreBluetooth to run on a different thread was huge challenge because there were absolutely no resources or attempts I could find about people trying to do this. After I delved deeper into Objective C [run loops](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html) and [dispatch queues](https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html), I had a better idea to tackle the problem. I ended up executing CoreBluetooth in a separate thread, attaching a runloop to that thread, and running its callbacks on a serial dispatch queue. This worked perfectly and I was able to run Corebluetooth asynchronously to my main program. Then came the problem of race conditions. In my program, connecting to bluetooth occured after initizing my Arduino object which lead to my program exploding. Another race condition occured during the scanning process where the camera would take an image because the table stopped rotating.
+ I wrote the wrapper to run CoreBluetooth in a background thread so it does not block the main thread. Getting CoreBluetooth to run on the background thread was difficult--I don't think anyone else has tried doing this in a C++ application before. I familiarized myself with Objective C [run loops](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html) and [dispatch queues](https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html). The solution became clearer and I ended up executing CoreBluetooth in a separate thread, attaching a runloop to that thread, and running its callbacks on a serial dispatch queue. This worked perfectly and I was able to run Corebluetooth asynchronously to my main program. Then came the problem of race conditions. In my program, connecting to bluetooth occured after initizing my Arduino object which lead to my program exploding. Another race condition occured during the scanning process where the camera would take an image because the table stopped rotating.
 
- My first solution was in the Arduino object, to create a ```is_rotating``` variable and setter method allowing outside customers to modify it. When the rotate() command was called, I did a while loop to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the Objective-C code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. Plus it was a little dirty having to write public methods that would only be executed by Objective-C and nobody else. In addition, polling every **X** seconds was a performance hog and waste of resources. Increasing the time interval was not great either because sometimes it would execute quickly towards the lower bound of the interval, and sometimes it would execute towards the upper bound. 
+ My first solution was naive, I created a ```is_rotating``` variable in the Arduino object and made a setter method that allowed outside customers to modify the variable. When the rotate() command was called, a while loop was executed to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the Objective-C code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. In addition, polling every **X** seconds was a performance hog and waste of resources. And increasing the time interval to solve performance issues from polling was not a good solution because it still does not address the fundamental issue, the Arduino should be alerted when the state changes.
  
- There was a much better solution with mutexes. I created an ArduinoEventHandler--noted as Client in the diagram above--object that manages conditional & control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the flow of rotating the table. 
+ The solution was to use mutexes. I created an ArduinoEventHandler--noted as Client in the diagram above--object that manages control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the flow of rotating the table. When ```rotate()``` is called, it creates a ```unique_local``` and waits for a conditional variable and notification before the lock is released.
 
 ![mutex](./rotate.jpg)
 
-In the near future I will release my C++ wrapper as its own standalone library because I think people could benefit from my struggles.
+In the near future I will release my C++ wrapper as its own standalone library.
 
 </details>
 </br>
