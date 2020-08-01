@@ -178,15 +178,118 @@ This section details the method I used to calculate the center of the rotation t
 </br>
 
 ### Calibration fixture
-Here is the physical calibration fixture. It has a upright plane and ground plane. This design is inspired by the calibration fixture used on the 3D scanner I worked on at JPL.
+Here is the physical calibration fixture. It has a upright plane and ground plane. This design is inspired by the calibration fixture used on the 3D scanner I worked on at JPL. $G$ represents the ground plane normal, $U$ the upright plane normal, $c$ the center point, and $L$ the line of intersection between the ground and upright planes.
 
 ![calibration_fixture](./calibration-fixture.png)
 
 ### Calculating axis of rotation
-The axis of rotation is the normal direction vector of the ground plane. Using the RANSAC plane segmentation, I gathered the equations of the plane and took the average of them to get the rotation axis. 
+The axis of rotation is the normal direction vector of the ground plane, $G$. Using RANSAC plane segmentation, the equation of the ground plane can be easily extracted. Multiple scans are taken the final rotation axis is calculated by taking the average of the normals.
 
-### Calculation center point
+### Calculating center point
+The distance between the point $c$ and line $l$ is the same for each scan. Knowing this geometric relation, we can derive equations to calculate for this distance and ultimately solve for $c$.
+
 ![calfig1](./calibration-figure1.png)
+
+First we start with some definitions:
+
+$$
+Upright plane = [u_{x_i}, u_{y_i}, u_{z_i}, u_{d_i}]
+$$
+
+$$
+Ground plane = [g_x, g_y, g_z, g_d]
+$$
+
+$$
+U = [u_{x_i}, u_{y_i}, u_{z_i}]
+$$
+
+$$
+G = [g_x, g_y, g_z]
+$$
+
+$$
+c = [c_x, c_y, c_z]
+$$
+
+We calculate the line of intersection $l$ below:
+
+$$
+l_i=\frac{\left\{\left| 
+\begin{array}{cc}
+ u_{y_i} & g_y \\
+ u_{d_i} & g_d \\
+\end{array}
+\right| ,\left| 
+\begin{array}{cc}
+ u_{d_i} & g_d \\
+ u_{x_i} & g_x \\
+\end{array}
+\right| ,0\right\}}{\left| 
+\begin{array}{cc}
+ u_{x_i} & g_x \\
+ u_{y_i} & g_y \\
+\end{array}
+\right| } + x * \left\{u_{x_i},u_{y_i},u_{z_i}\right\}\times \left\{g_x,g_y,g_z\right\}
+$$
+
+$$
+l_i=\left\{\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}}+x \left(u_{y_i} g_z-g_y u_{z_i}\right),\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}}+x \left(g_x u_{z_i}-u_{x_i} g_z\right),x \left(u_{x_i} g_y-g_x u_{y_i}\right)\right\}
+$$
+
+Now we get the line $\overline{CP}$ where P is a point on $l$:
+
+$$
+P_x=\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}}
+$$
+
+$$
+P_y=\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}}
+$$
+
+$$
+P_z = 0
+$$
+
+$$
+\overline{CP}=\left\{c_x-p_x,c_y-p_y,c_z-p_z\right\}
+$$
+
+$$
+\overline{CP}=\left\{c_x-\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}},c_y-\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}},c_z\right\}
+$$
+
+We can now calculate the area of the parallelogram $A$ by taking the norm of the cross product of overline{CP} and the direction of $l$:
+
+$$
+A_i= \| \left\{c_x-\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}},c_y-\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}},c_z\right\}\times \left\{u_{y_i} g_z-g_y u_{z_i},g_x u_{z_i}-u_{x_i} g_z,u_{x_i} g_y-g_x u_{y_i}\right\} \|
+$$
+
+At this point we can calculate $d$ by taking the area of the parallelogram $A$ and dividing it by the base of the shape $l$, or norm of $P$ over the norm of the direction of $l$:
+
+$$
+d=\frac{\| A_i\| }{\| l_i\| }
+$$
+
+The symbolic solution is very complex, so here is an elegant solution derived by the authors of [this paper](https://www.researchgate.net/publication/308822289_An_accurate_3D_point_cloud_registration_approach_for_the_turntable-based_3D_scanning_system) using a similar method: 
+
+$$
+d_i=\frac{\| \left(c_x g_x+c_y g_y+g_z\right) \|}{\| \left(g_x+g_y+g_z\right)\times \left(u_{x_i},u_{y_i},u_{z_i}\right) \|}
+\cdot c_x u_{x_i}+c_y u_{y_i}+c_z u_{z_i}+u_{d_i}
+$$
+
+Mentioned earlier, we know that d should be the same for each iteration so:
+
+$$
+d_i-d_{i+1}=0, i=1,2,\text{...}n-1
+$$
+
+And we can write out the system form as:
+
+$$
+c_x \left(\frac{\| G\|  U_{x_i}}{\left\| G\times U_i\right\| }-\frac{\| G\|  U_{x_i}}{\left\| G\times U_{i+1}\right\| }\right)+...=\frac{\| G\|  U_{D_{i+1}}}{\left\| G\times U_{i+1}\right\| }-\frac{\| G\|  U_{D_i}}{\left\| G\times U_i\right\| }
+$$
+
 
 
 </details>
