@@ -171,13 +171,23 @@ In the near future I will release my C++ wrapper as its own standalone library.
 
 ## **Calibration**
 
-I developed a calibration fixture and method to find the center point and axis of rotation of the scanning table. This allows me to align each scanned pointcloud to the first scan and construct a full image.
+This section details the method I used to calculate the center of the rotation table and how it is used to perform initial registration and point removal.
 
 <details>
     <summary>warning: lots of math</summary>
 </br>
 
-### Under construction rn.
+### Calibration fixture
+Here is the physical calibration fixture. It has a upright plane and ground plane. This design is inspired by the calibration fixture used on the 3D scanner I worked on at JPL.
+
+![calibration_fixture](./calibration-fixture.png)
+
+### Calculating axis of rotation
+The axis of rotation is the normal direction vector of the ground plane. Using the RANSAC plane segmentation, I gathered the equations of the plane and took the average of them to get the rotation axis. 
+
+### Calculation center point
+![calfig1](./calibration-figure1.png)
+
 
 </details>
 </br>
