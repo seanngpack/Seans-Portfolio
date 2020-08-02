@@ -2,7 +2,7 @@
 title: SwagScanner
 date: "2019-11-23"
 skills: "C++, Python, Algorithms, Multi-Threading, Mechanical Design, Fusion360, Electronics, Soldering"
-state: "Refining registration algorithms"
+state: "Working on entire hardware redesign!!"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
 logo: "./1.jpg"
@@ -84,12 +84,12 @@ The image below shows how scanning, processing, and calibration work.
 </br>
 
 
-## **C++ Codebase Design**
+## **Software Design**
 
-I wrote SwagScanner in C++ for control over every aspect of the program.
+SwagScanner's codebase is quickly growing with a multitude of features being added. 
 
 <details>
-  <summary>More details</summary>
+  <summary>C++ Codebase</summary>
 </br>
 
 *** This section is still WIP ***
@@ -114,13 +114,8 @@ I utilized Google Tests and unit tested most methods. Soon I will add mocks to t
 </details>
 </br>
 
-
-## **Python Codebase Design**
-
-This was SwagScanner's original codebase. I wrote it in Python to quickly build a working prototype. The Python codebase is currently not being supported.
-
 <details>
-  <summary>More details</summary>
+  <summary>Python Codebase Design (old)</summary>
 </br>
 
 ![pipeline](./pipeline.jpg)
@@ -146,11 +141,12 @@ The `Registration()` class provides the tools to iteratively register pairs of c
 </details>
 </br>
 
-## **Bluetooth & Concurrency**
-For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. Bluetooth allows commands to be sent wirelessly from the computer to the arduino and vice-versa. Wireless connectivity also allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote a C++ wrapper for it.
+
 <details>
-    <summary>Read more about how I did bluetooth</summary>
+    <summary>Bluetooth & Concurrency</summary>
     </br>
+
+For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. Bluetooth allows commands to be sent wirelessly from the computer to the arduino and vice-versa. Wireless connectivity also allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote a C++ wrapper for it.
 
 I created my own pattern which draws inspiration from a general object delegation pattern to achieve Objective-C++ compatibility with callback functionality. The CoreBluetoothObjC implements the CorebluetoothWrapper header. The Client also includes the header, but does not implement it--rather calls the header methods because they are implemented by CoreBluetoothObjC. I represented this relationship with a dotted line in the UML diagram below. Client is composed of a CoreBluetoothObjC object and dispatches calls to using the header methods. The Client manages memory and the lifecycle for CoreBluetoothObjC. Client also passes a reference to itself to CoreBluetoothObjC for callback functionality. CoreBluetoothObjC overrides the header methods to call code in Objective-C. So when you call C++ code from the Client, it is calling a method in CoreBluetoothObjC which calls Objective-C code.
 
@@ -389,7 +385,7 @@ affine=\left[\begin{matrix}
 \right]
 $$
 
-At this point we can use the result onto our pointcloud and align it to the world origin with z pointing up! The image below shows the original cloud in white, and the transformed cloud in blue.
+At this point we can use the result onto our pointcloud and align it to the world origin with z pointing up! The image below shows the original cloud in green, and the transformed cloud in blue.
 
 ![world-frame](./world-frame.png)
 
@@ -401,7 +397,7 @@ After aligning the pointcloud to the world origin, we can define a crop box wher
 </br>
 
 ## **Hardware Design**
-Leveraging my experience in product design and functional prototyping, I created SwagScanner to be a manifestation of my knowledge and experiences.
+This section details the design I process I went through to create the hardware. The main idea is that initially I wanted a semi-modular platform that I could tweak and change parameters as I learned more about scanning. SwagScanner is currently undergoing a complete hardware revamp.
 
 <details>
   <summary>Hardware design</summary>
