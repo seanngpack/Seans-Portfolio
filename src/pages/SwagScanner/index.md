@@ -84,87 +84,6 @@ The image below shows how scanning, processing, and calibration work.
 </br>
 
 
-## **Software Design**
-
-SwagScanner's codebase is quickly growing with a multitude of features being added. 
-
-<details>
-  <summary>C++ Codebase</summary>
-</br>
-
-*** This section is still WIP ***
-
-### Program design
-I utilized MVC (model-view-controller) pattern to organize the project structure. The models are represented by the data handling objects, views are the commandline interface and GUI interfaces, and controllers manages the scanning and processing pipelines. I focused on clean design and scalability from the beginning which quickly netted substantial benefits. Adding new features and extending existing code is pretty painless. For example, when adding a new camera system, I can just implement the ICamera interface and override the default virtual methods. Utilizing the new camera is as simple as passing it as a parameter to the ScanController object.
-
-The entry point to the application is currently through a commandline interface which provides commands to the scanner. A CLIClient takes in the commandline arguments and passes them to a factory. The factory creates a controller for scanning, processing, or calibration given the arguments, and returns it. Then the controller's run() method is executed.
-
-
-### File handling
-I wrote a custom file handling system to manage SwagScanner's settings and manage scanning data.
-
-The IFileHandler interface outlines functionality of the file handling system such as saving and loading data. Concrete classes that represent scanning, calibration, and processing file handling implement those features. This keeps the codebase more organized maintainable. Because of the directory architecture I set up for SwagScanner, my methods can be very dumb and accept simple arguments. That way, if I make big refactors to the directory design, the methods do not have to be changed--only the value of the parameter has to be modified making refactoring super easy. 
-
-The file handler system supports many features. It can automatically create new folders with populated subdirectories by using the default constructor. It also updates several files in its directories during scanning with current scan data.
-
-
-### Testing
-I utilized Google Tests and unit tested most methods. Soon I will add mocks to the test suite.
-
-</details>
-</br>
-
-<details>
-  <summary>Python Codebase Design (old)</summary>
-</br>
-
-![pipeline](./pipeline.jpg)
-
-### Entry Point
-First, we define the entry point of the application `scan.py` and create a `Scan()` object to handle abstracting each major steps in the scanning pipeline to be run sequentially (note: not all actions are synchronous in SwagScanner!)
-
-### Camera()
-The `Camera()` class is an interface that can be extended to provide ability to use any depth camera. Looking at the `D435` object, we override the `get_intrinsics()` method with RealSense API calls to get the intrinsics of the camera.
-
-### Arduino()
-The `Arduino()` class provides methods to initialize the Arduino and send bluetooth commands to it. We subscribe to asynchronous notifications from a custom bluetooth service which provides table state information.
-
-### DepthProcessor()
-This class is a class factory builder that takes in a `Camera()` object and a `boolean` flag and returns either a fast or slow depth processing unit. Using the fast unit, we gain the ability to use `deproject_depth_frame()` with vectorized math operations for point to pixel deprojection. The slow unit utilizes a **much (300x)** slower double for loop to perform that task. One drawback with the fast deprojection method is that it does not account for any distortion models in the frame. If you are using Intel depth cameras that is OK because the developers advised against that since distortion is so low. The same may not be true for the Kinect however. Subclass the `DepthProcessor()` object and override the `deproject_depth_frame()` method if you would like to include your own distortion model.
-
-### Filtering()
-This provides the tools to perform voxel grid filtering which downsamples our pointcloud by the `leaf_size` parameter and saves it. This step is essential for registration because performing registration on a massive pointcloud would take a very long time to converge. One more thing we have to do in filtering is segment the plane from each pointcloud. We run the RANSAC (random sample concensus) algorithm and fit a plane model (ax + by + cz + d= 0) to our cloud and detect the inliers. Using the inliers and plane model, we can reject those points and obtain a pointcloud without a the scanning bed plane. This is essential to do before registration so that we don't take a subset of the cloud belonging to the plane and encounter a false-positive icp convergence.
-
-### Registration()
-The `Registration()` class provides the tools to iteratively register pairs of clouds. Using global iterative registration, we define a `global_transform` variable as the identity matrix of size 4x4. Then we apply the iterative closest point algorithm to a a source, target cloud pair and get the source -> target cloud transformation as a 4x4 transformation matrix. Then we take the inverse of that matrix `transf_inv` to get the transformation from target->source. We multiply the target by the global transform (remember: this is the first iteration, the `global_transform` is still the identity matrix) to get the target cloud in the same reference frame as the source and save the cloud. Then we dot product `global_transform` and `transf_inv` to update the global transformation. Move on to the next pair of clouds and repeat. 
-
-</details>
-</br>
-
-
-<details>
-    <summary>Bluetooth & Concurrency</summary>
-    </br>
-
-For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. Bluetooth allows commands to be sent wirelessly from the computer to the arduino and vice-versa. Wireless connectivity also allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote a C++ wrapper for it.
-
-I created my own pattern which draws inspiration from a general object delegation pattern to achieve Objective-C++ compatibility with callback functionality. The CoreBluetoothObjC implements the CorebluetoothWrapper header. The Client also includes the header, but does not implement it--rather calls the header methods because they are implemented by CoreBluetoothObjC. I represented this relationship with a dotted line in the UML diagram below. Client is composed of a CoreBluetoothObjC object and dispatches calls to using the header methods. The Client manages memory and the lifecycle for CoreBluetoothObjC. Client also passes a reference to itself to CoreBluetoothObjC for callback functionality. CoreBluetoothObjC overrides the header methods to call code in Objective-C. So when you call C++ code from the Client, it is calling a method in CoreBluetoothObjC which calls Objective-C code.
-
-![objective c++ pattern](./objCPattern.png)
-
- I wrote the wrapper to run CoreBluetooth in a background thread so it does not block the main thread. Getting CoreBluetooth to run on the background thread was difficult--I don't think anyone else has tried doing this in a C++ application before. I familiarized myself with Objective C [run loops](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html) and [dispatch queues](https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html). The solution became clearer and I ended up executing CoreBluetooth in a separate thread, attaching a runloop to that thread, and running its callbacks on a serial dispatch queue. This worked perfectly and I was able to run Corebluetooth asynchronously to my main program. Then came the problem of race conditions. In my program, connecting to bluetooth occured after initizing my Arduino object which lead to my program exploding. Another race condition occured during the scanning process where the camera would take an image because the table stopped rotating.
-
- My first solution was naive, I created a ```is_rotating``` variable in the Arduino object and made a setter method that allowed outside customers to modify the variable. When the rotate() command was called, a while loop was executed to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the Objective-C code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. In addition, polling every **X** seconds was a performance hog and waste of resources. And increasing the time interval to solve performance issues from polling was not a good solution because it still does not address the fundamental issue, the Arduino should be alerted when the state changes.
- 
- The solution was to use mutexes. I created an ArduinoEventHandler--noted as Client in the diagram above--object that manages control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the flow of rotating the table. When ```rotate()``` is called, it creates a ```unique_local``` and waits for a conditional variable and notification before the lock is released.
-
-![mutex](./rotate.jpg)
-
-In the near future I will release my C++ wrapper as its own standalone library.
-
-</details>
-</br>
-
 ## **Calibration**
 
 This section details the method I used to calculate the center of the rotation table and how it is used to perform initial registration and point removal. If you like linear algebra, you're in for a treat!
@@ -395,6 +314,90 @@ After aligning the pointcloud to the world origin, we can define a crop box wher
 
 </details>
 </br>
+
+
+
+## **Software Design**
+
+SwagScanner's codebase is quickly growing with a multitude of features being added. 
+
+<details>
+  <summary>C++ Codebase</summary>
+</br>
+
+*** This section is still WIP ***
+
+### Program design
+I utilized MVC (model-view-controller) pattern to organize the project structure. The models are represented by the data handling objects, views are the commandline interface and GUI interfaces, and controllers manages the scanning and processing pipelines. I focused on clean design and scalability from the beginning which quickly netted substantial benefits. Adding new features and extending existing code is pretty painless. For example, when adding a new camera system, I can just implement the ICamera interface and override the default virtual methods. Utilizing the new camera is as simple as passing it as a parameter to the ScanController object.
+
+The entry point to the application is currently through a commandline interface which provides commands to the scanner. A CLIClient takes in the commandline arguments and passes them to a factory. The factory creates a controller for scanning, processing, or calibration given the arguments, and returns it. Then the controller's run() method is executed.
+
+
+### File handling
+I wrote a custom file handling system to manage SwagScanner's settings and manage scanning data.
+
+The IFileHandler interface outlines functionality of the file handling system such as saving and loading data. Concrete classes that represent scanning, calibration, and processing file handling implement those features. This keeps the codebase more organized maintainable. Because of the directory architecture I set up for SwagScanner, my methods can be very dumb and accept simple arguments. That way, if I make big refactors to the directory design, the methods do not have to be changed--only the value of the parameter has to be modified making refactoring super easy. 
+
+The file handler system supports many features. It can automatically create new folders with populated subdirectories by using the default constructor. It also updates several files in its directories during scanning with current scan data.
+
+
+### Testing
+I utilized Google Tests and unit tested most methods. Soon I will add mocks to the test suite.
+
+</details>
+</br>
+
+<details>
+  <summary>Python Codebase Design (old)</summary>
+</br>
+
+![pipeline](./pipeline.jpg)
+
+### Entry Point
+First, we define the entry point of the application `scan.py` and create a `Scan()` object to handle abstracting each major steps in the scanning pipeline to be run sequentially (note: not all actions are synchronous in SwagScanner!)
+
+### Camera()
+The `Camera()` class is an interface that can be extended to provide ability to use any depth camera. Looking at the `D435` object, we override the `get_intrinsics()` method with RealSense API calls to get the intrinsics of the camera.
+
+### Arduino()
+The `Arduino()` class provides methods to initialize the Arduino and send bluetooth commands to it. We subscribe to asynchronous notifications from a custom bluetooth service which provides table state information.
+
+### DepthProcessor()
+This class is a class factory builder that takes in a `Camera()` object and a `boolean` flag and returns either a fast or slow depth processing unit. Using the fast unit, we gain the ability to use `deproject_depth_frame()` with vectorized math operations for point to pixel deprojection. The slow unit utilizes a **much (300x)** slower double for loop to perform that task. One drawback with the fast deprojection method is that it does not account for any distortion models in the frame. If you are using Intel depth cameras that is OK because the developers advised against that since distortion is so low. The same may not be true for the Kinect however. Subclass the `DepthProcessor()` object and override the `deproject_depth_frame()` method if you would like to include your own distortion model.
+
+### Filtering()
+This provides the tools to perform voxel grid filtering which downsamples our pointcloud by the `leaf_size` parameter and saves it. This step is essential for registration because performing registration on a massive pointcloud would take a very long time to converge. One more thing we have to do in filtering is segment the plane from each pointcloud. We run the RANSAC (random sample concensus) algorithm and fit a plane model (ax + by + cz + d= 0) to our cloud and detect the inliers. Using the inliers and plane model, we can reject those points and obtain a pointcloud without a the scanning bed plane. This is essential to do before registration so that we don't take a subset of the cloud belonging to the plane and encounter a false-positive icp convergence.
+
+### Registration()
+The `Registration()` class provides the tools to iteratively register pairs of clouds. Using global iterative registration, we define a `global_transform` variable as the identity matrix of size 4x4. Then we apply the iterative closest point algorithm to a a source, target cloud pair and get the source -> target cloud transformation as a 4x4 transformation matrix. Then we take the inverse of that matrix `transf_inv` to get the transformation from target->source. We multiply the target by the global transform (remember: this is the first iteration, the `global_transform` is still the identity matrix) to get the target cloud in the same reference frame as the source and save the cloud. Then we dot product `global_transform` and `transf_inv` to update the global transformation. Move on to the next pair of clouds and repeat. 
+
+</details>
+</br>
+
+
+<details>
+    <summary>Bluetooth & Concurrency</summary>
+    </br>
+
+For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. Bluetooth allows commands to be sent wirelessly from the computer to the arduino and vice-versa. Wireless connectivity also allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote a C++ wrapper for it.
+
+I created my own pattern which draws inspiration from a general object delegation pattern to achieve Objective-C++ compatibility with callback functionality. The CoreBluetoothObjC implements the CorebluetoothWrapper header. The Client also includes the header, but does not implement it--rather calls the header methods because they are implemented by CoreBluetoothObjC. I represented this relationship with a dotted line in the UML diagram below. Client is composed of a CoreBluetoothObjC object and dispatches calls to using the header methods. The Client manages memory and the lifecycle for CoreBluetoothObjC. Client also passes a reference to itself to CoreBluetoothObjC for callback functionality. CoreBluetoothObjC overrides the header methods to call code in Objective-C. So when you call C++ code from the Client, it is calling a method in CoreBluetoothObjC which calls Objective-C code.
+
+![objective c++ pattern](./objCPattern.png)
+
+ I wrote the wrapper to run CoreBluetooth in a background thread so it does not block the main thread. Getting CoreBluetooth to run on the background thread was difficult--I don't think anyone else has tried doing this in a C++ application before. I familiarized myself with Objective C [run loops](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html) and [dispatch queues](https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html). The solution became clearer and I ended up executing CoreBluetooth in a separate thread, attaching a runloop to that thread, and running its callbacks on a serial dispatch queue. This worked perfectly and I was able to run Corebluetooth asynchronously to my main program. Then came the problem of race conditions. In my program, connecting to bluetooth occured after initizing my Arduino object which lead to my program exploding. Another race condition occured during the scanning process where the camera would take an image because the table stopped rotating.
+
+ My first solution was naive, I created a ```is_rotating``` variable in the Arduino object and made a setter method that allowed outside customers to modify the variable. When the rotate() command was called, a while loop was executed to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the Objective-C code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. In addition, polling every **X** seconds was a performance hog and waste of resources. And increasing the time interval to solve performance issues from polling was not a good solution because it still does not address the fundamental issue, the Arduino should be alerted when the state changes.
+ 
+ The solution was to use mutexes. I created an ArduinoEventHandler--noted as Client in the diagram above--object that manages control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the flow of rotating the table. When ```rotate()``` is called, it creates a ```unique_local``` and waits for a conditional variable and notification before the lock is released.
+
+![mutex](./rotate.jpg)
+
+In the near future I will release my C++ wrapper as its own standalone library.
+
+</details>
+</br>
+
 
 ## **Hardware Design**
 This section details the design I process I went through to create the hardware. The main idea is that initially I wanted a semi-modular platform that I could tweak and change parameters as I learned more about scanning. SwagScanner is currently undergoing a complete hardware revamp.
