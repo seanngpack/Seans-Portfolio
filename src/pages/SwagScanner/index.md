@@ -171,7 +171,7 @@ In the near future I will release my C++ wrapper as its own standalone library.
 
 ## **Calibration**
 
-This section details the method I used to calculate the center of the rotation table and how it is used to perform initial registration and point removal.
+This section details the method I used to calculate the center of the rotation table and how it is used to perform initial registration and point removal. If you like linear algebra, you're in for a treat!
 
 <details>
     <summary>warning: lots of math</summary>
@@ -234,7 +234,7 @@ l_i=\frac{\left\{\left|
 $$
 
 $$
-l_i=\left\{\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}}+x \left(u_{y_i} g_z-g_y u_{z_i}\right),\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}}+x \left(g_x u_{z_i}-u_{x_i} g_z\right),x \left(u_{x_i} g_y-g_x u_{y_i}\right)\right\}
+\small l_i=\left\{\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}}+x \left(u_{y_i} g_z-g_y u_{z_i}\right),\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}}+x \left(g_x u_{z_i}-u_{x_i} g_z\right),x \left(u_{x_i} g_y-g_x u_{y_i}\right)\right\}
 $$
 
 Now we get the line $\overline{CP}$ where P is a point on $l$:
@@ -259,9 +259,11 @@ $$
 \overline{CP}=\left\{c_x-\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}},c_y-\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}},c_z\right\}
 $$
 
-We can now calculate the area of the parallelogram $A$ by taking the norm of the cross product of overline{CP} and the direction of $l$:
+We can now calculate the area of the parallelogram $A$ by taking the norm of the cross product of $\overline{CP}$ and the direction of $l$:
 
 $$
+\tiny
+
 A_i= \| \left\{c_x-\frac{u_{y_i} g_d-g_y u_{d_i}}{u_{x_i} g_y-g_x u_{y_i}},c_y-\frac{g_x u_{d_i}-u_{x_i} g_d}{u_{x_i} g_y-g_x u_{y_i}},c_z\right\}\times \left\{u_{y_i} g_z-g_y u_{z_i},g_x u_{z_i}-u_{x_i} g_z,u_{x_i} g_y-g_x u_{y_i}\right\} \|
 $$
 
@@ -284,12 +286,115 @@ $$
 d_i-d_{i+1}=0, i=1,2,\text{...}n-1
 $$
 
-And we can write out the system form as:
+And we can write out the matrix form as:
 
 $$
-c_x \left(\frac{\| G\|  U_{x_i}}{\left\| G\times U_i\right\| }-\frac{\| G\|  U_{x_i}}{\left\| G\times U_{i+1}\right\| }\right)+...=\frac{\| G\|  U_{D_{i+1}}}{\left\| G\times U_{i+1}\right\| }-\frac{\| G\|  U_{D_i}}{\left\| G\times U_i\right\| }
+A_{n-1\times3} X_{1\times3} = B_{n-1\times1}
 $$
 
+$$
+\small
+A = \left[
+  \begin{matrix}
+   \frac{\| G \|}{\| G\times U_1 \|} u_{x_1} - \frac{\| G \|}{\| G\times U_1 \|} u_{x_2} & 
+   \frac{\| G \|}{\| G\times U_1 \|} u_{y_1} - \frac{\| G \|}{\| G\times U_1 \|} u_{y_2} &
+   \frac{\| G \|}{\| G\times U_1 \|} u_{z_1} - \frac{\| G \|}{\| G\times U_1 \|} u_{z_2} \\
+   
+   \frac{\| G \|}{\| G\times U_{n-1} \|} u_{x_{n-1}} - \frac{\| G \|}{\| G\times U \|} u_{x_n} & 
+   \frac{\| G \|}{\| G\times U_{n-1} \|} u_{y_{n-1}} - \frac{\| G \|}{\| G\times U_1 \|} u_{y_n} &
+   \frac{\| G \|}{\| G\times U_{n-1} \|} u_{z_{n-1}} - \frac{\| G \|}{\| G\times U_1 \|} u_{z_n}
+
+\end{matrix}
+\right]
+$$
+
+$$
+X = 
+  \left[\begin{matrix}
+   c_x \\
+   c_y \\
+   c_z
+\end{matrix}
+\right]
+$$
+
+$$
+B = \left[
+  \begin{matrix}
+   \frac{\| G \|}{\| G\times U_2 \|} u_{d_2} - \frac{\| G \|}{\| G\times U_1 \|} u_{d_1} \\
+   \frac{\| G \|}{\| G\times U_3 \|} u_{d_3} - \frac{\| G \|}{\| G\times U_2 \|} u_{d_2} \\
+   \frac{\| G \|}{\| G\times U_n \|} u_{d_n} - \frac{\| G \|}{\| G\times U_{n-1} \|} u_{d_{n-1}} 
+\end{matrix}
+\right]
+$$
+
+You still here? We're almost done! We know $U$ and $G$ so our only unknowns are in the $X$ matrix. If we take more than three scans we get an overdetermined system--more equations than unknowns. We can find the approximate solution of an overdetermined solution using a least sqaures method. Using MATLAB's linear least squares method `lsqr` and Eigen's `bdcsvd` method return the same results.
+
+
+### Aligning point cloud to world coordinate
+Okay, so we have the axis of rotation and center point now. This is exactly what is needed to transform a scanned pointcloud to the world origin coordinate frame. Aligning a pointcloud to the world frame is useful for several reasons. First, it simplies the process of applying a rigid rotation. Second, it makes understand the raw data in the points more intuitive because the reference point is (0,0,0). Also, it allows defining the dimensions of a box filter super easy. Doing this transformation is easy, just perform a rigid translation to the camera frame, then align the z-axis and we're done.
+
+We know that the center coordinate $C$ is a rigid transform from the camera frame (0,0,0) to the point $C$. We multiply the transform by -1 to get the transform from $C$ to camera and compose it as a 4x4 translation matrix.
+
+$$
+C = -1 * C
+$$
+
+$$
+trans = 
+  \left[\begin{matrix}
+   1 & 0 & 0 & c_x \\
+   0 & 1 & 0 & c_y \\
+   0 & 0 & 1 & c_z \\
+   0 & 0 & 0 & 1 \\
+\end{matrix}
+\right]
+$$
+
+
+Next, we want get the angle between the axis of rotation and camera z-axis, $\theta$. Getting this angle allows us to know the rotation to make the z-axis point upwards in the final cloud. The angle between the normalized axis of rotation and camera z-axis is their dot product:
+
+$$
+\theta = -G \bullet \left[0,0,1\right]
+$$
+
+Sweet, we know $\theta$. To align the axis of rotation to the camera z, we have to perform the rotation about the x axis. Let's construct the 4x4 rotation matrix:
+
+$$
+rot = 
+  \left[\begin{matrix}
+   1 & 0 & 0 & 0 \\
+   0 & \cos(\theta) & -\sin(\theta) & 0 \\
+   0 & \sin(\theta) & \cos(\theta) & 0 \\
+   0 & 0 & 0 & 1 \\
+\end{matrix}
+\right]
+$$
+
+And now we create an affine transformation matrix by applying the rotation onto the translation. We want to translate first, and then rotate:
+
+$$
+affine=\left[\begin{matrix}
+   1 & 0 & 0 & 0 \\
+   0 & \cos(\theta) & -\sin(\theta) & 0 \\
+   0 & \sin(\theta) & \cos(\theta) & 0 \\
+   0 & 0 & 0 & 1 \\
+\end{matrix}\right] 
+\left[\begin{matrix}
+   1 & 0 & 0 & c_x \\
+   0 & 1 & 0 & c_y \\
+   0 & 0 & 1 & c_z \\
+   0 & 0 & 0 & 1 \\
+\end{matrix}
+\right]
+$$
+
+At this point we can use the result onto our pointcloud and align it to the world origin with z pointing up! The image below shows the original cloud in white, and the transformed cloud in blue.
+
+![world-frame](./world-frame.png)
+
+### Automatic point removal
+After aligning the pointcloud to the world origin, we can define a crop box where points outside of this box get eliminated. The box is easily constructed because we know the center point (0,0,0), so any distance added to that point defines the boundary of the box.
 
 
 </details>
