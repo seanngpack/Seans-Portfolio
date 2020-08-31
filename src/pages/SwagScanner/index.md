@@ -379,21 +379,7 @@ The `Registration()` class provides the tools to iteratively register pairs of c
     <summary>Bluetooth & Concurrency</summary>
     </br>
 
-For an extra layer of complexity I decided to add bluetoothLE capability to SwagScanner. Bluetooth allows commands to be sent wirelessly from the computer to the arduino and vice-versa. Wireless connectivity also allows one less cable coming out of the scanner to the computer. In Python, I used Adafruit's BluetoothLE library to achieve connectivity. In C++ I utilized Apple's CoreBluetooth framework and wrote a C++ wrapper for it.
-
-I created my own pattern which draws inspiration from a general object delegation pattern to achieve Objective-C++ compatibility with callback functionality. The CoreBluetoothObjC implements the CorebluetoothWrapper header. The Client also includes the header, but does not implement it--rather calls the header methods because they are implemented by CoreBluetoothObjC. I represented this relationship with a dotted line in the UML diagram below. Client is composed of a CoreBluetoothObjC object and dispatches calls to using the header methods. The Client manages memory and the lifecycle for CoreBluetoothObjC. Client also passes a reference to itself to CoreBluetoothObjC for callback functionality. CoreBluetoothObjC overrides the header methods to call code in Objective-C. So when you call C++ code from the Client, it is calling a method in CoreBluetoothObjC which calls Objective-C code.
-
-![objective c++ pattern](./objCPattern.png)
-
- I wrote the wrapper to run CoreBluetooth in a background thread so it does not block the main thread. Getting CoreBluetooth to run on the background thread was difficult--I don't think anyone else has tried doing this in a C++ application before. I familiarized myself with Objective C [run loops](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/Multithreading/RunLoopManagement/RunLoopManagement.html) and [dispatch queues](https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationQueues/OperationQueues.html). The solution became clearer and I ended up executing CoreBluetooth in a separate thread, attaching a runloop to that thread, and running its callbacks on a serial dispatch queue. This worked perfectly and I was able to run Corebluetooth asynchronously to my main program. Then came the problem of race conditions. In my program, connecting to bluetooth occured after initizing my Arduino object which lead to my program exploding. Another race condition occured during the scanning process where the camera would take an image because the table stopped rotating.
-
- My first solution was naive, I created a ```is_rotating``` variable in the Arduino object and made a setter method that allowed outside customers to modify the variable. When the rotate() command was called, a while loop was executed to block the thread and poll every 10ms to see if the variable changed and continue if it was false. This came with a couple drawbacks. First, I had to pass a void * pointer to the Arduino to the Objective-C code as a callback object. I did not like this idea of passing the Arduino object because it mangles ownership of my Arduino object which previously only belonged to my controller. In addition, polling every **X** seconds was a performance hog and waste of resources. And increasing the time interval to solve performance issues from polling was not a good solution because it still does not address the fundamental issue, the Arduino should be alerted when the state changes.
- 
- The solution was to use mutexes. I created an ArduinoEventHandler--noted as Client in the diagram above--object that manages control variables and mutexes. The event handler is responsible for executing arduino commands to the CoreBluetooth object and managing concurrency. The CoreBluetooth Object holds a void * pointer reference the the event handler to access its fields. Below is an example of the flow of rotating the table. When ```rotate()``` is called, it creates a ```unique_local``` and waits for a conditional variable and notification before the lock is released.
-
-![mutex](./rotate.jpg)
-
-In the near future I will release my C++ wrapper as its own standalone library.
+I wrote a library to handle bluetooth functionality. Check it out: [github link](https://www.github.com/seanngpack/feeling-blue-cpp)
 
 </details>
 </br>
