@@ -370,6 +370,12 @@ The file handler system supports many features. It can automatically create new 
 ### Testing
 I utilized Google Tests and am in processing of increasing code coverage.
 
+
+### Random CMake thoughts
+At first, I hated CMake. But I think that was because I didn't really understand what was going on. Now that I understand it a bit better after sloging through its documentation, I have gained a new appreciation for it. Swag Scanner has a CMakeLists.txt file in each of its subdirectories because it allows me in the future to completely control which parts of the system I want to build. Building this project from scratch takes forever, so having the option to opt out of building certain subsystems which you won't use is nice.
+
+Also, I haven't seen many people apply this technique--I am compiling Swag Scanner as a static library. Then I am linking it to the main run executable in addition to linking it to the main executable of my unit tests. This is a complete game changer, because it means I do not have to recompile core files twice to do unit testing!
+
 </details>
 </br>
 
