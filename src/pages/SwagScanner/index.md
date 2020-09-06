@@ -2,7 +2,7 @@
 title: SwagScanner
 date: "2019-11-23"
 skills: "C++, Python, Algorithms, Multi-Threading, Mechanical Design, Fusion360, Electronics, Soldering"
-state: "Working on entire hardware redesign!!"
+state: "Working on entire hardware redesign and improving registration algos"
 featuredImage: "./1.jpg"
 carousel: ['./10.jpg', './2.jpg', './3.jpg', './4.jpg', './5.jpg', './6.jpg', './7.jpg', './8.jpg', './9.jpg']
 logo: "./1.jpg"
@@ -322,33 +322,55 @@ After aligning the pointcloud to the world origin, we can define a crop box wher
 SwagScanner's codebase is quickly growing with a multitude of features being added. 
 
 <details>
-  <summary>C++ Codebase</summary>
+  <summary>C++ Program Design</summary>
 </br>
 
 *** This section is still WIP ***
 
-### Program design
-I utilized MVC (model-view-controller) pattern to organize the project structure. The models are represented by the data handling objects, views are the commandline interface and GUI interfaces, and controllers manages the scanning and processing pipelines. I focused on clean design and scalability from the beginning which quickly netted substantial benefits. Adding new features and extending existing code is pretty painless. For example, when adding a new camera system, I can just implement the ICamera interface and override the default virtual methods. Utilizing the new camera is as simple as passing it as a parameter to the ScanController object.
+### High level architecture
+I utilized MVC (model-view-controller) pattern to organize the project structure. I chose this pattern for clear separation of concerns. 
 
-The entry point to the application is currently through a commandline interface which provides commands to the scanner. A CLIClient takes in the commandline arguments and passes them to a factory. The factory creates a controller for scanning, processing, or calibration given the arguments, and returns it. Then the controller's run() method is executed.
+#### **Model**
+
+The models are represented by the data handling objects which include the ```Arduino```, ```Camera``` and main ```Model``` classes. These model objects are managed by the controllers.
+
+#### **Controller**
+
+Controllers are the logic behind the scanning, calibration, and processing pipelines. They connect the models to the views. I created an IController abstract base class which is functionally equivalent to a Java abstract class. This base class contains pure virtual methods implemented by specialized controllers such as ```ProcessingController```. This way, I can store specialized controllers as an ```IController``` type and simply call ```run()``` to run the controller and perform their specialized task. Later, when I added a GUI I did not have to refactor the original implementations of ```IController``` and it's children. I added support for a GUI by utilizing multiple inheritance and created a ```IControllerGUI``` abstract base class that inherited ```IController``` and specialized controllers that inherited from ```IControllerGUI``` and their respective ```IController``` base class. The diagram below illustrates the multiple inheritance pattern:
+
+
+![inheritance](./inheritance.png)
+
+Fundamentally, there is ambiguity in this this multiple inheritance pattern because CalibrationGUI would have two instances of ```IController``` from ```CalibrationController``` and ```IControllerGUI```. This means that calls methods defined in both ```CalibrationController``` and ```IControllerGUI``` would be ambigious because there are two methods you could call, but you don't know which one to use. This can be solved by having ```CalibrationController``` and ```IControllerGUI``` virtually inheriting ```IController```.
+
+Multiple inheritance can be tricky, but I think it makes sense in my use case. The derived classes of ```IController``` are used by the CLI program, and ```IControllerGUI``` children code only introduce a little bit of code to interact with the GUI, so it saves a lot of code repetition by reusing code defined in ```IController```'s children.
+
+#### **View**
+
+Swag Scanner has a couple different views, a CLI view, GUI view, and PCL visualization view. The view is managed by the controller and the controller updates the view with data. The GUI view is a bit more complex. I built it with Qt which follows its own paradigm of Model-View. They merged the responsibilities of the view and the controller. Then data is stored via Qt's ```QModel class```. Using Qt is really weird, they utilize their own Meta Object Compiler to achieve functionality such as signals and slots. You are also relegated to using raw pointers, but there is no need to call ```delete``` on them. I decided to opt out of utilize their model class and enforce my MVC design by treating the Qt interface as strictly a view. User data would be passed on from a system of signals and slots to the controller, which would interpret the data then respond by issuing a command to the view. This creates a circular dependency because the view must hold a reference to the controller, and the controller to the view. To solve this issue, I created a setter method in the view to store a reference to the controller.
+
+I also opted to programmatically create the Qt interface instead of using its designer tool. Every repo I've seen that does this has a single file containing thousands of lines of code. In an effort to avoid creating a monolith, I separated the Qt widgets into separate files and subclassed their respective parent. This ended up adding a mammoth of complexity. When you subclass a Qt widget, its public methods are inaccessible by outsiders. This means you are forced to use its signal and slots mechanism to transfer information outside. [Others have tried to find solutions](https://forum.qt.io/topic/75892/how-to-properly-subclass-qapplication-and-access-new-methods-elsewhere/16), such as defining public static methods or static casting... but static methods won't work in instances where you need to pass Qt objects, and static casting is really ugly. So I create a really involved system signal and slots where the child notifies the parent with data, and then parent notifies the child with a command. In the future I'm probably just going to use the designer to avoid this mess.
+
+#### **Dynamic controller switching and caching**
+Because there are several specialized controllers, the view needs access to them for performing different actions. It is very expensive to keep initializing and destroying controllers and their parameter objects, so I created a caching system to handle this. This top level contains a factory which creates a controller. If the controller does not exist in the cache, then store it. The caching system prealloctes the most often used controllers so this overhead is experienced at program launch instead of during usage.
 
 
 ### File handling
-I wrote a custom file handling system to manage SwagScanner's settings and manage scanning data.
+I wrote a custom file handling system to manage SwagScanner's settings and manage scanning data. When Swag Scanner is loaded for the first time, it will create its system folder in the user's ```/Application Support``` directory, which is where other MacOS applications data live. The picture below is structure of Swag Scanner's system folder.
 
-The IFileHandler interface outlines functionality of the file handling system such as saving and loading data. Concrete classes that represent scanning, calibration, and processing file handling implement those features. This keeps the codebase more organized maintainable. Because of the directory architecture I set up for SwagScanner, my methods can be very dumb and accept simple arguments. That way, if I make big refactors to the directory design, the methods do not have to be changed--only the value of the parameter has to be modified making refactoring super easy. 
+![fileStructure](./fileStructure.png)
 
-The file handler system supports many features. It can automatically create new folders with populated subdirectories by using the default constructor. It also updates several files in its directories during scanning with current scan data.
+The file handler system supports many features. It can automatically create new scan folders with auto-incremented names and dynamically update settings.
 
 
 ### Testing
-I utilized Google Tests and unit tested most methods. Soon I will add mocks to the test suite.
+I utilized Google Tests and am in processing of increasing code coverage.
 
 </details>
 </br>
 
 <details>
-  <summary>Python Codebase Design (old)</summary>
+  <summary>Python Program Design (old)</summary>
 </br>
 
 ![pipeline](./pipeline.jpg)
@@ -379,7 +401,9 @@ The `Registration()` class provides the tools to iteratively register pairs of c
     <summary>Bluetooth & Concurrency</summary>
     </br>
 
-I wrote a library to handle bluetooth functionality. Check it out: [github link](https://www.github.com/seanngpack/feeling-blue-cpp)
+I wrote a library to handle bluetooth functionality. Check it out: [github link](https://www.github.com/seanngpack/feeling-blue-cpp). The bluetooth library uses semaphores and callbacks to control the program flow. In Swag Scanner, I use a simple mutex and conditional variable in the arduino's ```rotate()``` method which blocks the calling thread until the arduino sends a notification that the table has stopped rotating.
+
+
 
 </details>
 </br>
