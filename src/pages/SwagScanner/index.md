@@ -100,6 +100,10 @@ Here is the physical calibration fixture. It has a upright plane and ground plan
 ### Calculating axis of rotation
 The axis of rotation is the normal direction vector of the ground plane, $G$. Using RANSAC plane segmentation, the equation of the ground plane can be easily extracted. Multiple scans are taken the final rotation axis is calculated by taking the average of the normals.
 
+$$
+G=\frac{\sum _{i=0}^n G_i}{n}
+$$
+
 ### Calculating center point
 The distance between the point $c$ and line $l$ is the same for each scan. Knowing this geometric relation, we can derive equations to calculate for this distance and ultimately solve for $c$.
 
@@ -188,7 +192,7 @@ $$
 d=\frac{\| A_i\| }{\| l_i\| }
 $$
 
-The symbolic solution is very complex, so here is an elegant solution derived by the authors of [this paper](https://www.researchgate.net/publication/308822289_An_accurate_3D_point_cloud_registration_approach_for_the_turntable-based_3D_scanning_system) using a similar method: 
+The symbolic solution is very complex, so here is an elegant solution derived by the Yuping Ye and Zhan Song of [this paper](https://www.researchgate.net/publication/308822289_An_accurate_3D_point_cloud_registration_approach_for_the_turntable-based_3D_scanning_system) using a similar method: 
 
 $$
 d_i=\frac{\| \left(c_x g_x+c_y g_y+g_z\right) \|}{\| \left(g_x+g_y+g_z\right)\times \left(u_{x_i},u_{y_i},u_{z_i}\right) \|}
@@ -503,16 +507,17 @@ Originally I was using a white scanning surface. It was very easy to detect its 
 </br>
 
 
-
-
-## **Lessons Learned So Far**
-On a high level, working on this project reinforced my ability to understand and bounce between high-level and low-level subsystems both on the hardware and software side. In this section, I will outline lessons learned in bullet format hoping that people can learn from my mistakes at a glance instead of reading a wall of text.
 <details>
   <summary>Lessons learned</summary>
 </br>
 
-WORK IN PROGRESS
+### **Lessons Learned So Far**
+On a high level, working on this project reinforced my ability to understand and bounce between high-level and low-level subsystems both on the hardware and software side. In this section, I will outline lessons learned in bullet format hoping that people can learn from my mistakes at a glance instead of reading a wall of text.
 
 
 </details> 
 </br>
+
+
+
+
