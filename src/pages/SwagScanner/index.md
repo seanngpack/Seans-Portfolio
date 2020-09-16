@@ -476,12 +476,18 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 
 ## **Results**
 
-Below is an image of a sponge with ~360,000 points scanned at 10 deg intervals.
+Below is an image of a sponge with ~480,000 points scanned at 10 deg intervals.
 
 ![sponge_pointcloud](./sponge.png)
 
  The scanner does a good job at capturing the curvature of the model and even the nuanced taper along the z-axis (blue) from the white portion of the sponge to the blue portion. You can see the edges of the cloud are not as sharp as the real-life model due to rounding caused by the bilateral filter. At the expensive of surface smoothing, edges can be sharpened. There is some point overshoot around the perimeter. This can be reduced by further tuning of camera parameters in addition to another pass of outlier removal. Overall, the current quality of SwagScanner's results is very high compared to previous software versions. With each scanning pipeline revision, there has been a massive leap in quality, and I expect the next major iteration to have significantly better results following parameter tuning and additional filtering.
 
+
+Now let's try something a bit more complex:
+
+![plate](./plate.png)
+
+I scanned a plate containing green leaves, two opaque pieces of paper, and two chopsticks. For this, I used 40 scans at 9 degree intervals resulting in a cloud with 1.1mil points. The scanner does a good job at representing the round geoemtry of the plate in addition to capturing the folds and overhangs of the leaves and paper. However, the chopsticks almost meld into one unit because they are shiny and scatter the dot projection. The plate ridge is also a little bit thicker in the pointcloud than in real-life, I think this also has to do with the reflective nature of the plate. With complex multi-part geometries, you can see the disadvantages of a cloud-only scan. Had this scan include a texture map from an RGB image, you would be able to differentiate the clear paper from the green leaves.
 
 <details>
   <summary>Improving results</summary>
