@@ -489,6 +489,12 @@ Now let's try something a bit more complex:
 
 I scanned a plate containing green leaves, two opaque pieces of paper, and two chopsticks. For this, I used 40 scans at 9 degree intervals resulting in a cloud with 1.1mil points. The scanner does a good job at representing the round geoemtry of the plate in addition to capturing the folds and overhangs of the leaves and paper. However, the chopsticks almost meld into one unit because they are shiny and scatter the dot projection. The plate ridge is also a little bit thicker in the pointcloud than in real-life, I think this also has to do with the reflective nature of the plate. With complex multi-part geometries, you can see the disadvantages of a cloud-only scan. Had this scan include a texture map from an RGB image, you would be able to differentiate the clear paper from the green leaves.
 
+Okay, what if you scan something off axis? That sounds too easy, let's make it harder and scan TWO objects that are off axis:
+
+![matcha+pencil](./matcha+pencil.png)
+
+Above is a 730,000 point scan of a bottle of matcha and a pencil case. Even though the objects are placed off-axis on the scanning table, they are registered properly. You can see a blob of noise at the bottom of the pencil case that my outlier filter didn't quite pick up. The scanner does a good job of capturing the shape of both objects and the curvature of the pencil case appears accurate. Although the pointcloud makes the pencil case look bigger than its real-life counterpart, that is just the field of view of the iphone camera playing tricks on you. The iphone camera has a higher field of view than the pointcloud visualizer so the case looks smaller on the iphone image on the right.
+
 <details>
   <summary>Improving results</summary>
 </br>
