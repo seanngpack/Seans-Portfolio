@@ -413,6 +413,8 @@ The `Registration()` class provides the tools to iteratively register pairs of c
 
 I wrote a library to handle bluetooth functionality. Check it out: [github link](https://www.github.com/seanngpack/feeling-blue-cpp). The bluetooth library uses semaphores and callbacks to control the program flow. In Swag Scanner, I use a simple mutex and conditional variable in the arduino's ```rotate()``` method which blocks the calling thread until the arduino sends a notification that the table has stopped rotating.
 
+As noted in the GUI section, Qt is required to be run on the main thread so processing and scanning commands are dispatched on different threads. This allows the GUI to remain responsive while actions are happening.
+
 
 
 </details>
@@ -472,21 +474,14 @@ In the back you can see my TS80 soldering iron. It is worth the hype!
 </details> 
 </br>
 
-## **Results (outdated)**
+## **Results**
 
-This section outlines results from the current scanning pipeline. The first subsection gives images and descriptions of what is currently achieved. The second section details methods that are used to improve the results in addition to methods I will use in the future.
+Below is an image of a sponge with ~360,000 points scanned at 10 deg intervals.
 
-<details>
-  <summary>Results</summary>
-</br>
+![sponge_pointcloud](./sponge.png)
 
-![cup_pointcloud](./cup0.jpg)
-![cup_pointcloud](./cup.jpg)
+ The scanner does a good job at capturing the curvature of the model and even the nuanced taper along the z-axis (blue) from the white portion of the sponge to the blue portion. You can see the edges of the cloud are not as sharp as the real-life model due to rounding caused by the bilateral filter. At the expensive of surface smoothing, edges can be sharpened. There is some point overshoot around the perimeter. This can be reduced by further tuning of camera parameters in addition to another pass of outlier removal. Overall, the current quality of SwagScanner's results is very high compared to previous software versions. With each scanning pipeline revision, there has been a massive leap in quality, and I expect the next major iteration to have significantly better results following parameter tuning and additional filtering.
 
-The scan was obtained using my Python codebase, these results are outdated and will be updated soon. Here is a scan of a mug using 9 degree rotation intervals. The result is a pointcloud of ~800,000 points. You can see there is a bit of scatter because I have not created a filter to remove them yet. You can also somewhat make out the edges of the bed and those are points not captured by RANSAC plane segmentation. There's still a lot of work I need to do to generate better pointclouds.
-
-</details> 
-</br>
 
 <details>
   <summary>Improving results</summary>
