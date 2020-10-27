@@ -23,7 +23,7 @@ backgroundColor: "#f274db"
 
 ## **About**
 
-SwagScanner is a 3D scanning system in active development that scans an object into cyberspace. The user places an object on the rotating bed and is sacnned at a constant interval for a full rotation. The data goes through a processing pipeline and outputs a refined pointcloud. Swag Scanner has two codebases: one in Python(inactive) and one in C++. This page serves as documentation of current development and information about how the scanner works.
+SwagScanner is a 3D scanning system (in active development) that scans an object into cyberspace. The user places an object on the rotating bed, then the object is scanned at a constant interval for a full rotation. The data goes through an advanced processing pipeline and outputs a refined pointcloud. Swag Scanner has two codebases: one in Python(inactive) and one in C++. This page serves as documentation of current development and information about how the scanner works.
 
 <details>
   <summary>Features</summary>
@@ -70,7 +70,7 @@ In this section I include visuals and brief explanations on how the calibration,
   <summary>More details</summary>
 </br> 
 
-The diagrams shown in this section are very high-level overviews of the flow of the program. The diagrams show sequential actions, cuncurrency processing is detailed in other sections. The image below shows how user input is used to select the appropriate pipeline to use.
+The diagrams shown in this section are very high-level overviews of the flow of the program. Low-level diagram is WIP. The diagrams show sequential actions, cuncurrency processing is detailed in other sections. The image below shows how user input is used to select the appropriate pipeline to use.
 
 ![pipeline overview1](./pipelineOverview.png)
 
@@ -98,11 +98,14 @@ Here is the physical calibration fixture. It has a upright plane and ground plan
 ![calibration_fixture](./calibration-fixture.png)
 
 ### Calculating axis of rotation
-The axis of rotation is the normal direction vector of the ground plane, $G$. Using RANSAC plane segmentation, the equation of the ground plane can be easily extracted. Multiple scans are taken the final rotation axis is calculated by taking the average of the normals.
+The axis of rotation is the normal direction vector of the ground plane, $G$. Using RANSAC plane segmentation, and giving plane detection an initial guess and ``epsilon`` value for the margin of error of the guess, the equation of the ground plane can be extracted. Multiple scans are taken the final rotation axis is calculated by taking the average of the normals.
 
 $$
 G=\frac{\sum _{i=0}^n G_i}{n}
 $$
+
+### Obtaining upright plane equations
+After gathering a ground plane equation, it is trivial to gather an upright plane. Knowing that the upright plane is orthogonal to the ground plane, we can give the RANSAC plane detection function an axis perpendicular to the ground plane normal.
 
 ### Calculating center point
 The distance between the point $c$ and line $l$ is the same for each scan. Knowing this geometric relation, we can derive equations to calculate for this distance and ultimately solve for $c$.
@@ -251,7 +254,7 @@ You still here? We're almost done! We know $U$ and $G$ so our only unknowns are 
 
 
 ### Aligning point cloud to world coordinate
-Okay, so we have the axis of rotation and center point now. This is exactly what is needed to transform a scanned pointcloud to the world origin coordinate frame. Aligning a pointcloud to the world frame is useful for several reasons. First, it simplies the process of applying a rigid rotation. Second, it makes understand the raw data in the points more intuitive because the reference point is (0,0,0). Also, it simplifies defining the dimensions of a box filter. Doing this transformation is easy, just perform a rigid translation to the camera frame, then align the z-axis and we're done.
+Okay, so we have the axis of rotation and center point now. This is exactly what we need to transform a scanned pointcloud to the world origin coordinate frame. Why do we care about orienting a cloud? Aligning a pointcloud to the world frame is useful for several reasons. First, it simplies the process of applying a rigid rotation. Second, it makes understand the raw data in the points more intuitive because the reference point is (0,0,0). In addition, it simplifies defining the dimensions of a box filter. Doing this transformation is easy, just perform a rigid translation to the camera frame, then align the z-axis and we're done.
 
 We know that the center coordinate $C$ is a rigid transform from the camera frame (0,0,0) to the point $C$. We multiply the transform by -1 to get the transform from $C$ to camera and compose it as a 4x4 translation matrix.
 
@@ -310,6 +313,9 @@ $$
 
 At this point we can use the result onto our pointcloud and align it to the world origin with z pointing up! The image below shows the original cloud in green, and the transformed cloud in blue.
 
+### Refinement
+Sometimes the algorithm places the center point above or below where the ground plane lies. In order to refine this point and place it as close to the surface as possible, we can perform a point-to-plane projection of the calculated center point.
+
 ![world-frame](./world-frame.png)
 
 ### Automatic point removal
@@ -318,7 +324,6 @@ After aligning the pointcloud to the world origin, we can define a crop box wher
 
 </details>
 </br>
-
 
 
 ## **Software Design**
@@ -353,7 +358,6 @@ Multiple inheritance can be tricky, but I think it makes sense in my use case. T
 
 Swag Scanner has a couple different views: a CLI view, GUI view, and PCL visualization view. The view is managed by the controller and the controller updates the view with data. The GUI view is a bit more complex. I built it with Qt which follows its own model-view paradigm, which merges the responsibilities of the view and the controller and stores the data in ```QModel```. Using Qt is really weird, they utilize their own Meta Object Compiler to achieve functionality such as ```signals and slots```. You are also relegated to using raw pointers when instantiation objects, but there is no need to call ```delete``` on them as they are deallocated automatically by their parent through some black magic. I decided opt out of using their model class and  instead, enforce my MVC design by treating the Qt interface strictly as a view. User actions/data is passed from the view to the controller and back through a system of signals and slots. This creates a circular dependency because the view must hold a reference to the controller, and the controller to the view. To solve this issue, I created a setter method in the view to store a reference to the controller.
 
-I also opted to programmatically create the Qt interface instead of using its designer tool. Every repo I've seen that does this has a single file containing thousands of lines of code. In an effort to avoid creating a monolith, I separated the Qt widgets into separate files and subclassed their respective parent. This ended up adding a mammoth of complexity. When you subclass a Qt widget, its public methods are inaccessible by outsiders. This means you are forced to use its signal and slots mechanism to transfer information outside. [Others have tried to find solutions](https://forum.qt.io/topic/75892/how-to-properly-subclass-qapplication-and-access-new-methods-elsewhere/16), such as defining public static methods or static casting... but static methods won't work in instances where you need to pass Qt objects, and static casting is really ugly. So I created a really involved system of signal and slots where the child notifies the parent with data, and then parent notifies the child with a command. In the future I'm probably just going to use the designer to avoid this mess.
 
 #### **Dynamic controller switching and caching**
 Because there are several specialized controllers, the view needs access to them for performing different actions. It is very expensive to keep initializing and destroying controllers and their parameter objects, so I created a caching system to handle this. The top level contains a factory which returns a controller. If the controller does not exist in the cache, then create a new instance of it then store it. If the controller exists in the cache, then just return a reference to it. The caching system prealloctes the most often used controllers so this overhead is experienced at program launch instead of during usage.
