@@ -6,7 +6,7 @@ state: "Graduated from Speck"
 featuredImage: "./speck-products-logo-large.jpg"
 carousel: ['./huawei1.png', './case-e.jpg', 'speck-grabtab.jpg']
 logo: "./logoSquare.jpg"
-featured: 'no'
+featured: 'yes'
 tag: featured
 excerpt: "My six-month Co-op at Speck led to new products released to market, and a patent under my name."
 background: "For my second Co-op, I went to the SF/Bay Area to join the Speck team"

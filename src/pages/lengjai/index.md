@@ -6,7 +6,7 @@ state: "Continuous improvement"
 featuredImage: "./mockup.jpg"
 carousel: ['./about.jpg',  'lengjaiDiagonal.png', 'lengjaiMock.jpg']
 logo: "./about.jpg"
-featured: 'yes'
+featured: 'no'
 tag: programming
 excerpt: An Asian-centric fashion/culture website built using react. Trying to change the world for the better.
 background: "This was my first project in React and I wanted it to be a big one"
