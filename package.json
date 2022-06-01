@@ -38,7 +38,7 @@
     "react-refresh": "^0.8.2",
     "react-swipeable": "^5.5.0",
     "react-typography": "^0.16.19",
-    "sharp": "^0.25.3",
+    "sharp": "^0.30.5",
     "styled-components": "^4.4.1",
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75",
